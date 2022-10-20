@@ -1,7 +1,7 @@
 # Basic nginx dockerfile starting with Ubuntu 20.04
 FROM ubuntu:20.04
-RUN apt-get -y update &&
-  apt-get -y upgrade
+RUN apt-get -y update
+RUN apt-get -y upgrade
 RUN apt-get -y install nginx
 
 # Install python 3.7
