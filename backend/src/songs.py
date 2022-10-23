@@ -65,6 +65,17 @@ def get_albums_by_artiste(artisteId):
 		for album in albums:
 			print(album)
 		return albums
+def get_albums():
+	with Session(engine) as session:
+		route = select(Album)
+		res = session.exec(route)
+		albums = res.all()
+		"""
+		for album in albums:
+			print(album)
+		return albums
+		"""
+
 
 #creer_musique()
 #get_artistes()
@@ -87,6 +98,11 @@ async def read_album_details(album_id: int):
 @app.get("/artiste/{artiste_id}")
 async def read_album_details(artiste_id: int):
 	data = get_albums_by_artiste(artiste_id)
+	return jsonable_encoder(data)
+#renvoie la liste de tous les albums
+@app.get("/album")
+async def index():
+	data = get_albums()
 	return jsonable_encoder(data)
 if __name__ == "__main__":
 	uvicorn.run(app, host="127.0.0.1", port=8000)
