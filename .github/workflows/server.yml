@@ -29,3 +29,9 @@ jobs:
         github_token: ${{ secrets.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 }}
         branch: backend
         force: True
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file DockerfileBackend --tag my-image-name:$(date +%s)
