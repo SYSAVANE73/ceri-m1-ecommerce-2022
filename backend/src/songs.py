@@ -70,6 +70,7 @@ def get_albums():
 		route = select(Album)
 		res = session.exec(route)
 		albums = res.all()
+		return albums
 		"""
 		for album in albums:
 			print(album)
