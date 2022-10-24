@@ -30,7 +30,7 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.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 }}
-        branch: backend
+        branch: main
         force: True
   build:
     runs-on: ubuntu-latest
