@@ -77,7 +77,6 @@ def get_albums():
 		return albums
 		"""
 
-
 #creer_musique()
 #get_artistes()
 #get_albums_by_artiste(1)
@@ -100,6 +99,7 @@ async def read_album_details(album_id: int):
 async def read_album_details(artiste_id: int):
 	data = get_albums_by_artiste(artiste_id)
 	return jsonable_encoder(data)
+<<<<<<< HEAD
 #renvoie la liste de tous les albums
 @app.get("/album")
 async def index():
@@ -107,3 +107,7 @@ async def index():
 	return jsonable_encoder(data)
 if __name__ == "__main__":
 	uvicorn.run(app, host="127.0.0.1", port=8000)
+=======
+if __name__ == "__main__":
+	uvicorn.run(app, host="127.0.0.1", port=8000)
+>>>>>>> 539a6c6ac16170ae7c04d01779e1eb86aab141bf
