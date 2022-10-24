@@ -19,8 +19,11 @@ jobs:
       uses: actions/checkout@v1
 
     # Generates a openapi.yaml file based on the FastAPI project.
-    - name: Generate OpenAPI file
-      uses: column-street/fastapi-openapi-specs-action@v1.0.0
+    #- name: Generate OpenAPI file
+      #uses: column-street/fastapi-openapi-specs-action@v1.0.0
+      #with:
+        #fileName: songs.py
+        #appName: app
       
     # Pushes all of these changes into the GitHub repository.
     - name: Push changes to backend branch
