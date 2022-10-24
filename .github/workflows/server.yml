@@ -9,6 +9,9 @@ on:
 jobs:
   client:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/src
 
     # Checks out the entire repo.
     steps:
@@ -19,7 +22,6 @@ jobs:
     - name: Generate OpenAPI file
       uses: column-street/fastapi-openapi-specs-action@v1.0.0
       with:
-        paths: backend/src
         fileName: songs.py
         appName: app
     # Pushes all of these changes into the GitHub repository.
