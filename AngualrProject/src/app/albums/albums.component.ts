@@ -1,18 +1,38 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { GetDataService } from '../services/get-data.service';
+
 
 @Component({
   selector: 'app-albums',
   templateUrl: './albums.component.html',
-  styleUrls: ['./albums.component.css']
+  styleUrls: ['./albums.component.css'],
+  providers: [GetDataService]
 })
 export class AlbumsComponent implements OnInit {
 
+  service : GetDataService;
+
   albumsTab = new Array();
-  constructor() { }
+  constructor(_service:GetDataService, _http:HttpClient) { 
+    this.service = _service;
+    console.log("bonjour");
+    this.getAlbums();
+  }
 
   ngOnInit(): void {
   }
 
+  getAlbums(): void {
+    this.service.getAlbums().subscribe(
+      (data:any) => {
+        this.albumsTab = data;
+      },
+      (error) => {
+
+    });
+    console.log(this.albumsTab);
+  }
   /*
   //Cette fonction permet d'afficher la liste des albums
   affichAlbums(){
