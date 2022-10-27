@@ -12,18 +12,18 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Nom des albums</th>
+        <th>Année</th>
+        <th>Artiste</th>
+        <th>Image</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>ALBUM 2</td>
-      </tr>
-      <tr>
-        <td>ALBUM 3</td>
-      </tr>
-      <tr>
-        <td>ALBUM 4</td>
+      <tr *ngFor="let album of albumsTab">
+        <td>{{album.annee}}</td>
+        <td>{{album.artiste_id}}</td>
+        <td>
+          <img src={{album.photo}} class="rounded" alt={{album.annee}}> 
+        </td>
       </tr>
     </tbody>
   </table>

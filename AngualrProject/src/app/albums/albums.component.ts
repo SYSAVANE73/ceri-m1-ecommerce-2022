@@ -10,13 +10,12 @@ import { GetDataService } from '../services/get-data.service';
   providers: [GetDataService]
 })
 export class AlbumsComponent implements OnInit {
-
   service : GetDataService;
 
   albumsTab = new Array();
+
   constructor(_service:GetDataService, _http:HttpClient) { 
     this.service = _service;
-    console.log("bonjour");
     this.getAlbums();
   }
 
@@ -27,11 +26,11 @@ export class AlbumsComponent implements OnInit {
     this.service.getAlbums().subscribe(
       (data:any) => {
         this.albumsTab = data;
+        //console.log(this.albumsTab);
       },
       (error) => {
 
     });
-    console.log(this.albumsTab);
   }
   /*
   //Cette fonction permet d'afficher la liste des albums

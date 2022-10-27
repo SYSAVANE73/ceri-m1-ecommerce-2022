@@ -1,0 +1,19 @@
+<nav class="nav flex-column nav-pills">
+    <!--
+    <a class="button"
+       routerLink="/home"
+       routerLinkActive="activebutton"
+       ariaCurrentWhenActive="page">
+      Home
+    </a> |
+    <a class="button"
+       routerLink="/artiste"
+       routerLinkActive="activebutton"
+       ariaCurrentWhenActive="page">
+      Artiste
+    </a>
+-->
+    <a routerLink="/" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-link">Home</a>
+    <a [routerLink]="['/album']" routerLinkActive="active" class="nav-link">Album</a>
+    <a routerLink="/artiste" routerLinkActive="active" class="nav-link">Artiste</a>
+  </nav>

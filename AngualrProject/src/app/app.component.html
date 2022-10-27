@@ -5,13 +5,15 @@
   </div>
 </header>
 
+<app-navigation></app-navigation>
+
 <!-- Affichage du navbar -->
 <main role="main">
-  <section>
+  <section style="text-align: center">
     <!-- Appel Affichage albums-->
-    <app-albums></app-albums>
-  </section>
-  
+    <!-- <app-albums></app-albums> -->
+  <router-outlet></router-outlet>
+</section>
 </main>
 
 <!-- Footer -->
