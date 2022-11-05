@@ -24,7 +24,7 @@ jobs:
       run: npm install
 
     - name: Run tests
-      run: npm run test:prod
+      run: npm run test -- --prod
       
     - name: Lint
       run: npm run lint
@@ -39,9 +39,34 @@ jobs:
         github_token: ${{ secrets.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 }}
         publish_dir: dist/ecommerce
         enable_jekyll: true
+  client:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/src
+
+    # Checks out the entire repo.
+    steps:
+    - name: Checks out repo
+      uses: actions/checkout@v1
+
+    # Generates a openapi.yaml file based on the FastAPI project.
+    #- name: Generate OpenAPI file
+      #uses: column-street/fastapi-openapi-specs-action@v1.0.0
+      #with:
+        #fileName: songs.py
+        #appName: app
+      
+    # Pushes all of these changes into the GitHub repository.
+    - name: Push changes to backend branch
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.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 }}
+        branch: main
+        force: True
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - uses: actions/checkout@v2
+    - name: Build the stack
+      run: docker-compose up -d
