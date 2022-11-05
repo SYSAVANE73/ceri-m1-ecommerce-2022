@@ -29,8 +29,8 @@ jobs:
     #- name: Test
       #run: npm run test
       
-    - name: Lint
-      run: npm run lint
+    #- name: Lint
+      #run: npm run lint
       
     - name: Deploy
       if: success()
