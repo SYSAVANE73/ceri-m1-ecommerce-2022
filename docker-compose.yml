@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+   mysql:
+      container_name: "mysql"
+      build: 
+         dockerfile: Dockerfile.mysql
+         context: .      
+      restart: always
+      tty: true
+      environment:
+         #- MYSQL_ROOT_PASSWORD=root
+         #- MYSQL_USER=root
+         #- MYSQL_PASSWORD=root
+         - MYSQL_DATABASE=songs
+      ports:
+         - "3306:3306"
+      #volumes:
+         #- ./backend/src/db.sql:/docker-entrypoint-initdb.d
+         #- ./log/mysql:/var/log/mysql
+      networks:
+         - local-net
+   backend:
+      build:
+         dockerfile: Dockerfile.backend
+         context: .
+      command: uvicorn backend.src.songs:app --host 0.0.0.0
+      ports:
+         - "8000:8000"
+      depends_on:
+         - mysql
+      networks:
+         - local-net
+networks:
+   local-net:
+      driver: bridge
+   
+   

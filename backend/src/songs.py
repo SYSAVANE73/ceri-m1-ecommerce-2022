@@ -2,8 +2,10 @@ from typing import Optional
 from sqlmodel import Field, SQLModel, Session, create_engine, select
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import datetime
+import MySQLdb
 
 class Artiste(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
@@ -22,7 +24,33 @@ class Chanson(SQLModel, table=True):
 	titre: str
 	duree: float
 
-engine = create_engine("sqlite:///database.db")
+class User(SQLModel, table=True):
+	userid: Optional[int] = Field(default=None, primary_key=True)
+	nom: str
+	prenom: str
+	login: str
+	password: str
+
+
+#connect_string = "mysql+pymysql://root:root@localhost:3306/songs"
+
+user_name = "root"
+password = "root"
+host = "mysql"
+database_name = "songs"
+
+DATABASE = 'mysql://%s:%s@%s/%s?charset=utf8' % (
+    user_name,
+    password,
+    host,
+    database_name,
+)
+engine = create_engine(
+	DATABASE,
+	encoding = "utf-8",
+	echo = True
+)
+#engine = create_engine("sqlite:///database.db")
 SQLModel.metadata.create_all(engine)
 
 
@@ -70,12 +98,18 @@ def get_albums():
 		route = select(Album)
 		res = session.exec(route)
 		albums = res.all()
-		return albums
-		"""
+		#return albums
+		
 		for album in albums:
 			print(album)
 		return albums
-		"""
+def get_user():
+	with Session(engine) as session:
+		route = select(User)
+		res = session.exec(route)
+		albums = res.all()
+		return albums
+		
 
 #creer_musique()
 #get_artistes()
@@ -84,6 +118,17 @@ def get_albums():
 
 #RECUPERER MUSIQUES
 app = FastAPI(title="Magasin de vinyles")
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 #renvoie tous les artistes
 @app.get("/")
 async def index():
@@ -99,15 +144,22 @@ async def read_album_details(album_id: int):
 async def read_album_details(artiste_id: int):
 	data = get_albums_by_artiste(artiste_id)
 	return jsonable_encoder(data)
-<<<<<<< HEAD
+
 #renvoie la liste de tous les albums
 @app.get("/album")
 async def index():
 	data = get_albums()
 	return jsonable_encoder(data)
-if __name__ == "__main__":
-	uvicorn.run(app, host="127.0.0.1", port=8000)
-=======
-if __name__ == "__main__":
-	uvicorn.run(app, host="127.0.0.1", port=8000)
->>>>>>> 539a6c6ac16170ae7c04d01779e1eb86aab141bf
+
+@app.get("/test")
+async def root():
+	return {"message":"Hello"}
+
+@app.get("/user")
+async def get_users():
+	data = get_user()
+	return jsonable_encoder(data)
+
+#if __name__ == "__main__":
+#	uvicorn.run(app, host="127.0.0.1", port=8000)
+

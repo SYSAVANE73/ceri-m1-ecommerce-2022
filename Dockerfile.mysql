@@ -1,0 +1,6 @@
+FROM mysql:latest
+
+ENV MYSQL_ROOT_PASSWORD=root
+
+COPY ./backend/src/db.sql /docker-entrypoint-initdb.d/
+#RUN touch /var/log/mysql/mysqld.log
