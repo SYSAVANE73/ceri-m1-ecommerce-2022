@@ -13,6 +13,9 @@ export class AlbumsComponent implements OnInit {
   service : GetDataService;
 
   albumsTab = new Array();
+  detailTab = {
+    chanson: new Array()
+  };
 
   constructor(_service:GetDataService, _http:HttpClient) { 
     this.service = _service;
@@ -26,7 +29,19 @@ export class AlbumsComponent implements OnInit {
     this.service.getAlbums().subscribe(
       (data:any) => {
         this.albumsTab = data;
-        //console.log(this.albumsTab);
+        console.log(this.albumsTab);
+      },
+      (error) => {
+
+    });
+  }
+
+  getDetails(identifiant : number): void {
+    console.log("identifiant est : "+identifiant);
+    this.service.getDetails(identifiant).subscribe(
+      (data:any) => {
+        this.detailTab = data;
+        console.log(this.detailTab);
       },
       (error) => {
 

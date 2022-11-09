@@ -9,12 +9,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ArtisteComponent } from './artiste/artiste.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
+import { HomeComponent } from './home/home.component';
+import { DetailComponent } from './detail/detail.component';
 
 const appRoutes: Routes = [
-  {path: '', component: AppComponent},
+  {path: '', component: HomeComponent},
   {path: 'album', component: AlbumsComponent},
   {path: 'artiste', component: ArtisteComponent},
-  {path: '**', component: PageNotFoundComponent},
+  {path: 'detail', component: DetailComponent},
+  {path: '**', component: HomeComponent},
 ];
 
 @NgModule({
@@ -23,7 +26,9 @@ const appRoutes: Routes = [
     AlbumsComponent,
     PageNotFoundComponent,
     ArtisteComponent,
-    NavigationComponent
+    NavigationComponent,
+    HomeComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,

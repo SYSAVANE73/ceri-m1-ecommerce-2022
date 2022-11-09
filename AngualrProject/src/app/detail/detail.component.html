@@ -1,3 +1,4 @@
+<p>detail works!</p>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,29 +7,21 @@
 <body>
 
 <div class="container">
-  <h2 align="center">La liste des ALBUMS</h2>   
+  <h2 align="center">La liste des CHANSONS</h2>   
   <br>
   <br>        
   <table class="table">
     <thead>
       <tr>
-        <th>Nom</th>
-        <th>Année</th>
-        <th>Artiste</th>
-        <th>Prix</th>
-        <th>Image</th>
+        <th>Titre</th>
+        <th>Durée</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let album of albumsTab">
-        <td routerLink="/detail" routerLinkActive="active" class="nav-link" (click)="getDetails(album.id)">{{album.titre}}</td>
-        <td>{{album.annee_sortie}}</td>
-        <td>{{album.nom_artiste}}</td>
-        <td>{{album.prix}}€</td>
-        <td>
-          <img src={{album.photo}} class="rounded" alt={{album.annee}}> 
-        </td>
-      </tr>
+        <tr *ngFor="let chanson of detailTab">
+            <td>{{chanson.titre}}</td>
+            <td>{{chanson.duree}}</td>
+          </tr>
     </tbody>
   </table>
 </div>
