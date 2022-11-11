@@ -1,0 +1,94 @@
+CREATE TABLE "Album" (
+	"id"	INTEGER,
+	"titre"	TEXT,
+	"genre"	TEXT,
+	"annee_sortie"	TEXT,
+	"id_artiste"	INTEGER,
+	"prix"	REAL,
+	"photo"	TEXT,
+	PRIMARY KEY("id") AUTOINCREMENT,
+	FOREIGN KEY("id_artiste") REFERENCES "Artiste"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE "Artiste" (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"nom"	TEXT,
+	"prenom"	TEXT,
+	"nom_artiste"	TEXT
+)
+
+CREATE TABLE "Chanson" (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"titre"	TEXT,
+	"id_album"	INTEGER,
+	"duree" REAL,
+	FOREIGN KEY("id_album") REFERENCES "Album"("id") ON DELETE CASCADE
+)
+
+
+INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Sedraïa","Adila","Indila");
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix) VALUES("Mini World","French Urban Pop/R&B","2014",1,32.00);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Love Story",1,5.17);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Tourner dans le vide",1,4.20);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("S.O.S",1,4.20);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Dernière Danse",1,4.20);
+
+
+INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Maitre","Gims","Maitre Gims");
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste) VALUES("Le Fleau","Hip-hop, Pop","2020",2,40.00,"https://static.fnac-static.com/multimedia/Images/FR/NR/12/40/c2/12730386/1507-1/tsp20201008141115/Le-Fleau.jpg","Maitre Gims");
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Immortel",3,2.27);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Coté Noir",3,3.51);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Oats",3,2.56);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Oro Jackson",3,3.00);
+
+
+INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Ariana","Grande","Ariana Grande");
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste) VALUES("Sweetener","HPop, RnB contemporain, Trap","2018",3,50.00,"https://m.media-amazon.com/images/I/81FH-xfuK5L._SL1500_.jpg","Ariana Grande");
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("God is Woman",4,3.17);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Sweetener",4,3.28);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("R.E.M",4,4.05);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("The ligth is coming",4,3.48);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Successful",4,3.47);
+
+INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Black","Mesrime","Black M");
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste) VALUES("Les yeux plus gros que le monde","Pop, RnB contemporain, Rap","2014",4,25.00,"https://upload.wikimedia.org/wikipedia/en/9/9a/Les-yeux-plus-gros-que-le-monde-Black-M.jpg","Black M");
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("spectateur",5,3.49);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Ailleurs",5,4.04);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Mme Pavosko",5,4.15);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("C'est tout moi",5,3.51);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Pour oublier",5,4.01);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("La légende Black (feat. Dr. Beriz)",5,3.48);
+
+
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste) VALUES("Eternel insatisfait (Réédition)","Pop, RnB contemporain, Rap","2017",4,35.00,"https://static.fnac-static.com/multimedia/Images/FR/NR/0c/2e/8b/9121292/1540-1/tsp20171011121549/Eternel-Insatisfait.jpg","Black M");
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Tic-Tac",6,3.57);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Tout recommencer",6,2.45);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Je suis chez moi",6,3.48);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("frérot (feat. Soprano)",6,3.46);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Dans ma tête",6,3.38);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Beautiful",6,3.36);
+
+
+INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Rihanna","R","Rihanna");
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste) VALUES("Talk That Talk","Pop music, Rhythm and blues, Hip hop music","2011",5,25.00,"https://static.fnac-static.com/multimedia/FR/Images_Produits/FR/fnac.com/Visual_Principal_340/9/0/4/0602527878409/tsp20120919055757/Talk-that-talk.jpg","Rihanna");
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("You Da One",7,3.20);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Where Have You Been",7,4.02);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("We Found Love",7,3.35);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Birthday Cake",7,1.18);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("We All Want Love",7,3.57);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Drunk On Love",7,3.32);
+
+
+INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Aya","Nakamura","Aya Nakamura");
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste) VALUES("VIP","French Urban Pop/R&B","2022",6,45.00,"https://images.genius.com/2beee3e2c0bb4acb0ab214a46229ec5c.1000x1000x1.jpg","Aya Nakamura");
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("VIP",8,2.27);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Dégaine (feat. Damso)",8,3.30);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("djadja (feat. Maluma)",8,2.46);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Copines",8,2.51);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Djadja",8,2.51);
+
+
+
+SELECT * FROM Artiste;
+SELECT * FROM Album;
+SELECT * FROM Chanson;

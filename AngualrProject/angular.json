@@ -84,7 +84,8 @@
             "production": {
               "sourceMap": false,
               "codeCoverage": true,
-              "browsers": "ChromeHeadless",
+              "browsers": "Headless",
+              
               "watch": false
             }
           },

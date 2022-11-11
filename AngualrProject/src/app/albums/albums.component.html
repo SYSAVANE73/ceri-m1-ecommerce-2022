@@ -1,53 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-
 <div class="container">
-  <h2 align="center">La liste des ALBUMS</h2>   
+  <h2  style="text-align: center">La liste des ALBUMS</h2>   
   <br>
-  <br>        
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Année</th>
-        <th>Artiste</th>
-        <th>Prix</th>
-        <th>Image</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let album of albumsTab">
-        <td routerLink="/detail" routerLinkActive="active" class="nav-link" (click)="getDetails(album.id)">{{album.titre}}</td>
-        <td>{{album.annee_sortie}}</td>
-        <td>{{album.nom_artiste}}</td>
-        <td>{{album.prix}}€</td>
-        <td>
-          <img src={{album.photo}} class="rounded" alt={{album.annee}}> 
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!--
-<div class="container" style="width: 50%;">
-  <header class=" page-header text-center bg-info">
-      <h3>La liste des ALBUMS</h3>
-  </header>
-  <div>
-    <ul class="list-group" *ngFor="let album of albumsTab">
-      <li class="list-group-item" >
-        <span class="glyphicon glyphicon-user"></span>
-        <a>   {{album.identifiant}}</a>
+  <br>     
+  <div class="container">
+    <ul *ngFor="let album of albumsTab">
+      <li class="albums" routerLink="/detail/{{album.id}}" routerLinkActive="active" class="nav-link" (click)="getDetails(album.id)">
+        <img src={{album.photo}} alt={{album.annee}}>
+        <div class="infos">
+          <h4>{{album.titre}}</h4>
+          <h5>{{album.nom_artiste}}</h5>
+          <h6>{{album.annee_sortie}}</h6>
+          <p>{{album.prix}} €</p>
+        </div>
       </li>
     </ul>
   </div>
 </div>
-<br>
--->
-</body>
-</html>
+
+  

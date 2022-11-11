@@ -11,17 +11,21 @@ class Artiste(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	nom: str
 	prenom: str
+	nom_artiste: str
 
 class Album(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
-	annee: int
-	artiste_id: int
+	titre: str
+	genre: str
+	annee_sortie: str
+	id_artiste: int
+	prix: float
 	photo: str
 
 class Chanson(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
-	num_album: int
 	titre: str
+	id_album: int
 	duree: float
 
 class User(SQLModel, table=True):
@@ -79,7 +83,7 @@ def get_artistes():
 		return artistes
 def get_songs_by_album(albumId):
 	with Session(engine) as session:
-		route = select(Chanson).where(Chanson.num_album == albumId)
+		route = select(Chanson).where(Chanson.id_album == albumId)
 		res = session.exec(route)
 		album = res.all()
 		for chanson in album:
@@ -98,11 +102,23 @@ def get_albums():
 		route = select(Album)
 		res = session.exec(route)
 		albums = res.all()
-		#return albums
-		
+		return albums
+		"""
 		for album in albums:
 			print(album)
 		return albums
+		"""
+def get_albums_by_id(id_album):
+	with Session(engine) as session:
+		route = select(Album).where(Album.id == id_album)
+		res = session.exec(route)
+		albums = res.all()
+		return albums
+		"""
+		for album in albums:
+			print(album)
+		return albums
+		"""
 def get_user():
 	with Session(engine) as session:
 		route = select(User)
@@ -134,11 +150,13 @@ app.add_middleware(
 async def index():
 	data = get_artistes()
 	return jsonable_encoder(data)
+
 #renvoie toutes les chansons d'un album 
 @app.get("/album/{album_id}")
 async def read_album_details(album_id: int):
 	data = get_songs_by_album(album_id)
 	return jsonable_encoder(data)
+
 #renvoie tous les albums d'un artiste
 @app.get("/artiste/{artiste_id}")
 async def read_album_details(artiste_id: int):
@@ -151,9 +169,16 @@ async def index():
 	data = get_albums()
 	return jsonable_encoder(data)
 
-@app.get("/test")
-async def root():
-	return {"message":"Hello"}
+#renvoie les informations d'un album
+@app.get("/getAlbum/{id_album}")
+async def get_albums_id(id_album: int):
+	data = get_albums_by_id(id_album)
+	return jsonable_encoder(data)
+
+#test de l'api
+@app.get("/test/{test}")
+async def test(test: str):
+	return {"test": test}
 
 @app.get("/user")
 async def get_users():

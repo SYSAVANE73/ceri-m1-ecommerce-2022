@@ -1,3 +1,9 @@
 img{
-    height: 80px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+ul {
+    list-style: none;
 }

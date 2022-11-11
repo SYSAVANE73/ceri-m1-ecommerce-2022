@@ -1,46 +1,36 @@
-<p>detail works!</p>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-
 <div class="container">
-  <h2 align="center">La liste des CHANSONS</h2>   
+  <h2  style="text-align: center">La liste des CHANSONS</h2>   
   <br>
-  <br>        
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Titre</th>
-        <th>Durée</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let chanson of detailTab">
-            <td>{{chanson.titre}}</td>
-            <td>{{chanson.duree}}</td>
-          </tr>
-    </tbody>
-  </table>
-</div>
-
-<!--
-<div class="container" style="width: 50%;">
-  <header class=" page-header text-center bg-info">
-      <h3>La liste des ALBUMS</h3>
-  </header>
-  <div>
-    <ul class="list-group" *ngFor="let album of albumsTab">
-      <li class="list-group-item" >
-        <span class="glyphicon glyphicon-user"></span>
-        <a>   {{album.identifiant}}</a>
-      </li>
-    </ul>
+  <br> 
+  
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-7">
+        <ul *ngFor="let album of album">
+          <li>
+        <img src={{album.photo}} alt={{album.annee}}>
+        <div>
+          <h4>{{album.titre}}</h4>
+          <h5>{{album.nom_artiste}}</h5>
+          <h6>{{album.annee_sortie}}</h6>
+          <h6>{{album.genre}}</h6>
+          <p>{{album.prix}} €</p>
+        </div>
+        </li>
+        </ul>
+      </div>
+      <div class="col-sm-5">
+        <div class="container">
+          <h2 style="text-align: center">chanson</h2>
+          <ul *ngFor="let chanson of detailTab">
+            <li>
+              <div>
+                <h4>{{chanson.titre}}</h4>
+                <h5>{{chanson.duree}}</h5>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<br>
--->
-</body>
-</html>

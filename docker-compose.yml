@@ -30,6 +30,14 @@ services:
          - mysql
       networks:
          - local-net
+   front-end:
+      build: 
+         dockerfile: Dockerfile
+         context: .
+      ports:
+         - 8080:80
+      networks:
+         - local-net
 networks:
    local-net:
       driver: bridge
