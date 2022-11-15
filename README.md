@@ -12,8 +12,8 @@ Les instructions sont disponibles [ici](https://github.com/Faylixe/ceri-m1-ecomm
 
 |             |        |
 | ----------- | ------ |
-| Nom         | _FILL_ |
-| Identifiant | _FILL_ |
+| Nom         | team-redpanda|
+| Identifiant | team-2 |
 
 <br>
 
@@ -24,6 +24,6 @@ Les instructions sont disponibles [ici](https://github.com/Faylixe/ceri-m1-ecomm
 
 | Role                      | Membre |
 | ------------------------- | ------ |
-| Backend engineer          | _FILL_ |
-| Frontend engineer         | _FILL_ |
-| Site reliability engineer | _FILL_ |
+| Backend engineer          | Fresu Ilona |
+| Frontend engineer         | Gdira Ghizlane |
+| Site reliability engineer | Sy Savane Ahmadou Dia |
