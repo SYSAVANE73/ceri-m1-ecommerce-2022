@@ -1,7 +1,8 @@
 terraform {
   cloud {
-    organization   = "E-commerce"
-    workspace {
+    organization = "E-ecommerce"
+
+    workspaces {
       name = "redpanda"
     }
   }
