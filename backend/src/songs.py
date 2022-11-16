@@ -21,6 +21,7 @@ class Album(SQLModel, table=True):
 	id_artiste: int
 	prix: float
 	photo: str
+	nom_artiste: str
 
 class Chanson(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
@@ -81,6 +82,7 @@ def get_artistes():
 		for artiste in artistes:
 			print(artiste)
 		return artistes
+		
 def get_songs_by_album(albumId):
 	with Session(engine) as session:
 		route = select(Chanson).where(Chanson.id_album == albumId)
@@ -89,9 +91,10 @@ def get_songs_by_album(albumId):
 		for chanson in album:
 			print(chanson)
 		return album
+
 def get_albums_by_artiste(artisteId):
 	with Session(engine) as session:
-		route = select(Album).where(Album.artiste_id == artisteId)
+		route = select(Album).where(Album.id_artiste == artisteId)
 		res = session.exec(route)
 		albums = res.all()
 		for album in albums:
