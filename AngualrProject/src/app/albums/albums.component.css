@@ -64,15 +64,20 @@ li .infos {
   }
   
 */
+
 li:hover {
     transform: scale(1.2);
     z-index: 2;
   }
+
 /*
 li:hover .infos{
     opacity: 1;
     transform: scaleY(1);
 }
 */
+li .infos{
+    width: 250px;
+}
 
 

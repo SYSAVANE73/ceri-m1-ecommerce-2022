@@ -7,8 +7,8 @@
       <li class="albums" routerLink="/detail/{{album.id}}" routerLinkActive="active" class="nav-link" (click)="getDetails(album.id)">
         <img src={{album.photo}} alt={{album.annee}}>
         <div class="infos">
-          <h4>{{album.titre}}</h4>
-          <h5>{{album.nom_artiste}}</h5>
+          <h5 class="min-vh-70 mh-70">{{album.titre}}</h5>
+          <h6>{{album.nom_artiste}}</h6>
           <h6>{{album.annee_sortie}}</h6>
           <p>{{album.prix}} €</p>
         </div>
