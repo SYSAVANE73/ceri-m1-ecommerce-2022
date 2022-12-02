@@ -2,7 +2,7 @@
   <h2  style="text-align: center">La liste des ALBUMS</h2>   
   <br>
   <br>     
-  <div class="container">
+  <div>
     <ul *ngFor="let album of albumsTab">
       <li class="albums" routerLink="/detail/{{album.id}}" routerLinkActive="active" class="nav-link" (click)="getDetails(album.id)">
         <img src={{album.photo}} alt={{album.annee}}>
@@ -17,4 +17,3 @@
   </div>
 </div>
 
-  

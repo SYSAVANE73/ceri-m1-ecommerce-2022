@@ -37,7 +37,7 @@ export class GetDataService {
       .subscribe(
         data => { // succes de l’observable httpClient
           details = data;
-          console.log("serice 1 ",details);
+          //console.log("serice 1 ",details);
     }, 
     (error) => {// erreur de l’observable httpClient
       console.error('une erreur est survenue!', error);

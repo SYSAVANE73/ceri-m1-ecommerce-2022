@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AlbumsComponent } from './albums/albums.component';
@@ -11,12 +12,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { DetailComponent } from './detail/detail.component';
+import { ConnexionComponent } from './connexion/connexion.component';
+import { reduceState, StoreModule } from '@ngrx/store';
+import {metaReducers, rootReducer} from './store/reducer';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'album', component: AlbumsComponent},
   {path: 'artiste', component: ArtisteComponent},
   {path: 'detail/:id', component: DetailComponent},
+  {path: 'login', component: ConnexionComponent},
   {path: '**', component: HomeComponent},
 ];
 
@@ -28,12 +33,20 @@ const appRoutes: Routes = [
     ArtisteComponent,
     NavigationComponent,
     HomeComponent,
-    DetailComponent
+    DetailComponent,
+    ConnexionComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot({
+      root: rootReducer
+    }, {
+      metaReducers: metaReducers
+    })
   ],
   providers: [GetDataService],
   bootstrap: [AppComponent]

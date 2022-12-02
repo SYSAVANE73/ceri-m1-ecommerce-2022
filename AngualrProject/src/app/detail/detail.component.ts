@@ -2,19 +2,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GetDataService } from '../services/get-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SendDataService } from '../services/send-data.service';
 import { Subscriber, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
-  providers: [GetDataService, SendDataService]
+  providers: [GetDataService]
 })
 export class DetailComponent implements OnInit {
 
   service : GetDataService;
-  sendService : SendDataService;
   route : ActivatedRoute;
 
   //detailTab = new Array(); 
@@ -28,11 +26,13 @@ export class DetailComponent implements OnInit {
   id : number= 0;
   iddd : string = "";
   languages = []
+
+  message:string="";
+  approvalText:string="";
   
 
-  constructor(_service:GetDataService, _http:HttpClient, _router: ActivatedRoute, _send:SendDataService) { 
+  constructor(_service:GetDataService, _http:HttpClient, _router: ActivatedRoute) { 
     this.service = _service;
-    this.sendService = _send;
     this.route = _router;
   }
 
@@ -50,6 +50,7 @@ export class DetailComponent implements OnInit {
       //this.getData();
       
     })
+
   }
 
   getDetails(identifiant : number): void {
@@ -72,12 +73,6 @@ export class DetailComponent implements OnInit {
       (error) => {
 
     });
-  }
-
-  getData(){
-    this.sendService.data.subscribe(response => {
-      console.log('response ',response);
-    })
   }
 
 }
