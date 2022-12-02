@@ -34,4 +34,24 @@ export class AuthentificationService {
       });
     });  
   }
+
+  UserInscription(login : string, pwd : string, nom : string, prenom : string) : Observable<any> {
+    var userConnect  = new Array(); //declaration de la collection pour recuperer les infos de l'utilisateur connecté
+    
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      let url = 'http://127.0.0.1:8000/inscription/' + login + "/" + pwd+ "/" + nom+ "/" + prenom;
+      console.log(url);
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(userConnect); // renvoi des données pour l’observable principal
+      });
+    });  
+  }
 }

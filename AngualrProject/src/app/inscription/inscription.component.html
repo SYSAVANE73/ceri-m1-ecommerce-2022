@@ -1,0 +1,43 @@
+<div style="margin: 5px;">
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="https://img.freepik.com/free-vector/electro-music-album_53876-67225.jpg?w=2000" alt="album">
+        </div>
+    
+        <div class="col-sm-6 border container" style="text-align: center;width: 70%;">
+            <!--<header class="ccontainer-fuild" style="text-align: center; color:floralwhite; height: 100px;">-->
+            <header>
+                <h1>Inscription</h1>
+                <span class="btn-circle btn-xl">
+                    <i class="fas fa-lock" style="font-size:25px;color:gray"></i>
+                </span>
+                <br>
+                <br>
+                <p style="font-weight: bold; text-align:center;font-family:courier;color:cornflowerblue;">Devenez membre pour ne plus passer à côté des promotions, des offres et des remises.</p>
+                <br>
+            </header>
+
+                <form >
+                    <div class="form-group" (ngSubmit)="inscription()">
+                        <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="prenom" class="form-control" formControlName="prenom" placeholder="Votre prénom" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="login"  class="form-control" formControlName="login" placeholder="E-mail / Identifiant" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="pwd" class="form-control" formControlName="password" placeholder="Créer un mot de passe" required>
+                    </div>
+                    <br>
+                    <!-- <p style="color: red;" >Votre login ou mot de passe est incorrecte</p> -->
+                    <br>
+                    <button type="submit" class="btn btn-info btn-block pull-right" name="btnInscription">S'inscrire</button>
+                    <br>
+                </form>
+                <br>
+        </div>
+    </div>
+</div>
