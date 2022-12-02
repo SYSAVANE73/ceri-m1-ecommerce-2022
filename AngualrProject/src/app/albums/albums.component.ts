@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GetDataService } from '../services/get-data.service';
 
@@ -18,19 +18,33 @@ export class AlbumsComponent implements OnInit {
     chanson: new Array()
   };
 
+
+  @Input() message:string="";
+
+  @Output() msg = new EventEmitter<string>();
+
   constructor(_service:GetDataService, _http:HttpClient) { 
     this.service = _service;
     this.getAlbums();
   }
 
+
   ngOnInit(): void {
+    /*
+    this.send.currentApprovalStageMessage.subscribe((msg) => {
+      this.message = msg;
+      console.log("-----> ", msg);
+    });
+    */
+   console.log("connection ------> ", this.message);
+    
   }
 
   getAlbums(): void {
     this.service.getAlbums().subscribe(
       (data:any) => {
         this.albumsTab = data;
-        console.log(this.albumsTab);
+        //console.log(this.albumsTab);
       },
       (error) => {
 
@@ -38,28 +52,22 @@ export class AlbumsComponent implements OnInit {
   }
 
   getDetails(identifiant : number): void {
+
+    this.msg.emit("bonjour");
+
     console.log("identifiant est : "+identifiant);
     this.service.getDetails(identifiant).subscribe(
       (data:any) => {
         this.detailTab = data;
-        console.log(this.detailTab);
+        //console.log(this.detailTab);
       },
       (error) => {
 
     });
   }
-
-  
   /*
-  //Cette fonction permet d'afficher la liste des albums
-  affichAlbums(){
-    this.getAlbums().subscribe(
-      (data:any) => {
-        //console.log(data);
-        this.albumsTab = data;
-      },
-      (error) => {
-    });
+  getUser(data: any): void{
+    console.log(data);
   }
-*/
+  */
 }

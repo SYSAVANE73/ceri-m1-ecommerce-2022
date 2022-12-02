@@ -30,8 +30,12 @@
         </li>
       </ul>
       <ul class="nav navbar-nav ml-auto">
-        <li >
-          <a style="font-size: 15px;color:white; margin:4px" routerLink="/" routerLinkActive="active" class="nav-link fas fa-sign-in-alt"> Se connecter</a>
+        <li [hidden]="!user.isloged">
+          <a style="font-size: 15px;color:white; margin:4px" routerLinkActive="active" class="nav-link fas fa-sign-in-alt" (click)="deconnection()"> Se deconnecter</a>
+        </li>
+
+        <li [hidden]="user.isloged">
+          <a style="font-size: 15px;color:white; margin:4px" routerLink="/login" routerLinkActive="active" class="nav-link fas fa-sign-in-alt"> Se connecter</a>
         </li>
         <li >
           <a style="font-size: 15px;color:white; margin:4px" routerLink="/" routerLinkActive="active" class="nav-link fas fa-user"> S'inscrire</a>
@@ -45,5 +49,4 @@
   </nav>
 
 </div>
-
 
