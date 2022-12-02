@@ -18,8 +18,8 @@
                 <br>
             </header>
 
-                <form >
-                    <div class="form-group" (ngSubmit)="inscription()">
+                <form [formGroup]="formGroup" (ngSubmit)="inscription()">
+                    <div class="form-group">
                         <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Votre nom" required>
                     </div>
                     <div class="form-group">

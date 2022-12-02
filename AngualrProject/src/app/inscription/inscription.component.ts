@@ -39,9 +39,9 @@ export class InscriptionComponent implements OnInit {
     var nom = this.formGroup.value.nom || "";
     var prenom = this.formGroup.value.prenom || "";
     //console.log(login, "---------", password);
-    this.service.UserInscription(login, password,nom,prenom).subscribe(
+    this.service.UserInscription(nom, prenom,login,password).subscribe(
       (data:any) => {
-
+        console.log(data);
       },
       (error) => {
     });
