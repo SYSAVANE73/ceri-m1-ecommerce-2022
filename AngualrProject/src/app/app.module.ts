@@ -15,6 +15,7 @@ import { DetailComponent } from './detail/detail.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { reduceState, StoreModule } from '@ngrx/store';
 import {metaReducers, rootReducer} from './store/reducer';
+import { PanierComponent } from './panier/panier.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   {path: 'artiste', component: ArtisteComponent},
   {path: 'detail/:id', component: DetailComponent},
   {path: 'login', component: ConnexionComponent},
+  {path: 'panier', component: PanierComponent},
   {path: '**', component: HomeComponent},
 ];
 
@@ -34,7 +36,8 @@ const appRoutes: Routes = [
     NavigationComponent,
     HomeComponent,
     DetailComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    PanierComponent
   ],
   imports: [
     BrowserModule,

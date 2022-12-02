@@ -67,4 +67,24 @@ export class GetDataService {
       });
     });
   }
+
+  getPanier(id : number) : Observable<any> {
+    let panier = new Array();
+    
+    return Observable.create((observer: Subscriber<any>) => {
+      let url = 'http://127.0.0.1:8000/panier/' + id;
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          panier = data;
+          console.log("Panier---> ",data);
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(panier); // renvoi des données pour l’observable principal
+      });
+    });
+  }
 }

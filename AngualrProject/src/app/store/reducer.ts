@@ -1,6 +1,6 @@
 import { state } from '@angular/animations';
 import {ActionReducer, createReducer, MetaReducer, on, props, USER_RUNTIME_CHECKS} from '@ngrx/store';
-import { changeUsername, disconnect, getUser, initAction } from './actions';
+import { changeUsername, disconnect, getUser, initAction, logOut } from './actions';
 
 const initialState = {
     appName: 'Ngrx',
@@ -59,11 +59,29 @@ export const rootReducer = createReducer(initialState,
     on(disconnect, (state, props) => {
         return {
             ...state,
+            users : props.user
+        }
+    }),
+    on(logOut, (state) => {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                id: 0,
+                nom: '',
+                prenom: '',
+                isLoged: false
+            }
+        }
+    }),
+    /*on(disconnect, (state, props) => {
+        return {
+            ...state,
             users:{
                 ...state.users,
                 isLoged : props.isloged
             }
         }
-    })
+    })*/
 );
 

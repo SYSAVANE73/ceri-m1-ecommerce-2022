@@ -1,0 +1,44 @@
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-sm-6 border">
+            <h2>MON PANIER</h2>
+            <div>
+                <ul *ngFor="let album of album;">
+                  <li class="border">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="p-2">
+                            <img src={{album[0].photo}} alt={{album[0].annee}} style="height: 150px;">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="min-vh-70 mh-70">{{album[0].titre}}</h5>
+                            <h6>{{album[0].nom_artiste}}</h6>
+                            <p>{{album[0].prix}} €</p>
+                        </div>
+                        <div class="p-2">
+                            <button ><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                  </li>
+                </ul>
+            </div>
+
+        </div>
+    
+        <div class="col-sm-6 border">
+            <h2 style="text-align: center;">TOTAL</h2>
+            <br>
+            <p>Remises</p>
+            <hr>
+            <p>Valeur de la commande</p>
+            <span>Livraison </span><span style="text-align: right;">GRATUIT</span>
+            <hr>
+            Total de la commande
+            <br>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-success btn-block"> PAIEMENT </button>
+            <br>
+        </div>
+    </div>
+</div>

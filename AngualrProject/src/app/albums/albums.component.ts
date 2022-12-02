@@ -52,10 +52,6 @@ export class AlbumsComponent implements OnInit {
   }
 
   getDetails(identifiant : number): void {
-
-    this.msg.emit("bonjour");
-
-    console.log("identifiant est : "+identifiant);
     this.service.getDetails(identifiant).subscribe(
       (data:any) => {
         this.detailTab = data;
