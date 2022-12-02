@@ -119,7 +119,16 @@ def get_albums_by_id(id_album):
 
 def get_user(login, password):
 	with Session(engine) as session:
-		route = select(User).where((User.login == login) and (User.password == password))
+		route = select(User).where(User.login == login).where(User.password == password)
+		res = session.exec(route)
+		users = res.all()
+		for user in users:
+			print(user)
+		return users
+
+def get_users_list():
+	with Session(engine) as session:
+		route = select(User)
 		res = session.exec(route)
 		users = res.all()
 		for user in users:
@@ -134,6 +143,27 @@ def get_user_by_id(login):
 			print(user)
 		return users
 
+def create_user(nom_u, prenom_u, login_u, password_u):
+	new_user = User(nom=nom_u, prenom=prenom_u, login=login_u, password=password_u)
+	with Session(engine) as session:
+		data = get_users_list()
+		for user in data:
+			if user.login == new_user.login :
+				return {"msg" : "Ce login existe déjà."}
+		session.add(new_user)
+		session.commit()
+		return {"msg" : "L'utilisateur "+ login_u+" a bien été créé"}
+'''
+def ajouter_au_panier(id_user, id_album):
+	panier = get_panier(id_user)
+	with Session(engine) as session:
+		for album in panier.id_album:
+			if id_album == album.id :
+				return {"msg" : "Cet album a déjà été ajouté"}
+		session.add(new_user)
+		session.commit()
+		return {"msg" : "L'album "+ +" a bien été créé"}
+'''
 def get_panier(id):
 	with Session(engine) as session:
 		route = select(Panier).where(Panier.id_user == id)
@@ -159,7 +189,12 @@ def get_paniers():
 #RECUPERER MUSIQUES
 app = FastAPI(title="Magasin de vinyles")
 
-origins = ["*"]
+#origins = ["*"]
+origins = [
+	"http://localhost",
+	"http://127.0.0.1:8000", 
+	"https://127.0.0.1:8000"
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -214,8 +249,23 @@ async def get_all_paniers():
 @app.get("/login/{login}/{pwd}")
 async def get_users(login: str, pwd: str):
 	data = get_user(login, pwd)
+	message = {"msg : Connexion réussie. Bienvenue "}
+	if not data:
+		message = {"msg" : "Mauvais login ou mot de passe. Veuillez réessayer."}
+	return message, jsonable_encoder(data)
+@app.get("/users/")
+async def get_all_users():
+	data = get_users_list()
 	return jsonable_encoder(data)
 
+@app.get("/signin/{n}_{p}_{l}_{m}")
+async def sign_in(n, p, l, m):
+	return create_user(n, p, l, m)
+'''
+@app.post("/new")
+async def create_new_user(nom: str, prenom: str, login: str, pswd:str) :
+	return {"mfg" :"khsdf"}
+'''
 #test de l'api
 @app.get("/test/{test}")
 async def test(test: str):
