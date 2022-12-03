@@ -3,7 +3,8 @@ terraform {
     organization = "E-ecommerce"
 
     workspaces {
-      name = "redpanda"
+      #name = "redpanda"
+      name = "test"
     }
   }
 }
