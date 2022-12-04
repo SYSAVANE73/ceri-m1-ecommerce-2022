@@ -1,3 +1,9 @@
 img {
     width: 100%;
 }
+input {
+    height: 42px;
+}
+button {
+    height: 42px;
+}

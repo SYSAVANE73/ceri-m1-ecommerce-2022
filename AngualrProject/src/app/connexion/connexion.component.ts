@@ -63,7 +63,8 @@ export class ConnexionComponent implements OnInit {
           this.goBack();
           this.formGroup.reset();
         }
-        console.log(this.user);
+        this.isConnected = true;
+        //console.log(this.user);
       },
       (error) => {
     });

@@ -8,6 +8,7 @@
     
         <div class="col-sm-6 border container" style="text-align: center;width: 70%;">
             <!--<header class="ccontainer-fuild" style="text-align: center; color:floralwhite; height: 100px;">-->
+            <br>
             <header>
                 <h1>Connexion</h1>
                 <span class="btn-circle btn-xl">
@@ -15,8 +16,8 @@
                 </span>
                 <br>
                 <p>Saisissez à votre e-mail ou idetifiant pour vous connecter à votre compte</p>
+                <br>
             </header>
-
                 <form [formGroup]="formGroup" (ngSubmit)="connexion()">
                     <div class="form-group">
                         <input type="text" id="login"  class="form-control" formControlName="login" placeholder="E-mail / Identifiant" required>

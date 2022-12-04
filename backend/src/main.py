@@ -38,11 +38,17 @@ class User(SQLModel, table=True):
 	prenom: str
 	login: str
 	password: str
-
+"""
 class Panier(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	id_user: int
 	id_albums: List[int] = Field(sa_column=Column(JSON))
+	montant_total: float
+"""
+class Panier(SQLModel, table=True):
+	id: Optional[int] = Field(default=None, primary_key=True)
+	id_user: int
+	id_albums: int
 	montant_total: float
 
 engine = create_engine("sqlite:///database.db")
@@ -172,6 +178,7 @@ def get_panier(id):
 		for panier in paniers:
 			print(panier)
 		return paniers
+		
 def get_paniers():
 	with Session(engine) as session:
 		route = select(Panier)
@@ -180,6 +187,17 @@ def get_paniers():
 		for panier in paniers:
 			print(panier)
 		return paniers
+
+def insert_panier(id_albums, montant_total, id_user):
+	new_panier = Panier(id_albums=id_albums, montant_total=montant_total, id_user=id_user)
+	with Session(engine) as session:
+		data = get_paniers()
+		for panier in data:
+			if panier.id_albums == new_panier.id_albums and panier.id_user == new_panier.id_user:
+				return {"msg": "Vous avez ajout cet album dans votre panier"}
+		session.add(new_panier)
+		session.commit()
+		return {"msg": "L'album est ajouter dans votre panier"}
 #creer_musique()
 #get_artistes()
 #get_albums_by_artiste(1)

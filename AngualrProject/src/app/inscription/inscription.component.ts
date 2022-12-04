@@ -23,10 +23,10 @@ export class InscriptionComponent implements OnInit {
   }
 
   formGroup = new FormGroup ({
-    login : new FormControl(''),
-    password : new FormControl(''),
     nom :  new FormControl(''),
     prenom : new FormControl(''),
+    login : new FormControl(''),
+    password : new FormControl(''),
   });
 
   ngOnInit(): void {

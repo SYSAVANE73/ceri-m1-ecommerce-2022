@@ -65,7 +65,7 @@ li .infos {
   
 */
 
-li:hover {
+img:hover {
     transform: scale(1.2);
     z-index: 2;
   }

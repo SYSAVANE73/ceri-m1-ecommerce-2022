@@ -87,4 +87,24 @@ export class GetDataService {
       });
     });
   }
+  //ajout dans le panier
+  insertPanier(id_user : number, id_album : number, montant : number) : Observable<any> {
+    var msg = "";
+    
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      let url = 'http://127.0.0.1:8000/insertPanier/' + id_user + "/" + id_album + "/" + montant;
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          msg = data;
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(msg); // renvoi des données pour l’observable principal
+      });
+    });  
+  }
 }

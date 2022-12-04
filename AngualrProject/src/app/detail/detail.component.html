@@ -7,7 +7,7 @@
           <li>
             <img src={{album.photo}} alt={{album.annee}}>
             <div style=" margin-top: 5%; margin-left: 1%;">
-              <button class="btn btn-dark" id="b1" type="submit"><span class="fa fa-heart" style="color:red;"></span> Aimer</button>
+              <button class="btn btn-dark" id="b1" (click)="ajoutPanier()" [disabled]="!vrai"><span class="fa fa-heart" style="color:red;"></span> Ajouter au panier</button>
               <button class="btn btn-dark" id="b2" type="submit"><span class="fa fa-share-alt" style="color:white;"></span> Partager</button>
               <button class="btn btn-danger" id="b3" type="submit"><span class="fas fa-folder-plus" style="color:white;"></span> Acheter</button>
               <div id="div3"> 
