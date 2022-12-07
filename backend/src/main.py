@@ -69,8 +69,7 @@ def creer_musique():
 		session.add(chanson1)
 		session.commit()
 def creer_panier():
-	listAlb = [1, 2]
-	panier1 = Panier(id_user=1, id_albums=listAlb, montant_total=100)
+	panier1 = Panier(id_user=1, id_albums=1, montant_total=100)
 	with Session(engine) as session:
 		session.add(panier1)
 		session.commit()
@@ -194,10 +193,26 @@ def insert_panier(id_albums, montant_total, id_user):
 		data = get_paniers()
 		for panier in data:
 			if panier.id_albums == new_panier.id_albums and panier.id_user == new_panier.id_user:
-				return {"msg": "Vous avez ajout cet album dans votre panier"}
+				return {"msg": "Vous avez ajouté cet album dans votre panier"}
 		session.add(new_panier)
 		session.commit()
-		return {"msg": "L'album est ajouter dans votre panier"}
+		return {"msg": "L'album est ajouté dans votre panier"}
+
+def supprimer_album_panier(id_user, id_album):
+	with Session(engine) as session:
+		panier = get_panier_by_user_album(id_user, id_album)
+		session.delete(panier)
+		session.commit()
+		return {"msg" : "L'album a bien été supprimé" }
+
+def get_panier_by_user_album(id_user, id_album):
+	with Session(engine) as session:
+		route = select(Panier).where(Panier.id_user == id_user).where(Panier.id_albums == id_album)
+		res = session.exec(route)
+		paniers = res.one()
+		for panier in paniers:
+			print(panier)
+		return paniers
 #creer_musique()
 #get_artistes()
 #get_albums_by_artiste(1)
@@ -284,6 +299,14 @@ async def sign_in(n, p, l, m):
 async def create_new_user(nom: str, prenom: str, login: str, pswd:str) :
 	return {"mfg" :"khsdf"}
 '''
+@app.get("/supprimer_panier/{user}_{album}")
+async def delete_album_by_id_in_panier(user, album):
+	return supprimer_album_panier(user, album)
+
+@app.get("/ajouter_album_panier/{user}_{album}_{montant}")
+async def add_album_panier(user, album, montant): 
+	return insert_panier(album, montant, user)
+
 #test de l'api
 @app.get("/test/{test}")
 async def test(test: str):
