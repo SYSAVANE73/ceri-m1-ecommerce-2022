@@ -57,7 +57,7 @@ export class GetDataService {
       .subscribe(
         data => { // succes de l’observable httpClient
           album = data;
-          console.log("Album---> ",album);
+          //console.log("Album---> ",album);
     }, 
     (error) => {// erreur de l’observable httpClient
       console.error('une erreur est survenue!', error);
@@ -77,7 +77,7 @@ export class GetDataService {
       .subscribe(
         data => { // succes de l’observable httpClient
           panier = data;
-          console.log("Panier---> ",data);
+          //console.log("Panier---> ",data);
     }, 
     (error) => {// erreur de l’observable httpClient
       console.error('une erreur est survenue!', error);
@@ -86,5 +86,46 @@ export class GetDataService {
         observer.next(panier); // renvoi des données pour l’observable principal
       });
     });
+  }
+  //ajout dans le panier
+  insertPanier(id_user : number, id_album : number, montant : number) : Observable<any> {
+    var msg = "";
+    var quantite = 0;
+    
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      let url = 'http://127.0.0.1:8000/insertPanier/' + id_user + "/" + id_album + "/" + montant + "/" + quantite;
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          msg = data;
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(msg); // renvoi des données pour l’observable principal
+      });
+    });  
+  }
+  //supprimmer un album dans le panier
+  deletePanier(id_user : number, id_album : number) : Observable<any> {
+    var msg = "";
+    
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      let url = 'http://127.0.0.1:8000/supprimer_panier/' + id_user + "_" + id_album;
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          msg = data;
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(msg); // renvoi des données pour l’observable principal
+      });
+    });  
   }
 }

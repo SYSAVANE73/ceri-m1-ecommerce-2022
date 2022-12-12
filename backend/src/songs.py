@@ -3,6 +3,7 @@ from sqlmodel import Field, SQLModel, Session, create_engine, select
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.config import Config
 import uvicorn
 import datetime
 import MySQLdb
@@ -38,6 +39,15 @@ class User(SQLModel, table=True):
 
 
 #connect_string = "mysql+pymysql://root:root@localhost:3306/songs"
+
+config = Config(".env")
+
+"""
+user_name = config("user_name", cast=str)
+password = config("password", cast=str)
+host = config("host", cast=str)
+database_name = config("database_name", cast=str)
+"""
 
 user_name = "root"
 password = "root"

@@ -65,7 +65,7 @@ li .infos {
   
 */
 
-li:hover {
+img:hover {
     transform: scale(1.2);
     z-index: 2;
   }
@@ -79,5 +79,18 @@ li:hover .infos{
 li .infos{
     width: 250px;
 }
+
+.favorie {
+    width:35px;
+    height:35px;
+    padding: 1px 1px;
+    border-radius:19px;
+    background-color:white;
+    font-size:24px;
+    line-height:1.33;
+    border-color:red;
+}
+  
+
 
 

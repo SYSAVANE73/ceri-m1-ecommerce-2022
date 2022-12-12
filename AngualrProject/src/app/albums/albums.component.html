@@ -4,13 +4,26 @@
   <br>     
   <div>
     <ul *ngFor="let album of albumsTab">
-      <li class="albums" routerLink="/detail/{{album.id}}" routerLinkActive="active" class="nav-link" (click)="getDetails(album.id)">
-        <img src={{album.photo}} alt={{album.annee}}>
+      <li class="albums" routerLinkActive="active" class="nav-link">
+        <div routerLink="/detail/{{album.id}}" (click)="getDetails(album.id)">
+          <img src={{album.photo}} alt={{album.annee}} >
+        </div>
         <div class="infos">
-          <h5 class="min-vh-70 mh-70">{{album.titre}}</h5>
-          <h6>{{album.nom_artiste}}</h6>
-          <h6>{{album.annee_sortie}}</h6>
-          <p>{{album.prix}} €</p>
+          <br>
+          <h6 class="min-vh-70 mh-70" style="text-align: center;"><b>{{album.titre}}</b></h6>
+          <div class="d-flex justify-content-between mb-2">
+            <div class="p-2">
+              <h6>{{album.nom_artiste}}</h6>
+              <p style="color: red; font-size: 20px;"><b>{{album.prix}} €</b></p>
+            </div>
+            <div class="p-2">
+              <h6>{{album.annee_sortie}}</h6>
+              <label class="border favorie" id="favorie">
+                <i class="fa fa-heart" style="margin: 4px 4px; color: red;"></i>
+                <input type="text" style="visibility:hidden;" (click)="favori()">
+              </label>
+            </div>
+          </div>
         </div>
       </li>
     </ul>
