@@ -34,6 +34,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile.backend --tag my-image-name:$(date +%s)
+        - name: Build the Docker image
+          run: docker build -t backend . --file Dockerfile.backend --tag europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.2
+        - name: Login to registry
+          run : docker login -u _json_key_base64 -p ${{ secrets.DOCKER_PWD }} https://europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda
+        - name: push image 
+          run: docker push europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.2
