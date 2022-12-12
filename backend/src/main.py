@@ -1,6 +1,6 @@
 from typing import Optional, Union, List
 from sqlmodel import Field, SQLModel, Session, create_engine, select, JSON, Column
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.encoders import jsonable_encoder
 from fastapi.testclient import TestClient
 from fastapi.middleware.cors import CORSMiddleware
@@ -38,18 +38,19 @@ class User(SQLModel, table=True):
 	prenom: str
 	login: str
 	password: str
-"""
-class Panier(SQLModel, table=True):
-	id: Optional[int] = Field(default=None, primary_key=True)
-	id_user: int
-	id_albums: List[int] = Field(sa_column=Column(JSON))
-	montant_total: float
-"""
+
 class Panier(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	id_user: int
 	id_albums: int
 	montant_total: float
+
+class Historique(SQLModel, table=True):
+	id: Optional[int] = Field(default=None, primary_key=True)
+	id_user: int
+	montant: int
+	id_albums: List[int] = Field(sa_column=Column(JSON))
+	quantite: List[int] = Field(sa_column=Column(JSON))
 
 engine = create_engine("sqlite:///database.db")
 SQLModel.metadata.create_all(engine)
@@ -213,6 +214,26 @@ def get_panier_by_user_album(id_user, id_album):
 		for panier in paniers:
 			print(panier)
 		return paniers
+
+def get_historique():
+	with Session(engine) as session:
+		route = select(Historique)
+		res = session.exec(route)
+		data = res.all()
+		return data
+
+def ajouter_paiement(id_user, montant_total, id_albums, qte):
+	liste_alb = id_albums.split("-")
+	liste_qte = qte.split("-")
+	nv_paiement = Historique(id_user=id_user, montant=montant_total, id_albums=liste_alb, quantite=liste_qte)
+	with Session(engine) as session:
+		route = select(Historique)
+		res = session.exec(route)
+		data = res.all()
+		session.add(nv_paiement)
+		session.commit()
+		return {"msg": "Votre paiement a été accepté"}
+
 #creer_musique()
 #get_artistes()
 #get_albums_by_artiste(1)
@@ -262,7 +283,7 @@ async def index():
 	data = get_albums()
 	return jsonable_encoder(data)
 
-#renvoie les informations d'un album
+#affiche les informations d'un album
 @app.get("/getAlbum/{id_album}")
 async def get_albums_id(id_album: int):
 	data = get_albums_by_id(id_album)
@@ -286,11 +307,14 @@ async def get_users(login: str, pwd: str):
 	if not data:
 		message = {"msg" : "Mauvais login ou mot de passe. Veuillez réessayer."}
 	return message, jsonable_encoder(data)
+
+#affiche la liste de tous les utilisateurs
 @app.get("/users/")
 async def get_all_users():
 	data = get_users_list()
 	return jsonable_encoder(data)
 
+#inscritption d'un nouvel utilisateur en spécifiant ses nom, prénom, login et mot de passe
 @app.get("/signin/{n}_{p}_{l}_{m}")
 async def sign_in(n, p, l, m):
 	return create_user(n, p, l, m)
@@ -299,19 +323,38 @@ async def sign_in(n, p, l, m):
 async def create_new_user(nom: str, prenom: str, login: str, pswd:str) :
 	return {"mfg" :"khsdf"}
 '''
+
+#supprime un album dans le panier d'un utilisateur en fonction de son identifiant et de l'id de l'album
 @app.get("/supprimer_panier/{user}_{album}")
 async def delete_album_by_id_in_panier(user, album):
 	return supprimer_album_panier(user, album)
 
+#ajoute un album dans le panier d'un utilisateur en spécifiant l'id d'utilisateur, l'id et le montant de l'album
 @app.get("/ajouter_album_panier/{user}_{album}_{montant}")
 async def add_album_panier(user, album, montant): 
 	return insert_panier(album, montant, user)
+
+#ajoute un paiement à l'historique
+@app.get("/paiement/{user}_{albums}_{qte}_{montant}")
+async def add_paiement(user, montant, albums, qte): 
+	return ajouter_paiement(user, montant, albums, qte)
+
+@app.get("/historique")
+async def get_hist(): 
+	return get_historique()
 
 #test de l'api
 @app.get("/test/{test}")
 async def test(test: str):
 	return {"test": test}
 
+@app.websocket("/ws")
+async def websocket_endpoint(ws: WebSocket):
+	await ws.accept()
+	while True:
+		data = await ws.receive_text()
+		await ws.send_text(f"Message : {data}")
 
 if __name__ == "__main__":
+	#uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
 	uvicorn.run(app, host="127.0.0.1", port=8000)
