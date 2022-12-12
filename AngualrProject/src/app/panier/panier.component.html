@@ -65,8 +65,63 @@
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn btn-success btn-block"> PAIEMENT </button>
+            <button type="submit" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal"> PAIEMENT </button>
             <br>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="modal" id="myModal">
+        <div class="modal__container">
+            <div class="modal__featured">
+              <div class="modal__circle"></div>
+              <img src="https://cloud.githubusercontent.com/assets/3484527/19622568/9c972d44-987a-11e6-9dcc-93d496ef408f.png" class="modal__product" />
+            </div>
+            <div class="modal__content">
+            <button style="color:red;" type="button" class="close" data-dismiss="modal">&times;</button>
+
+              <h2>Details de paiement</h2>
+              <br>
+              <form>
+                <ul class="form-list">
+                  <li class="form-list__row">
+                    <label>Nom</label>
+                    <input type="text" name="" required="" />
+                  </li>
+                  <li class="form-list__row">
+                    <label>Numéro de la carte</label>
+                    <div id="input--cc" class="creditcard-icon">
+                      <input type="text" name="cc_number" required="" />
+                    </div>
+                  </li>
+                  <li class="form-list__row form-list__row--inline">
+                    <div>
+                      <label>Date d'expiration</label>
+                      <div class="form-list__input-inline">
+                        <input type="text" name="cc_month" placeholder="MM"  pattern="\\d*" minlength="2" maxlength="2" required="" />
+                        <input type="text" name="cc_year" placeholder="YY"  pattern="\\d*" minlength="2" maxlength="2" required="" />
+                      </div>
+                    </div>
+                    <div>
+                      <label>
+                        CVC
+                      </label>
+                      <input type="text" name="cc_cvc" placeholder="123" pattern="\\d*" minlength="3" maxlength="4" required="" />
+                    </div>
+                  </li>
+                  <li class="form-list__row form-list__row--agree">
+                    <label>
+                      <input type="checkbox" name="save_cc" checked="checked">
+                      Enregistrer ma carte pour les futurs achat
+                    </label>
+                  </li>
+                  <li>
+                    <button type="submit" class="button">Payer</button>
+
+                </ul>
+              </form>
+            </div> 
         </div>
     </div>
 </div>
