@@ -4,19 +4,20 @@ from fastapi import FastAPI, WebSocket
 from fastapi.encoders import jsonable_encoder
 from fastapi.testclient import TestClient
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 import uvicorn
 import datetime
 #import pymysql
 #import MySQLdb
 
 
-class Artiste(SQLModel, table=True):
+class Artiste(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	nom: str
 	prenom: str
 	nom_artiste: str
 
-class Album(SQLModel, table=True):
+class Album(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	titre: str
 	genre: str
@@ -26,26 +27,27 @@ class Album(SQLModel, table=True):
 	photo: str
 	nom_artiste: str
 
-class Chanson(SQLModel, table=True):
+class Chanson(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	titre: str
 	id_album: int
 	duree: float
 
-class User(SQLModel, table=True):
-	userid: Optional[int] = Field(default=None, primary_key=True)
+class User(SQLModel, table=True, extend_existing=True):
+	user_id: Optional[int] = Field(default=None, primary_key=True)
+	user_type: str
 	nom: str
 	prenom: str
 	login: str
 	password: str
 
-class Panier(SQLModel, table=True):
+class Panier(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	id_user: int
 	id_albums: int
 	montant_total: float
 
-class Historique(SQLModel, table=True):
+class Historique(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	id_user: int
 	montant: int
@@ -53,8 +55,8 @@ class Historique(SQLModel, table=True):
 	quantite: List[int] = Field(sa_column=Column(JSON))
 
 engine = create_engine("sqlite:///database.db")
+SQLModel.metadata.clear()
 SQLModel.metadata.create_all(engine)
-
 
 def creer_musique():
 	artiste1 = Artiste(nom="x", prenom="x")
@@ -148,6 +150,19 @@ def get_user_by_id(login):
 		for user in users:
 			print(user)
 		return users
+
+def get_user_by_id_user(id):
+	with Session(engine) as session:
+		route = select(User).where(User.user_id == id)
+		res = session.exec(route)
+		users = res.one()
+		return users
+
+def is_admin(id_user):
+	user = get_user_by_id(id_user)
+	if(user.user_type=="admin"):
+		return True
+	return False
 
 def create_user(nom_u, prenom_u, login_u, password_u):
 	new_user = User(nom=nom_u, prenom=prenom_u, login=login_u, password=password_u)
@@ -247,7 +262,8 @@ app = FastAPI(title="Magasin de vinyles")
 origins = [
 	"http://localhost",
 	"http://127.0.0.1:8000", 
-	"https://127.0.0.1:8000"
+	"https://127.0.0.1:8000",
+	"ws://127.0.0.1:8000"
 ]
 
 app.add_middleware(
@@ -314,7 +330,7 @@ async def get_all_users():
 	data = get_users_list()
 	return jsonable_encoder(data)
 
-#inscritption d'un nouvel utilisateur en spécifiant ses nom, prénom, login et mot de passe
+#inscription d'un nouvel utilisateur en spécifiant ses nom, prénom, login et mot de passe
 @app.get("/signin/{n}_{p}_{l}_{m}")
 async def sign_in(n, p, l, m):
 	return create_user(n, p, l, m)
@@ -348,13 +364,54 @@ async def get_hist():
 async def test(test: str):
 	return {"test": test}
 
+#test websocket
+'''
+html = """
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat</title>
+    </head>
+    <body>
+        <h1>WebSocket Chat</h1>
+        <form action="" onsubmit="sendMessage(event)">
+            <input type="text" id="messageText" autocomplete="off"/>
+            <button>Send</button>
+        </form>
+        <ul id='messages'>
+        </ul>
+        <script>
+            var ws = new WebSocket("ws://localhost:8000/ws");
+            ws.onmessage = function(event) {
+                var messages = document.getElementById('messages')
+                var message = document.createElement('li')
+                var content = document.createTextNode(event.data)
+                message.appendChild(content)
+                messages.appendChild(message)
+            };
+            function sendMessage(event) {
+                var input = document.getElementById("messageText")
+                ws.send(input.value)
+                input.value = ''
+                event.preventDefault()
+            }
+        </script>
+    </body>
+</html>
+"""
+
+
+@app.get("/")
+async def get():
+    return HTMLResponse(html)
+
 @app.websocket("/ws")
 async def websocket_endpoint(ws: WebSocket):
 	await ws.accept()
 	while True:
 		data = await ws.receive_text()
 		await ws.send_text(f"Message : {data}")
-
+'''
 if __name__ == "__main__":
 	#uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
 	uvicorn.run(app, host="127.0.0.1", port=8000)
