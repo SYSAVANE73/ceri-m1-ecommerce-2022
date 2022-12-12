@@ -35,7 +35,7 @@ export class AuthentificationService {
     });  
   }
 
-  UserInscription(login : string, pwd : string, nom : string, prenom : string) : Observable<any> {
+  UserInscription(nom : string, prenom : string,login : string, pwd : string) : Observable<any> {
     var msg = "";
     
     // la méthode renvoie un observable et un Object en données
