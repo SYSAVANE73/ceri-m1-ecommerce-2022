@@ -6,10 +6,51 @@
         <ul *ngFor="let album of album">
           <li>
             <img src={{album.photo}} alt={{album.annee}}>
-            <div style=" margin-top: 5%; margin-left: 1%;">
+            <div class="container" style="margin-left: 7%; width: 80%;">
+
+              <div class="d-flex justify-content-between mb-3">
+                <div class="p-2">
+                  <button class="btn btn-danger" type="submit"><span class="fas fa-folder-plus" style="color:white;"></span> Acheter</button>
+                </div>
+                <div class="p-2">
+                  <button class="btn btn-dark" type="submit"><span class="fa fa-share-alt" style="color:white;"></span> Partager</button>
+                </div>
+                <div class="p-2">
+                  <button class="btn btn-dark" (click)="ajoutPanier()" [disabled]="!vrai"><span class="fa fa-heart" style="color:red;"></span> Ajouter au panier</button>
+                </div>
+              </div>
+              <!--
               <button class="btn btn-dark" id="b1" (click)="ajoutPanier()" [disabled]="!vrai"><span class="fa fa-heart" style="color:red;"></span> Ajouter au panier</button>
               <button class="btn btn-dark" id="b2" type="submit"><span class="fa fa-share-alt" style="color:white;"></span> Partager</button>
               <button class="btn btn-danger" id="b3" type="submit"><span class="fas fa-folder-plus" style="color:white;"></span> Acheter</button>
+              -->
+              <div class="d-flex justify-content-between mb-2">
+                <div class="p-2">
+                  <h5>Album</h5>
+                  <h6>{{album.titre}}</h6>
+                </div>
+                <div class="p-2">
+                  <h5>Artiste</h5>
+                  <h5>{{album.nom_artiste}}</h5>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between mb-3">
+                <div class="p-2">
+                  <h5>Genre</h5>
+                  <h6>{{album.genre}}</h6>
+                </div>
+                <div class="p-2">
+                  <h5>Parution</h5>
+                  <h6>{{album.annee_sortie}}</h6>
+                </div>
+                <div class="p-2">
+                  <h5>Prix</h5>
+                  <p>{{album.prix}} €</p>
+                </div>
+              </div>
+
+              <!--
               <div id="div3"> 
                 <div id="div1"> 
                   <h5>Album</h5>
@@ -29,19 +70,33 @@
                   <p>{{album.prix}} €</p>
                 </div>
               </div> 
+              -->
             </div>
-            <br>
           </li>
         </ul>
       </div>
       <div>
-        <div style=" margin-top: 49%; margin-left: -14%;">
+        <div style=" margin-top: 25%; margin-left: -14%;">
           <ul *ngFor="let chanson of detailTab">
             <li>
+              <div class="d-flex justify-content-between mb-2">
+                <div class="p-2">
+                  <h4>{{chanson.titre}} </h4>
+                  <h5>{{chanson.duree}} <i class='far fa-clock	'></i></h5>
+                </div>
+                <div class="p-2">
+                  <i class='fas fa-music' style='font-size:30px;color:purple;margin-left: 85%;'></i>
+                </div>
+              </div>
+              <!--
               <div class="bg-light border ">
+
                 <h4>{{chanson.titre}} </h4><i class='fas fa-music' style='font-size:30px;color:purple;margin-left: 85%;'></i>
                 <h5>{{chanson.duree}} <i class='far fa-clock	'></i></h5>
+
+                
               </div>
+              -->
             </li>
           </ul>
         </div>

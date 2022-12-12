@@ -61,6 +61,10 @@ export class AlbumsComponent implements OnInit {
 
     });
   }
+
+  favori(): void {
+    console.log('ajouter dans favorie');
+  }
   /*
   getUser(data: any): void{
     console.log(data);

@@ -18,7 +18,10 @@
             </div>
             <div class="p-2">
               <h6>{{album.annee_sortie}}</h6>
-              <span class="border" style="height: 60px; cursor: pointer;"><i class="fa fa-heart" style="margin: 5px 5px; color: forestgreen; cursor: pointer;"></i></span>
+              <label class="border favorie" id="favorie">
+                <i class="fa fa-heart" style="margin: 4px 4px; color: red;"></i>
+                <input type="text" style="visibility:hidden;" (click)="favori()">
+              </label>
             </div>
           </div>
         </div>

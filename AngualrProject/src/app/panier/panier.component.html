@@ -6,7 +6,7 @@
         <div class="col-6 border">
             <h2 style="text-align: center;"><b> MON PANIER </b></h2>
             <div>
-                <ul *ngFor="let album of album;">
+                <ul *ngFor="let album of album; let index = index;">
                   <li class="border">
                     <div class="d-flex justify-content-between mb-3">
                         <div class="p-2">
@@ -18,17 +18,13 @@
                             <p style="font-size: 18px;"><b>{{album[0].prix}} €</b></p>
                             <div style="display: inline-flex;">
                                 <span style="margin-right: 7px;">Quantité  </span>  
-                                <select class="form-control" id="sel1" name="sellist1" style="width: 60px; height: 35px; align-items: flex-end;">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
+                                <button (click)="decremente()"> -  </button>
+                                <input type="text" style="width: 20px;" value="{{quantite}}" min="0" max="10">
+                                <button (click)="incremente()">  + </button>
                             </div>
                         </div>
                         <div class="p-2">
-                            <button ><i class="fas fa-trash-alt"></i></button>
+                            <button (click)="suppPannier(album[0].id)"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </div>
                   </li>
@@ -55,7 +51,7 @@
                     <p>Livraison </p>
                 </div>
                 <div class="p-2">
-                    <p>20 euros</p>
+                    <p>{{quantite * montantTotal}} euros</p>
                     <p>GRATUIT</p>
                 </div>
             </div>
@@ -65,7 +61,7 @@
                     <p><b> Total de la commande </b></p>
                 </div>
                 <div class="p-2">
-                    <p><b>20 euros</b></p>
+                    <p><b>{{quantite * montantTotal}} euros</b></p>
                 </div>
             </div>
             <br>
