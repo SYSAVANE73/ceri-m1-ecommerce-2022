@@ -1,11 +1,11 @@
-resource "google_cloud_run_service" "default" {
+resource "google_cloud_run_service" "frontend" {
   name     = "redpanda-frontend"
   location = "europe.west1"
 
   template {
     spec {
       containers {
-        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend"
+        image = "gcr.io/europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2"
       }
     }
   }
@@ -14,11 +14,4 @@ resource "google_cloud_run_service" "default" {
     percent         = 100
     latest_revision = true
   }
-}
-  
-resource "google_cloud_run_service_iam_member" "invokers" {
-  location = google_cloud_run_service.backend.location
-  service = google_cloud_run_service.backend.name
-  role    = "roles/run.invoker"
-  member  = "allUsers"
 }
