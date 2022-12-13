@@ -15,3 +15,8 @@ resource "google_cloud_run_service" "frontend" {
     latest_revision = true
   }
 }
+provider "google" {
+  project = "ceri-m1-ecommerce-2022"
+  region = "europe.west1"
+}
+
