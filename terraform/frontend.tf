@@ -16,7 +16,7 @@ resource "google_cloud_run_service" "frontend" {
   }
 }
 provider "google" {
-  credentials = "${{ secrets.TF_TOKEN }}"
+  credentials = ${{ secrets.TF_TOKEN }}
   project = "ceri-m1-ecommerce-2022"
   region = "europe.west1"
 }
