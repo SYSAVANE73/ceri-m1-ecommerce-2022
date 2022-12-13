@@ -5,7 +5,7 @@ resource "google_cloud_run_service" "frontend" {
   template {
     spec {
       containers {
-        image = "gcr.io/europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2"
+        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2"
       }
     }
   }
@@ -15,9 +15,3 @@ resource "google_cloud_run_service" "frontend" {
     latest_revision = true
   }
 }
-provider "google" {
-  credentials = ${{ secrets.TF_TOKEN }}
-  project = "ceri-m1-ecommerce-2022"
-  region = "europe.west1"
-}
-
