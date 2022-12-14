@@ -26,6 +26,8 @@ CREATE TABLE "Chanson" (
 )
 
 
+
+
 INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Sedraïa","Adila","Indila");
 INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix) VALUES("Mini World","French Urban Pop/R&B","2014",1,32.00);
 INSERT INTO Chanson(titre,id_album,duree) VALUES ("Love Story",1,5.17);
