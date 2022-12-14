@@ -45,6 +45,7 @@ class Panier(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	id_user: int
 	id_albums: int
+	quantite: int
 	montant_total: float
 
 class Historique(SQLModel, table=True, extend_existing=True):
@@ -96,7 +97,7 @@ def get_songs_by_album(albumId):
 		return album
 def get_albums_by_artiste(artisteId):
 	with Session(engine) as session:
-		route = select(Album).where(Album.artiste_id == artisteId)
+		route = select(Album).where(Album.id_artiste == artisteId)
 		res = session.exec(route)
 		albums = res.all()
 		for album in albums:
@@ -203,8 +204,8 @@ def get_paniers():
 			print(panier)
 		return paniers
 
-def insert_panier(id_albums, montant_total, id_user):
-	new_panier = Panier(id_albums=id_albums, montant_total=montant_total, id_user=id_user)
+def insert_panier(id_albums, montant_total, qte, id_user):
+	new_panier = Panier(id_albums=id_albums, montant_total=montant_total, id_user=id_user, quantite=qte)
 	with Session(engine) as session:
 		data = get_paniers()
 		for panier in data:
@@ -346,9 +347,9 @@ async def delete_album_by_id_in_panier(user, album):
 	return supprimer_album_panier(user, album)
 
 #ajoute un album dans le panier d'un utilisateur en spécifiant l'id d'utilisateur, l'id et le montant de l'album
-@app.get("/ajouter_album_panier/{user}_{album}_{montant}")
-async def add_album_panier(user, album, montant): 
-	return insert_panier(album, montant, user)
+@app.get("/ajouter_album_panier/{user}_{album}_{qte}_{montant}")
+async def add_album_panier(user, album, montant, qte): 
+	return insert_panier(album, montant, qte, user)
 
 #ajoute un paiement à l'historique
 @app.get("/paiement/{user}_{albums}_{qte}_{montant}")
