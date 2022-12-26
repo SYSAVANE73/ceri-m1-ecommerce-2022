@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GetDataService } from '../services/get-data.service';
+import { Store } from '@ngrx/store';
 
 
 @Component({
@@ -17,27 +18,30 @@ export class AlbumsComponent implements OnInit {
   detailTab = {
     chanson: new Array()
   };
+  vrai : boolean = false;
+  user= {
+    id: 0,
+    nom: '',
+    prenom: '',
+    isloged: false
+  };
 
 
-  @Input() message:string="";
-
-  @Output() msg = new EventEmitter<string>();
-
-  constructor(_service:GetDataService, _http:HttpClient) { 
+  constructor(_service:GetDataService, _http:HttpClient, private store: Store) { 
     this.service = _service;
     this.getAlbums();
   }
 
-
   ngOnInit(): void {
-    /*
-    this.send.currentApprovalStageMessage.subscribe((msg) => {
-      this.message = msg;
-      console.log("-----> ", msg);
+    this.store.select((State: any) => State.root.users).subscribe(data => {
+      this.user = data;
+      
+      if(this.user.isloged == true){
+        this.vrai = true;
+      } else{
+        this.vrai = false;
+      }
     });
-    */
-   console.log("connection ------> ", this.message);
-    
   }
 
   getAlbums(): void {
@@ -58,16 +62,16 @@ export class AlbumsComponent implements OnInit {
         //console.log(this.detailTab);
       },
       (error) => {
-
     });
   }
 
-  favori(): void {
-    console.log('ajouter dans favorie');
+  ajoutFavoris(id_album: number): void {
+    console.log('ajouter dans favorie', id_album, this.user.id);
+    this.service.insertFavoris(id_album, this.user.id).subscribe(
+      (data:any) => {
+        console.log(data);
+      },
+      (error) => {
+    });
   }
-  /*
-  getUser(data: any): void{
-    console.log(data);
-  }
-  */
 }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { GetDataService } from './services/get-data.service';
 import { ConnexionComponent } from './connexion/connexion.component';
 import {State, Store} from '@ngrx/store';
-import {initAction, changeUsername} from './store/actions';
+import {initAction, changeUsername, nbAlbum} from './store/actions';
 import { WebsocketService } from './services/websocket.service';
 import { io } from 'socket.io-client';
 
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   
   constructor(_service:GetDataService, _http:HttpClient, private store: Store, private socket: WebsocketService){
     this.service = _service;
-    this.socket.emit("Bonjour");
+    //this.socket.emit("Bonjour");
   }
 
 

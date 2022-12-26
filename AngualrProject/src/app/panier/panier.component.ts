@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { GetDataService } from '../services/get-data.service';
+import { update } from '../store/actions';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-panier',
@@ -24,11 +26,17 @@ export class PanierComponent implements OnInit {
   albums = {};
   quantite = 1;
   montantTotal = 0;
+  stock = 0;
+  listeQuantite = [1,2,3,4,5];
 
   constructor(_service:GetDataService, _router: Router, private store: Store) { 
     this.route = _router;
     this.service = _service;
   }
+
+  form = new FormGroup({
+    quantite: new FormControl(1),
+  });
 
   ngOnInit(): void {
     this.store.select((State: any) => State.root.users).subscribe(data => {
@@ -56,6 +64,7 @@ export class PanierComponent implements OnInit {
     this.service.getAlbum(id_albums).subscribe(
       (data: any) => {
         console.log("Album -> ", data);
+        var q = this.form.value.quantite || 0;
         this.montantTotal += data[0].prix; 
         this.album.push(data);
       }
@@ -63,21 +72,26 @@ export class PanierComponent implements OnInit {
   }
 
   suppPannier(id_album: number): void {
-    //console.log("supp-> ",id_album);
     this.service.deletePanier(this.user.id, id_album).subscribe(
       (data: any) => {
         console.log(data);
-        this.route.navigate(['/album']);
+        //this.route.navigate(['/album']);
+        //on met à jour la liste des album après suppression
+        
+        this.store.dispatch(update({vrai: true}));
+        //mise à jour de la liste des albums après suppression
+        this.store.select((State: any) => State.root.vrai).subscribe(data => {
+          this.album = [];
+          this.montantTotal= 0;
+          console.log('vous venez de supprimer');
+          //this.ngOnInit();
+          this.getUserPanier(this.user.id);
+        }); 
       }
     )
   }
-  incremente(): void {
-    this.quantite ++;
-  }
 
-  decremente(): void {
-    if(this.quantite >1) {
-      this.quantite --;
-    }
+  getQuantite(): void{
+    console.log('auantite ',this.form.value.quantite);
   }
 }

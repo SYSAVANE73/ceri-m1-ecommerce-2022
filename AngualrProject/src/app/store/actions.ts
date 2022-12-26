@@ -10,4 +10,6 @@ export const disconnect = createAction('Log out', props<{user : any}>());
 
 //export const disconnect = createAction('log out', props<{ isloged: boolean }>());
 
-export const logOut = createAction('Log out user');
+export const update = createAction('Mise à jour', props<{vrai: boolean}>());
+
+export const nbAlbum = createAction('Nombre albums dans favoris', props<{nbr: number}>());

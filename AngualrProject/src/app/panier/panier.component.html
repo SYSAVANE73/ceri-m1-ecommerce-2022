@@ -15,16 +15,31 @@
                         <div class="p-2">
                             <h5 class="min-vh-70 mh-70">{{album[0].titre}}</h5>
                             <h6>{{album[0].nom_artiste}}</h6>
-                            <p style="font-size: 18px;"><b>{{album[0].prix}} €</b></p>
+                            
+                            <!--<div style="display: inline-flex;">-->
                             <div style="display: inline-flex;">
-                                <span style="margin-right: 7px;">Quantité  </span>  
-                                <button (click)="decremente()"> -  </button>
-                                <input type="text" style="width: 20px;" value="{{quantite}}" min="0" max="10">
-                                <button (click)="incremente()">  + </button>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <span style="margin-right: 7px;"><b>Quantité</b></span>
+                                <form [formGroup]="form" (ngSubmit)="getQuantite()">
+                                  <div class="form-group">
+                                    <label for="sel1">Quantité</label>
+                                    <select class="form-control" id="quant" formControlName="quantite">
+                                      <option *ngFor="let i of listeQuantite" [ngValue]="i">{{i}}</option>
+                                    </select>
+                                  </div>
+                                  <button type="submit">Login</button>
+                              </form>
+                                  
+                                <p><u>Modifier</u></p>
                             </div>
                         </div>
                         <div class="p-2">
                             <button (click)="suppPannier(album[0].id)"><i class="fas fa-trash-alt"></i></button>
+                            <br><br>
+                            <p style="color: greenyellow;">En stock</p>
+                            <p style="font-size: 18px;color: firebrick;"><b>{{album[0].prix}} €</b></p>
                         </div>
                     </div>
                   </li>

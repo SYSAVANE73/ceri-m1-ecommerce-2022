@@ -13,7 +13,6 @@ export class GetDataService {
     let albums = new Array();
     
     return Observable.create((observer: Subscriber<Object>) => {
-
       this._http.get<any>('http://127.0.0.1:8000/album/',{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -90,7 +89,7 @@ export class GetDataService {
   //ajout dans le panier
   insertPanier(id_user : number, id_album : number, montant : number) : Observable<any> {
     var msg = "";
-    var quantite = 0;
+    var quantite = 1;
     
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
@@ -115,6 +114,66 @@ export class GetDataService {
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
       let url = 'http://127.0.0.1:8000/supprimer_panier/' + id_user + "_" + id_album;
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          msg = data;
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(msg); // renvoi des données pour l’observable principal
+      });
+    });  
+  }
+  //recuperation des favoris de l'utilisateur
+  getFavoris(id : number) : Observable<any> {
+    let favoris = new Array();
+    
+    return Observable.create((observer: Subscriber<any>) => {
+      let url = 'http://127.0.0.1:8000/favoris/' + id;
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          favoris = data;
+          //console.log("Favoris---> ",data);
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(favoris); // renvoi des données pour l’observable principal
+      });
+    });
+  }
+
+  //ajout dans le panier
+  insertFavoris(id_album : number, id_user : number) : Observable<any> {
+    var msg = "";
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      let url = 'http://127.0.0.1:8000/insertFavoris/' + id_album + "/" + id_user;
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          msg = data;
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(msg); // renvoi des données pour l’observable principal
+      });
+    });  
+  }
+  //supprimmer un album dans le panier
+  deleteFavoris(id_album : number, id_user : number) : Observable<any> {
+    var msg = "";
+    
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      let url = 'http://127.0.0.1:8000/supprimer_favoris/' + id_album + "_" + id_user;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
