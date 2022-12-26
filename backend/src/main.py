@@ -233,6 +233,15 @@ def get_panier_by_user_album(id_user, id_album):
 			print(panier)
 		return paniers
 
+def get_panier_by_user_album(id_user, id_album):
+	with Session(engine) as session:
+		route = select(Panier).where(Panier.id_user == id_user).where(Panier.id_albums == id_album)
+		res = session.exec(route)
+		paniers = res.one()
+		for panier in paniers:
+			print(panier)
+		return paniers
+
 def get_historique():
 	with Session(engine) as session:
 		route = select(Historique)
@@ -331,15 +340,16 @@ async def get_all_users():
 	data = get_users_list()
 	return jsonable_encoder(data)
 
+#retourne le statut ('user', 'admin') d'un utilisateur par son login
+@app.get("/user_statut/{login}")
+async def get_status(login):
+	data = get_users_list()
+	return get_status_by_login(login)
+
 #inscription d'un nouvel utilisateur en spécifiant ses nom, prénom, login et mot de passe
 @app.get("/signin/{n}_{p}_{l}_{m}")
 async def sign_in(n, p, l, m):
 	return create_user(n, p, l, m)
-'''
-@app.post("/new")
-async def create_new_user(nom: str, prenom: str, login: str, pswd:str) :
-	return {"mfg" :"khsdf"}
-'''
 
 #supprime un album dans le panier d'un utilisateur en fonction de son identifiant et de l'id de l'album
 @app.get("/supprimer_panier/{user}_{album}")
