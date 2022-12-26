@@ -26,6 +26,7 @@ class Album(SQLModel, table=True, extend_existing=True):
 	prix: float
 	photo: str
 	nom_artiste: str
+	stock: int
 
 class Chanson(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
@@ -161,6 +162,13 @@ def get_user_by_id_user(id):
 		users = res.one()
 		return users
 
+def get_status_by_login(login):
+	with Session(engine) as session:
+		route = select(User.user_type).where(User.login == login)
+		res = session.exec(route)
+		user = res.one()
+		return user
+
 def is_admin(id_user):
 	user = get_user_by_id(id_user)
 	if(user.user_type=="admin"):
@@ -233,15 +241,18 @@ def get_panier_by_user_album(id_user, id_album):
 			print(panier)
 		return paniers
 
-def get_panier_by_user_album(id_user, id_album):
+#modifier la quantité d'album restante en stock
+def update_qte_album(id_album, qte):
 	with Session(engine) as session:
-		route = select(Panier).where(Panier.id_user == id_user).where(Panier.id_albums == id_album)
+		route = select(Album).where(Album.id == id_album)
 		res = session.exec(route)
-		paniers = res.one()
-		for panier in paniers:
-			print(panier)
-		return paniers
+		album = res.one()
+		album.stock = qte
+		session.add(album)
+		session.commit()
+		return {"msg": "Le stock a été modifié"}
 
+#liste l'historique de tous les paiements
 def get_historique():
 	with Session(engine) as session:
 		route = select(Historique)
@@ -315,11 +326,18 @@ async def get_albums_id(id_album: int):
 	data = get_albums_by_id(id_album)
 	return jsonable_encoder(data)
 
+#modifier le stock d'album
+@app.get("/modifier_stock_album/{id_album}_{qte}")
+async def update_stock(id_album: int, qte: int):
+	data = update_qte_album(id_album, qte)
+	return jsonable_encoder(data)
+
 #affiche le panier d'un utilisateur
 @app.get("/panier/{id_user}")
 async def get_panier_by_id(id_user: int):
 	data = get_panier(id_user)
 	return jsonable_encoder(data)
+
 @app.get("/paniers/")
 async def get_all_paniers():
 	data = get_paniers()
@@ -340,7 +358,6 @@ async def get_all_users():
 	data = get_users_list()
 	return jsonable_encoder(data)
 
-#retourne le statut ('user', 'admin') d'un utilisateur par son login
 @app.get("/user_statut/{login}")
 async def get_status(login):
 	data = get_users_list()
