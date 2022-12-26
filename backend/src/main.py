@@ -51,9 +51,11 @@ class Panier(SQLModel, table=True, extend_existing=True):
 class Historique(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	id_user: int
-	montant: int
-	id_albums: List[int] = Field(sa_column=Column(JSON))
+	montant: float
+	id_albums: List[str] = Field(sa_column=Column(JSON))
+	albums: List[str] = Field(sa_column=Column(JSON))
 	quantite: List[int] = Field(sa_column=Column(JSON))
+	date: str
 
 engine = create_engine("sqlite:///database.db")
 SQLModel.metadata.clear()
@@ -238,14 +240,12 @@ def get_historique():
 		data = res.all()
 		return data
 
-def ajouter_paiement(id_user, montant_total, id_albums, qte):
-	liste_alb = id_albums.split("-")
+def ajouter_paiement(id_user, id_album, album, qte, mtt, date):
+	liste_alb_id = id_album.split("-")
+	liste_alb = album.split("-")
 	liste_qte = qte.split("-")
-	nv_paiement = Historique(id_user=id_user, montant=montant_total, id_albums=liste_alb, quantite=liste_qte)
+	nv_paiement = Historique(id_user=id_user, montant=mtt, id_albums=liste_alb_id, album=liste_alb, quantite=liste_qte, date=date)
 	with Session(engine) as session:
-		route = select(Historique)
-		res = session.exec(route)
-		data = res.all()
 		session.add(nv_paiement)
 		session.commit()
 		return {"msg": "Votre paiement a été accepté"}
@@ -352,9 +352,9 @@ async def add_album_panier(user, album, montant, qte):
 	return insert_panier(album, montant, qte, user)
 
 #ajoute un paiement à l'historique
-@app.get("/paiement/{user}_{albums}_{qte}_{montant}")
-async def add_paiement(user, montant, albums, qte): 
-	return ajouter_paiement(user, montant, albums, qte)
+@app.get("/paiement/{id_user}_{id_album}_{album}_{qte}_{montant}_{date}")
+async def add_paiement(id_user, id_album, album, qte, montant, date): 
+	return ajouter_paiement(id_user, id_album, album, qte, montant, date)
 
 @app.get("/historique")
 async def get_hist(): 
