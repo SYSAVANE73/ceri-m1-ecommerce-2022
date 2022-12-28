@@ -1,7 +1,7 @@
 import { Component, OnInit, Input , EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
-import { disconnect, getUser, update, nbAlbum } from '../store/actions';
+import { disconnect, getUser, update, nbAlbum, nbPanier } from '../store/actions';
 
 @Component({
   selector: 'app-navigation',
@@ -24,6 +24,7 @@ export class NavigationComponent implements OnInit {
     isloged: false
   };
   nbrAlbum = 0;
+  nbPanier = 0;
 
   constructor(_router: Router, private store: Store) {
     this.route = _router;
@@ -45,18 +46,24 @@ export class NavigationComponent implements OnInit {
 
     //pour recuperer le nombre d'album dans le store
     this.store.select((State: any) => State.root.nbr).subscribe(data => {
-      //this.user = data;
       this.nbrAlbum = data;
-      //console.log('count ', data);
+    });
+    //pour recuperer le nombre d'album dans le panier
+    this.store.select((State: any) => State.root.panier).subscribe(data => {
+      this.nbPanier = data;
+      console.log('nb panier--> ', data);
     });
   }
+
 
   deconnection(): void {
     if(this.user.isloged == true){
       this.vrai = false;
       this.route.navigate(['/album']);
     }
+    //Mise à jour du compte et panier après la deconnexion
     this.store.dispatch(getUser({user : this.userdisconnect}));
+    this.store.dispatch(nbPanier({panier: 0}));
   }
 
   panier(): void {

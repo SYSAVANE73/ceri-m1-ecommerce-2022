@@ -50,10 +50,10 @@
           <a style="font-size: 15px;color:white; margin:4px" routerLink="/inscrire" routerLinkActive="active" class="nav-link fas fa-user">S'inscrire</a>
         </li>
         <li [hidden]="!vrai">
-          <a style="font-size: 15px;color:white; margin:4px" routerLink="/favoris" routerLinkActive="active" class="nav-link fas fa-heart"> {{nbrAlbum}}</a>
+          <a style="font-size: 15px;color:white; margin:4px" routerLink="/favoris" routerLinkActive="active" class="nav-link fas fa-heart"> <sup> {{nbrAlbum}}</sup></a>
         </li>
         <li >
-          <a style="font-size: 15px;color:white; margin:4px" routerLink="/" routerLinkActive="active" class="nav-link fas fa-shopping-cart" (click)="panier()"></a>
+          <a style="font-size: 15px;color:white; margin:4px" routerLink="/" routerLinkActive="active" class="nav-link fas fa-shopping-cart" (click)="panier()"><sup> {{nbPanier}}</sup></a>
         </li>
       </ul>
     </div> 

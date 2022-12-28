@@ -5,7 +5,7 @@ import { AuthentificationService } from '../services/authentification.service';
 import { GetDataService } from '../services/get-data.service';
 import { ActivatedRoute , Router} from '@angular/router';
 import {Store} from '@ngrx/store';
-import { getUser, nbAlbum } from '../store/actions';
+import { getUser, nbAlbum, nbPanier } from '../store/actions';
 
 @Component({
   selector: 'app-connexion',
@@ -65,6 +65,7 @@ export class ConnexionComponent implements OnInit {
 
           this.store.dispatch(getUser({user : this.user}));
           this.getAlbums(data[0].userid);
+          this.getAlbumsPanier(data[0].userid);
 
           this.goBack();
           this.formGroup.reset();
@@ -75,12 +76,22 @@ export class ConnexionComponent implements OnInit {
       (error) => {
     });
   }
-  //recuperation des albums de l'utilisateur dans le panier
+  //recuperation des albums de l'utilisateur dans favoris
   getAlbums(id: number): void {
     this.dataService.getFavoris(id).subscribe(
       (data:any) => {
         console.log('favoris ',data.length);
         this.store.dispatch(nbAlbum({nbr: data.length}));
+      },
+      (error) => {
+    });
+  }
+  //recuperation des albums de l'utilisateur dans le panier
+  getAlbumsPanier(id: number): void {
+    this.dataService.getPanier(id).subscribe(
+      (data:any) => {
+        //console.log('favoris ',data.length);
+        this.store.dispatch(nbPanier({panier: data.length}));
       },
       (error) => {
     });

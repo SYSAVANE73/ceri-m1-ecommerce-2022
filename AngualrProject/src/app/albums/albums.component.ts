@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GetDataService } from '../services/get-data.service';
 import { Store } from '@ngrx/store';
-
+import { getUser, nbAlbum, nbPanier } from '../store/actions';
 
 @Component({
   selector: 'app-albums',
@@ -25,7 +25,7 @@ export class AlbumsComponent implements OnInit {
     prenom: '',
     isloged: false
   };
-
+  nbrAlbum = 0;
 
   constructor(_service:GetDataService, _http:HttpClient, private store: Store) { 
     this.service = _service;
@@ -41,6 +41,10 @@ export class AlbumsComponent implements OnInit {
       } else{
         this.vrai = false;
       }
+    });
+    //pour recuperer le nombre d'album dans le store
+    this.store.select((State: any) => State.root.nbr).subscribe(data => {
+      this.nbrAlbum = data;
     });
   }
 
@@ -70,6 +74,8 @@ export class AlbumsComponent implements OnInit {
     this.service.insertFavoris(id_album, this.user.id).subscribe(
       (data:any) => {
         console.log(data);
+        //Mise à jour du nombre de favoris
+        this.store.dispatch(nbAlbum({nbr: this.nbrAlbum + 1}));
       },
       (error) => {
     });

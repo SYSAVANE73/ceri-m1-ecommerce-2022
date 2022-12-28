@@ -22,15 +22,15 @@
                                 <p></p>
                                 <p></p>
                                 <span style="margin-right: 7px;"><b>Quantité</b></span>
-                                <select [(ngModel)]="panier[index].quantite" (ngModelChange)="selectChange($event, album[0].id)">
+                                <select [(ngModel)]="panier[index].quantite" (ngModelChange)="selectChange($event, album[0].stock)">
                                   <option *ngFor="let i of listeQuantite" [ngValue]="i">{{i}}</option>
                                 </select>
                                 <p></p>
                                 <div *ngIf="album[0].stock < panier[index].quantite;">
-                                  <p style="color: red;">Quantité indisponible</p>
+                                  <p style="color: red;"> Quantité indisponible</p>
                                 </div>
-                                <div *ngIf="album[0].stock > panier[index].quantite;">
-                                  <p style="color: greenyellow;">En stock</p>
+                                <div *ngIf="album[0].stock >= panier[index].quantite;">
+                                  <p style="color: greenyellow;"> En stock</p>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal"> PAIEMENT </button>
+            <button type="submit" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal" [disabled]="paiemt"> PAIEMENT </button>
             <br>
         </div>
     </div>

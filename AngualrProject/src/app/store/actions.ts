@@ -13,3 +13,5 @@ export const disconnect = createAction('Log out', props<{user : any}>());
 export const update = createAction('Mise à jour', props<{vrai: boolean}>());
 
 export const nbAlbum = createAction('Nombre albums dans favoris', props<{nbr: number}>());
+
+export const nbPanier = createAction('Nombre album dans panier', props<{panier: number}>());
