@@ -12,6 +12,7 @@ const initialState = {
         id: 0,
         nom: '',
         prenom: '',
+        login: '',
         isLoged: false
     },
     nbr : 0,

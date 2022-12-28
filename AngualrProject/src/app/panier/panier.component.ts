@@ -4,12 +4,13 @@ import { Store } from '@ngrx/store';
 import { GetDataService } from '../services/get-data.service';
 import { update } from '../store/actions';
 import { FormGroup, FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-panier',
   templateUrl: './panier.component.html',
   styleUrls: ['./panier.component.css'],
-  providers: [GetDataService]
+  providers: [GetDataService, DatePipe]
 })
 export class PanierComponent implements OnInit {
   service : GetDataService;
@@ -33,10 +34,6 @@ export class PanierComponent implements OnInit {
     this.route = _router;
     this.service = _service;
   }
-
-  form = new FormGroup({
-    quantite: new FormControl(1),
-  });
 
   ngOnInit(): void {
     this.store.select((State: any) => State.root.users).subscribe(data => {
@@ -64,8 +61,9 @@ export class PanierComponent implements OnInit {
     this.service.getAlbum(id_albums).subscribe(
       (data: any) => {
         console.log("Album -> ", data);
-        var q = this.form.value.quantite || 0;
-        this.montantTotal += data[0].prix; 
+        this.montantTotal += data[0].prix * this.panier[0].quantite;
+        console.log('total ',this.montantTotal);
+        //data.quantite = 1;
         this.album.push(data);
       }
     )
@@ -90,8 +88,49 @@ export class PanierComponent implements OnInit {
       }
     )
   }
-
-  getQuantite(): void{
-    console.log('auantite ',this.form.value.quantite);
+  paie = false;
+  paiement(): void{
+    //console.log('paiement ', this.album);
+    //console.log('paiement ', this.panier)
+    var d = new Date();
+    var date = d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getFullYear();
+    var id_album = ""
+    var id_albums = ""
+    var quantite_paie = ""
+    var montant = 0;
+    for(let i=0; i<this.album.length; i++){
+      //console.log('---> ',this.album[i][0].id, this.album[i][0].titre, this.panier[i].quantite);
+      id_album += this.album[i][0].id +"-";
+      id_albums += this.album[i][0].titre + "-";
+      quantite_paie += this.panier[i].quantite + "-";
+      montant += this.panier[i].quantite * this.album[i][0].prix;
+      this.miseAJourStock(this.album[i][0].id,this.panier[i].quantite);
+    }
+    console.log(date);
+    console.log('---> ',id_album, id_albums, quantite_paie,montant);
+    
+    //(id_user : number, id_album : any, albums: any, quantite: any, montant: number, date: string )
+    
+    this.service.insertHistorique(this.user.id,id_album,id_albums,quantite_paie,montant,date).subscribe(
+      (data: any) => {
+        console.log("Paiement -> ", data);
+      }
+    )
+    this.paie = true;
   }
+
+  selectChange(q: number, id_albums:number): void{
+    console.log('q --> ', q, 'albums-->',id_albums);
+
+    console.log('mont ',this.montantTotal);
+  }
+
+  miseAJourStock(id_album: number, quantite: number): void{
+    this.service.updateStock(id_album,quantite).subscribe(
+      (data: any) => {
+        console.log("update -> ", data);
+      }
+    )
+  }
+  
 }

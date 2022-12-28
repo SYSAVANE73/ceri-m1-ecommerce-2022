@@ -15,15 +15,13 @@
               <div class="p-2">
                 <h6>{{album[0].nom_artiste}}</h6>
                 <p style="color: red; font-size: 20px;"><b>{{album[0].prix}} €</b></p>
-                <button class="btn btn-success center btn-sm" type="text" (click)="ajoutPanier(album[0].id, album[0].prix)"> Ajouter au panier</button>
               </div>
               <div class="p-2">
                 <h6>{{album[0].annee_sortie}}</h6>
-                <p>.</p>
                 <button class="btn btn-danger center btn-sm" type="text" (click)="suppFavoris(album[0].id)"> Supprimer</button>
               </div>
             </div>
-            
+            <button class="btn btn-success center btn-sm btn-block" type="text" (click)="ajoutPanier(album[0].id, album[0].prix)"> Ajouter au panier</button>
           </div>
         </li>
       </ul>
