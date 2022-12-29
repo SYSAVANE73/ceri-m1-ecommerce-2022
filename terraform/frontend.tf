@@ -15,4 +15,3 @@ resource "google_cloud_run_service" "frontend" {
     latest_revision = true
   }
 }
-
