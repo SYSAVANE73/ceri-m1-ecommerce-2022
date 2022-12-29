@@ -1,5 +1,5 @@
 terraform {
-  cloud {
+  cloud "remote" {
     hostname     = "app.terraform.io"  
     organization = "E-ecommerce"
   
