@@ -19,11 +19,13 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let hist of historique; let index = index;">
-                      <td>{{hist.nom_albums}}</td>
-                      <td>{{hist.quantite}}</td>
-                      <td>{{hist.montant}}</td>
+                      <td><p *ngFor="let alb of hist.nom_albums;">{{alb}}</p></td>
+                      <!--<td>{{hist.nom_albums}}</td>-->
+                      <td><p *ngFor="let qtt of hist.quantite;">{{qtt}}</p></td>
+                      <!--<td>{{hist.quantite}}</td>-->
+                      <td><span style="color: red;">{{hist.montant}} €</span></td>
                       <td>{{hist.date}}</td>
-                      <!--<td><p *ngFor="let exe of exemple;">{{exe}}</p></td>-->
+                      
                     </tr>
                   </tbody>
                 </table>
@@ -62,7 +64,7 @@
                   </li>
                   <br>
                   <li>
-                    <button type="submit" class="button"> Anuler </button>
+                    <button type="reset" class="button"> Anuler </button>
                     <button type="submit" class="button" style="float: right;" > Mise à jour </button>
                   </li>
                 </ul>

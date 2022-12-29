@@ -193,6 +193,7 @@ export class GetDataService {
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
       let url = 'http://127.0.0.1:8000/paiement/' + id_user +'/'+id_album+ '/'+ albums+'/'+quantite+'/'+montant+'/'+date;
+      console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient

@@ -104,14 +104,35 @@ export class PanierComponent implements OnInit {
     var id_albums = ""
     var quantite_paie = ""
     var montant = 0;
-    for(let i=0; i<this.album.length; i++){
-      //console.log('---> ',this.album[i][0].id, this.album[i][0].titre, this.panier[i].quantite);
-      id_album += this.album[i][0].id +"-";
-      id_albums += this.album[i][0].titre + "-";
-      quantite_paie += this.panier[i].quantite + "-";
-      montant += this.panier[i].quantite * this.album[i][0].prix;
-      this.miseAJourStock(this.album[i][0].id,this.panier[i].quantite);
+    //nous allons concatener les valeurs et mettre à jour les quantité.
+    if(this.album.length == 1){
+      for(let i=0; i<this.album.length; i++){
+        //console.log('---> ',this.album[i][0].id, this.album[i][0].titre, this.panier[i].quantite);
+        id_album += this.album[i][0].id;
+        id_albums += this.album[i][0].titre;
+        quantite_paie += this.panier[i].quantite;
+        montant += this.panier[i].quantite * this.album[i][0].prix;
+        this.miseAJourStock(this.album[i][0].id,this.panier[i].quantite);
+      }
+    } else if(this.album.length > 1){
+      for(let i=0; i<this.album.length-1; i++){
+        //console.log('---> ',this.album[i][0].id, this.album[i][0].titre, this.panier[i].quantite);
+        id_album += this.album[i][0].id +"-";
+        id_albums += this.album[i][0].titre + "-";
+        quantite_paie += this.panier[i].quantite + "-";
+        montant += this.panier[i].quantite * this.album[i][0].prix;
+        this.miseAJourStock(this.album[i][0].id,this.panier[i].quantite);
+      }
+      for(let i=this.album.length-1; i<this.album.length; i++){
+        //console.log('---> ',this.album[i][0].id, this.album[i][0].titre, this.panier[i].quantite);
+        id_album += this.album[i][0].id;
+        id_albums += this.album[i][0].titre;
+        quantite_paie += this.panier[i].quantite;
+        montant += this.panier[i].quantite * this.album[i][0].prix;
+        this.miseAJourStock(this.album[i][0].id,this.panier[i].quantite);
+      }
     }
+    
 
     this.service.insertHistorique(this.user.id,id_album,id_albums,quantite_paie,montant,date).subscribe(
       (data: any) => {

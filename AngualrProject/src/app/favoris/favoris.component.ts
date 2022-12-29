@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetDataService } from '../services/get-data.service';
 import { Store } from '@ngrx/store';
-import { update, nbAlbum } from '../store/actions';
+import { update, nbAlbum, nbPanier } from '../store/actions';
 
 @Component({
   selector: 'app-favoris',
@@ -21,6 +21,7 @@ export class FavorisComponent implements OnInit {
   };
   albumsTab = new Array();
   nbAlbum = 0;
+  nbPanier = 0;
 
   constructor(_service:GetDataService, _router: Router, private store: Store) { 
     this.route = _router;
@@ -32,6 +33,12 @@ export class FavorisComponent implements OnInit {
       this.user = data;
     });
     this.getAlbums(this.user.id);
+
+    //pour recuperer le nombre d'album dans le panier
+    this.store.select((State: any) => State.root.panier).subscribe(data => {
+      this.nbPanier = data;
+      console.log('nb panier--> ', data);
+    });  
   }
 
   //recuperation des albums de l'utilisateur dans le panier
@@ -87,8 +94,9 @@ export class FavorisComponent implements OnInit {
     .subscribe(
       (data:any) => {
         console.log(data);
+        //mise à jour du nombre d'album dans le panier
+        this.store.dispatch(nbPanier({panier: this.nbPanier + 1}));
       }, (error) => {
-
-      });
+    });
   }
 }

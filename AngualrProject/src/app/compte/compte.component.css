@@ -97,13 +97,13 @@ input:focus {
 }
 
 .form-list__input-inline > * {
-        width: calc(50% - 10px - 10px); 
+    width: calc(50% - 10px - 10px); 
 }
 
 .form-list__row--agree {
-      margin-top: 30px;
-      margin-bottom: 30px;
-      font-size: 12px; 
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 12px; 
 }
 
 .form-list__row--agree label {
@@ -113,51 +113,6 @@ input:focus {
 }
 
 .form-list__row--agree input {
-        width: auto;
-        margin-right: 5px; 
+    width: auto;
+    margin-right: 5px; 
 }
-
-  
-  .modal {
-    padding-left:410px;
-    padding-top:110px;
-  }
-    .modal__container {
-      display: -ms-flexbox;
-      display: flex;
-      max-width: 675px;
-      min-height: 400px;
-      margin-bottom: 125px;
-      background-color: #ffffff;
-      border-radius: 5px;
-      box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1); }
-    .modal__featured {
-      position: relative;
-      -ms-flex: 1;
-          flex: 1;
-      min-width: 230px;
-      padding: 20px;
-      overflow: hidden;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px; }
-    .modal__circle {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 200%;
-      width: 200%;
-      background-color: lavender;
-      border-radius: 50%;
-      -ms-transform: translateX(-50%) translateY(-25%);
-          transform: translateX(-50%) translateY(-25%); }
-    .modal__product {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      max-width: 85%;
-      -ms-transform: translateX(calc(-50% - 10px));
-          transform: translateX(calc(-50% - 10px)); }
-    .modal__content {
-      -ms-flex: 3;
-          flex: 3;
-      padding: 40px 30px; }
