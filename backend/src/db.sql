@@ -42,6 +42,19 @@ CREATE TABLE chanson (
     FOREIGN KEY (id_album) REFERENCES album(id)
 );
 
+CREATE TABLE panier (
+    id int not null AUTO_INCREMENT,
+    id_albums int,
+    montant_total float,
+    id_user int,
+    quantite int,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO user(nom, prenom, login, password) VALUES("SY","Ahmadou","diasy73","savane");
+INSERT INTO user(nom, prenom, login, password) VALUES("GDIRA","ghizlane","ghiz","123");
+INSERT INTO user(nom, prenom, login, password) VALUES("FRESU","Ilona","ilona","fresu");
+
 INSERT INTO artiste(nom, prenom, nom_artiste) VALUES("Sedraïa","Adila","Indila");
 INSERT INTO album(titre,genre,annee_sortie,id_artiste,prix) VALUES("Mini World","French Urban Pop/R&B","2014",1,32.00);
 INSERT INTO chanson(titre,id_album,duree) VALUES ("Love Story",1,5.17);
@@ -102,3 +115,7 @@ INSERT INTO chanson(titre,id_album,duree) VALUES ("Dégaine (feat. Damso)",7,3.3
 INSERT INTO chanson(titre,id_album,duree) VALUES ("djadja (feat. Maluma)",7,2.46);
 INSERT INTO chanson(titre,id_album,duree) VALUES ("Copines",7,2.51);
 INSERT INTO chanson(titre,id_album,duree) VALUES ("Djadja",7,2.51);
+
+INSERT INTO panier(id_albums,montant_total,id_user,quantite) VALUES (1, 30.0, 2, 1);
+INSERT INTO panier(id_albums,montant_total,id_user,quantite) VALUES (8, 45.0, 2, 1);
+INSERT INTO panier(id_albums,montant_total,id_user,quantite) VALUES (3, 40.0, 1, 1);

@@ -15,16 +15,30 @@
                         <div class="p-2">
                             <h5 class="min-vh-70 mh-70">{{album[0].titre}}</h5>
                             <h6>{{album[0].nom_artiste}}</h6>
-                            <p style="font-size: 18px;"><b>{{album[0].prix}} €</b></p>
-                            <div style="display: inline-flex;">
-                                <span style="margin-right: 7px;">Quantité  </span>  
-                                <button (click)="decremente()"> -  </button>
-                                <input type="text" style="width: 20px;" value="{{quantite}}" min="0" max="10">
-                                <button (click)="incremente()">  + </button>
+                            
+                            <!--<div style="display: inline-flex;">-->
+                            <div>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <span style="margin-right: 7px;"><b>Quantité</b></span>
+                                <select [(ngModel)]="panier[index].quantite" (ngModelChange)="selectChange($event, album[0].stock)">
+                                  <option *ngFor="let i of listeQuantite" [ngValue]="i">{{i}}</option>
+                                </select>
+                                <p></p>
+                                <div *ngIf="album[0].stock < panier[index].quantite;">
+                                  <p style="color: red;"> Quantité indisponible</p>
+                                </div>
+                                <div *ngIf="album[0].stock >= panier[index].quantite;">
+                                  <p style="color: greenyellow;"> En stock</p>
+                                </div>
                             </div>
                         </div>
                         <div class="p-2">
                             <button (click)="suppPannier(album[0].id)"><i class="fas fa-trash-alt"></i></button>
+                            <br><br>
+                            <p></p>
+                            <p style="font-size: 18px;color: firebrick;"><b>{{album[0].prix * panier[index].quantite}} €</b></p>
                         </div>
                     </div>
                   </li>
@@ -51,7 +65,7 @@
                     <p>Livraison </p>
                 </div>
                 <div class="p-2">
-                    <p>{{quantite * montantTotal}} euros</p>
+                    <p>{{montantTotal}} euros</p>
                     <p>GRATUIT</p>
                 </div>
             </div>
@@ -61,11 +75,11 @@
                     <p><b> Total de la commande </b></p>
                 </div>
                 <div class="p-2">
-                    <p><b>{{quantite * montantTotal}} euros</b></p>
+                    <p><b>{{montantTotal}} euros</b></p>
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal"> PAIEMENT </button>
+            <button type="submit" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal" [disabled]="paiemt"> PAIEMENT </button>
             <br>
         </div>
     </div>
@@ -117,8 +131,12 @@
                     </label>
                   </li>
                   <li>
-                    <button type="submit" class="button">Payer</button>
-
+                    <button type="submit" class="button" (click)="paiement()">Payer</button>
+                  </li>
+                  <br>
+                  <div [hidden]="!paie">
+                    <p style="color: cornflowerblue;">Votre paiement est effectué avec succès. Merci !</p>
+                  </div>
                 </ul>
               </form>
             </div> 

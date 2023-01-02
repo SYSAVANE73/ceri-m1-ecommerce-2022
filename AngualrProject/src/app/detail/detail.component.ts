@@ -4,6 +4,7 @@ import { GetDataService } from '../services/get-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscriber, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { getUser, nbAlbum, nbPanier } from '../store/actions';
 
 @Component({
   selector: 'app-detail',
@@ -32,7 +33,7 @@ export class DetailComponent implements OnInit {
   montant : number = 0.0;
 
   message:string = "";
-  
+  nbPanier = 0;
 
   constructor(_service:GetDataService, _http:HttpClient, _router: ActivatedRoute, private store: Store) { 
     this.service = _service;
@@ -61,8 +62,12 @@ export class DetailComponent implements OnInit {
 
       this.getAlbums(parseInt(iddid || ""));
     })
-
-    
+  
+    //pour recuperer le nombre d'album dans le panier
+    this.store.select((State: any) => State.root.panier).subscribe(data => {
+      this.nbPanier = data;
+      console.log('nb panier--> ', data);
+    });  
   }
 
   getDetails(identifiant : number): void {
@@ -89,15 +94,14 @@ export class DetailComponent implements OnInit {
   }
 
   ajoutPanier(): void {
-    //console.log("panier ", this.id_user, this.id_album, this.album[0].prix);
-    //console.log(this.user.isloged, this.user.id);
-    this.service.insertPanier(this.id_user, this.id_album, this.album[0].prix)
-    .subscribe(
+    this.service.insertPanier(this.id_user, this.id_album, this.album[0].prix).subscribe(
       (data:any) => {
         this.message = data;
         console.log("msg ",this.message);
+        //mise à jour du nombre d'album dans le panier
+        this.store.dispatch(nbPanier({panier: this.nbPanier + 1}));
       }, (error) => {
-
-      });
+    });
+    
   }
 }

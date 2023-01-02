@@ -1,4 +1,4 @@
-<div class="container">
+<div>
   <h2  style="text-align: center">La liste des ALBUMS</h2>   
   <br>
   <br>     
@@ -14,14 +14,19 @@
           <div class="d-flex justify-content-between mb-2">
             <div class="p-2">
               <h6>{{album.nom_artiste}}</h6>
-              <p style="color: red; font-size: 20px;"><b>{{album.prix}} €</b></p>
+              <p style="color: red; font-size: 17px;"><b>{{album.prix}} €</b></p>
             </div>
             <div class="p-2">
               <h6>{{album.annee_sortie}}</h6>
-              <label class="border favorie" id="favorie">
-                <i class="fa fa-heart" style="margin: 4px 4px; color: red;"></i>
-                <input type="text" style="visibility:hidden;" (click)="favori()">
+              <button class="border favorie" [disabled]="!vrai" (click)="ajoutFavoris(album.id)" style="color: white;" >
+                <i class="fa fa-heart" style="margin: 5px 5px; color: red;" ></i>
+              </button>
+              <!--
+              <label class="border favorie" id="favorie" (click)="ajoutFavoris(album.id)">
+                <i class="fa fa-heart" style="margin: 4px 4px; color: red; cursor: pointer;"></i>
+                <input type="text" style="visibility:hidden;" (click)="ajoutFavoris(album.id)" [disabled]="!vrai">
               </label>
+            -->
             </div>
           </div>
         </div>

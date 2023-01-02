@@ -1,0 +1,30 @@
+img{
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+ul {
+    width: 250px;
+    display: inline-block;
+    margin: 5px 8Px;
+}
+
+.albums{
+    align-items: center;
+}
+
+li .infos{
+    width: 250px;
+}
+
+.favorie {
+    width:35px;
+    height:35px;
+    padding: 1px 1px;
+    border-radius:19px;
+    background-color:white;
+    font-size:24px;
+    line-height:1.33;
+    border-color:red;
+}

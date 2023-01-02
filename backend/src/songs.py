@@ -49,6 +49,23 @@ host = config("host", cast=str)
 database_name = config("database_name", cast=str)
 """
 
+#import os
+
+#os.environ
+#export DB_ADRESS = 'dffdf"
+"""
+os.environ.get('DB_ADRESS')
+
+si on utilise fichier .env
+pydantic
+Base Settings
+ENV > fichier
+
+si fichier
+entrypoint:
+echo ENV.var.env
+"""
+
 user_name = "root"
 password = "root"
 host = "mysql"

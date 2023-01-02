@@ -4,19 +4,20 @@ from fastapi import FastAPI, WebSocket
 from fastapi.encoders import jsonable_encoder
 from fastapi.testclient import TestClient
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 import uvicorn
 import datetime
 #import pymysql
 #import MySQLdb
 
 
-class Artiste(SQLModel, table=True):
+class Artiste(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	nom: str
 	prenom: str
 	nom_artiste: str
 
-class Album(SQLModel, table=True):
+class Album(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	titre: str
 	genre: str
@@ -25,36 +26,41 @@ class Album(SQLModel, table=True):
 	prix: float
 	photo: str
 	nom_artiste: str
+	stock: int
 
-class Chanson(SQLModel, table=True):
+class Chanson(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	titre: str
 	id_album: int
 	duree: float
 
-class User(SQLModel, table=True):
-	userid: Optional[int] = Field(default=None, primary_key=True)
+class User(SQLModel, table=True, extend_existing=True):
+	user_id: Optional[int] = Field(default=None, primary_key=True)
+	user_type: str
 	nom: str
 	prenom: str
 	login: str
 	password: str
 
-class Panier(SQLModel, table=True):
+class Panier(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	id_user: int
 	id_albums: int
+	quantite: int
 	montant_total: float
 
-class Historique(SQLModel, table=True):
+class Historique(SQLModel, table=True, extend_existing=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	id_user: int
-	montant: int
-	id_albums: List[int] = Field(sa_column=Column(JSON))
+	montant: float
+	id_albums: List[str] = Field(sa_column=Column(JSON))
+	albums: List[str] = Field(sa_column=Column(JSON))
 	quantite: List[int] = Field(sa_column=Column(JSON))
+	date: str
 
 engine = create_engine("sqlite:///database.db")
+SQLModel.metadata.clear()
 SQLModel.metadata.create_all(engine)
-
 
 def creer_musique():
 	artiste1 = Artiste(nom="x", prenom="x")
@@ -94,7 +100,7 @@ def get_songs_by_album(albumId):
 		return album
 def get_albums_by_artiste(artisteId):
 	with Session(engine) as session:
-		route = select(Album).where(Album.artiste_id == artisteId)
+		route = select(Album).where(Album.id_artiste == artisteId)
 		res = session.exec(route)
 		albums = res.all()
 		for album in albums:
@@ -122,6 +128,19 @@ def get_albums_by_id(id_album):
 			print(album)
 		return albums
 		"""
+def insert_album(titre, genre, annee, id_artiste, prix, photo, nom_artiste, stock):
+	alb = Album(titre=titre, genre=genre, annee_sortie=annee, id_artiste=id_artiste, prix=prix, photo=photo, nom_artiste=nom_artiste, stock=stock)
+	with Session(engine) as session:
+		session.add(alb)
+		session.commit()
+		return alb
+
+def insert_chanson(titre, id_album, duree):
+	ch = Chanson(titre=titre, id_album=id_album, duree=duree)
+	with Session(engine) as session:
+		session.add(ch)
+		session.commit()
+		return ch
 
 def get_user(login, password):
 	with Session(engine) as session:
@@ -148,6 +167,26 @@ def get_user_by_id(login):
 		for user in users:
 			print(user)
 		return users
+
+def get_user_by_id_user(id):
+	with Session(engine) as session:
+		route = select(User).where(User.user_id == id)
+		res = session.exec(route)
+		users = res.one()
+		return users
+
+def get_status_by_login(login):
+	with Session(engine) as session:
+		route = select(User.user_type).where(User.login == login)
+		res = session.exec(route)
+		user = res.one()
+		return user
+
+def is_admin(id_user):
+	user = get_user_by_id(id_user)
+	if(user.user_type=="admin"):
+		return True
+	return False
 
 def create_user(nom_u, prenom_u, login_u, password_u):
 	new_user = User(nom=nom_u, prenom=prenom_u, login=login_u, password=password_u)
@@ -188,8 +227,8 @@ def get_paniers():
 			print(panier)
 		return paniers
 
-def insert_panier(id_albums, montant_total, id_user):
-	new_panier = Panier(id_albums=id_albums, montant_total=montant_total, id_user=id_user)
+def insert_panier(id_albums, montant_total, qte, id_user):
+	new_panier = Panier(id_albums=id_albums, montant_total=montant_total, id_user=id_user, quantite=qte)
 	with Session(engine) as session:
 		data = get_paniers()
 		for panier in data:
@@ -198,6 +237,7 @@ def insert_panier(id_albums, montant_total, id_user):
 		session.add(new_panier)
 		session.commit()
 		return {"msg": "L'album est ajouté dans votre panier"}
+
 
 def supprimer_album_panier(id_user, id_album):
 	with Session(engine) as session:
@@ -215,6 +255,18 @@ def get_panier_by_user_album(id_user, id_album):
 			print(panier)
 		return paniers
 
+#modifier la quantité d'album restante en stock
+def update_qte_album(id_album, qte):
+	with Session(engine) as session:
+		route = select(Album).where(Album.id == id_album)
+		res = session.exec(route)
+		album = res.one()
+		album.stock = qte
+		session.add(album)
+		session.commit()
+		return {"msg": "Le stock a été modifié"}
+
+#liste l'historique de tous les paiements
 def get_historique():
 	with Session(engine) as session:
 		route = select(Historique)
@@ -222,14 +274,12 @@ def get_historique():
 		data = res.all()
 		return data
 
-def ajouter_paiement(id_user, montant_total, id_albums, qte):
-	liste_alb = id_albums.split("-")
+def ajouter_paiement(id_user, id_album, album, qte, mtt, date):
+	liste_alb_id = id_album.split("-")
+	liste_alb = album.split("-")
 	liste_qte = qte.split("-")
-	nv_paiement = Historique(id_user=id_user, montant=montant_total, id_albums=liste_alb, quantite=liste_qte)
+	nv_paiement = Historique(id_user=id_user, montant=mtt, id_albums=liste_alb_id, album=liste_alb, quantite=liste_qte, date=date)
 	with Session(engine) as session:
-		route = select(Historique)
-		res = session.exec(route)
-		data = res.all()
 		session.add(nv_paiement)
 		session.commit()
 		return {"msg": "Votre paiement a été accepté"}
@@ -247,7 +297,8 @@ app = FastAPI(title="Magasin de vinyles")
 origins = [
 	"http://localhost",
 	"http://127.0.0.1:8000", 
-	"https://127.0.0.1:8000"
+	"https://127.0.0.1:8000",
+	"ws://127.0.0.1:8000"
 ]
 
 app.add_middleware(
@@ -283,10 +334,25 @@ async def index():
 	data = get_albums()
 	return jsonable_encoder(data)
 
+@app.get("/insert_album/{titre}_{genre}_{annee}_{id_artiste}_{nom_artiste}_{prix}_{photo}_{stock}")
+async def new_album(titre, genre, annee, id_artiste, nom_artiste, prix, photo, stock):
+	return insert_album(titre, genre, annee, id_artiste, prix, photo, nom_artiste, stock)
+
+@app.get("/insert_chanson/{titre}_{id_album}_{duree}")
+async def new_song(titre, id_album, duree):
+	return insert_chanson(titre, id_album, duree)
+
+
 #affiche les informations d'un album
 @app.get("/getAlbum/{id_album}")
 async def get_albums_id(id_album: int):
 	data = get_albums_by_id(id_album)
+	return jsonable_encoder(data)
+
+#modifier le stock d'album
+@app.get("/modifier_stock_album/{id_album}_{qte}")
+async def update_stock(id_album: int, qte: int):
+	data = update_qte_album(id_album, qte)
 	return jsonable_encoder(data)
 
 #affiche le panier d'un utilisateur
@@ -294,6 +360,7 @@ async def get_albums_id(id_album: int):
 async def get_panier_by_id(id_user: int):
 	data = get_panier(id_user)
 	return jsonable_encoder(data)
+
 @app.get("/paniers/")
 async def get_all_paniers():
 	data = get_paniers()
@@ -314,15 +381,15 @@ async def get_all_users():
 	data = get_users_list()
 	return jsonable_encoder(data)
 
-#inscritption d'un nouvel utilisateur en spécifiant ses nom, prénom, login et mot de passe
+@app.get("/user_statut/{login}")
+async def get_status(login):
+	data = get_users_list()
+	return get_status_by_login(login)
+
+#inscription d'un nouvel utilisateur en spécifiant ses nom, prénom, login et mot de passe
 @app.get("/signin/{n}_{p}_{l}_{m}")
 async def sign_in(n, p, l, m):
 	return create_user(n, p, l, m)
-'''
-@app.post("/new")
-async def create_new_user(nom: str, prenom: str, login: str, pswd:str) :
-	return {"mfg" :"khsdf"}
-'''
 
 #supprime un album dans le panier d'un utilisateur en fonction de son identifiant et de l'id de l'album
 @app.get("/supprimer_panier/{user}_{album}")
@@ -330,14 +397,14 @@ async def delete_album_by_id_in_panier(user, album):
 	return supprimer_album_panier(user, album)
 
 #ajoute un album dans le panier d'un utilisateur en spécifiant l'id d'utilisateur, l'id et le montant de l'album
-@app.get("/ajouter_album_panier/{user}_{album}_{montant}")
-async def add_album_panier(user, album, montant): 
-	return insert_panier(album, montant, user)
+@app.get("/ajouter_album_panier/{user}_{album}_{qte}_{montant}")
+async def add_album_panier(user, album, montant, qte): 
+	return insert_panier(album, montant, qte, user)
 
 #ajoute un paiement à l'historique
-@app.get("/paiement/{user}_{albums}_{qte}_{montant}")
-async def add_paiement(user, montant, albums, qte): 
-	return ajouter_paiement(user, montant, albums, qte)
+@app.get("/paiement/{id_user}_{id_album}_{album}_{qte}_{montant}_{date}")
+async def add_paiement(id_user, id_album, album, qte, montant, date): 
+	return ajouter_paiement(id_user, id_album, album, qte, montant, date)
 
 @app.get("/historique")
 async def get_hist(): 
@@ -348,13 +415,54 @@ async def get_hist():
 async def test(test: str):
 	return {"test": test}
 
+#test websocket
+'''
+html = """
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat</title>
+    </head>
+    <body>
+        <h1>WebSocket Chat</h1>
+        <form action="" onsubmit="sendMessage(event)">
+            <input type="text" id="messageText" autocomplete="off"/>
+            <button>Send</button>
+        </form>
+        <ul id='messages'>
+        </ul>
+        <script>
+            var ws = new WebSocket("ws://localhost:8000/ws");
+            ws.onmessage = function(event) {
+                var messages = document.getElementById('messages')
+                var message = document.createElement('li')
+                var content = document.createTextNode(event.data)
+                message.appendChild(content)
+                messages.appendChild(message)
+            };
+            function sendMessage(event) {
+                var input = document.getElementById("messageText")
+                ws.send(input.value)
+                input.value = ''
+                event.preventDefault()
+            }
+        </script>
+    </body>
+</html>
+"""
+
+
+@app.get("/")
+async def get():
+    return HTMLResponse(html)
+
 @app.websocket("/ws")
 async def websocket_endpoint(ws: WebSocket):
 	await ws.accept()
 	while True:
 		data = await ws.receive_text()
 		await ws.send_text(f"Message : {data}")
-
+'''
 if __name__ == "__main__":
 	#uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
 	uvicorn.run(app, host="127.0.0.1", port=8000)

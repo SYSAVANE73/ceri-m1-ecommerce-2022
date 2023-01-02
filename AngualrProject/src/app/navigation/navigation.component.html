@@ -25,11 +25,20 @@
         <li>
           <a class="nav-link"  style="font-size: 15px;color:white;margin:4px" [routerLink]="['/album']" routerLinkActive="active" class="nav-link fas fa-record-vinyl"> Album</a>
         </li>
+        <li [hidden]="!vrai">
+          <a style="font-size: 15px;color:white; margin:4px" routerLink="/compte" routerLinkActive="active" class="nav-link fas fa-user"> {{user.prenom}}</a>
+        </li>
+
+
+        <!--
         <li class="nav-item" >
           <a class="nav-link"  style="font-size: 15px;color:white;margin:4px" routerLink="/artiste" routerLinkActive="active" class="nav-link fas fa-male">Artiste</a>
         </li>
+        -->
       </ul>
       <ul class="nav navbar-nav ml-auto">
+        
+        
         <li [hidden]="!vrai">
           <a style="font-size: 15px;color:white; margin:4px; cursor: pointer;" class="nav-link fas fa-sign-in-alt" (click)="deconnection()"> Se deconnecter</a>
         </li>
@@ -42,10 +51,13 @@
           <a style="font-size: 15px;color:white; margin:4px" routerLink="/login" routerLinkActive="active" class="nav-link fas fa-sign-in-alt"> Se connecter</a>
         </li>
         <li >
-          <a style="font-size: 15px;color:white; margin:4px" routerLink="/inscrire" routerLinkActive="active" class="nav-link fas fa-user"> S'inscrire</a>
+          <a style="font-size: 15px;color:white; margin:4px" routerLink="/inscrire" routerLinkActive="active" class="nav-link fas fa-user">S'inscrire</a>
+        </li>
+        <li [hidden]="!vrai">
+          <a style="font-size: 15px;color:white; margin:4px" routerLink="/favoris" routerLinkActive="active" class="nav-link fas fa-heart"> <sup> {{nbrAlbum}}</sup></a>
         </li>
         <li >
-          <a style="font-size: 15px;color:white; margin:4px" routerLink="/" routerLinkActive="active" class="nav-link fas fa-shopping-cart" (click)="panier()"></a>
+          <a style="font-size: 15px;color:white; margin:4px" routerLink="/" routerLinkActive="active" class="nav-link fas fa-shopping-cart" (click)="panier()"><sup> {{nbPanier}}</sup></a>
         </li>
       </ul>
     </div> 

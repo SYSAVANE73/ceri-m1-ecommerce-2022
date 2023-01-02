@@ -3,15 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { GetDataService } from './services/get-data.service';
 import { ConnexionComponent } from './connexion/connexion.component';
 import {State, Store} from '@ngrx/store';
-import {initAction, changeUsername} from './store/actions';
-import { WebsocketService } from './services/websocket.service';
+import {initAction, changeUsername, nbAlbum} from './store/actions';
 import { io } from 'socket.io-client';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [GetDataService, WebsocketService]
+  providers: [GetDataService]
 })
 export class AppComponent implements OnInit {
   service : GetDataService;
@@ -20,9 +19,9 @@ export class AppComponent implements OnInit {
   vrai = false;
   public user = {} as any;
   
-  constructor(_service:GetDataService, _http:HttpClient, private store: Store, private socket: WebsocketService){
+  constructor(_service:GetDataService, _http:HttpClient, private store: Store){
     this.service = _service;
-    this.socket.emit("Bonjour");
+    //this.socket.emit("Bonjour");
   }
 
 

@@ -1,0 +1,74 @@
+<div class="container-fluid" style="margin: 5px 5px;">
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-8 border">
+            <h2 style="text-align: center;"> Historique de paiements </h2>
+            <div>
+              <br>
+              <div class="container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Albums</th>
+                      <th>Quantité</th>
+                      <th>Montant</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let hist of historique; let index = index;">
+                      <td><p *ngFor="let alb of hist.nom_albums;">{{alb}}</p></td>
+                      <!--<td>{{hist.nom_albums}}</td>-->
+                      <td><p *ngFor="let qtt of hist.quantite;">{{qtt}}</p></td>
+                      <!--<td>{{hist.quantite}}</td>-->
+                      <td><span style="color: red;">{{hist.montant}} €</span></td>
+                      <td>{{hist.date}}</td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+    
+        <div class="col-4 border">
+            <h2 style="text-align: center;"> Mon compte </h2>
+            <br>
+            <form>
+                <ul class="form-list">
+                    <li class="form-list__row">
+                        <label>Nom </label>
+                        <div id="input--cc" class="creditcard-icon">
+                          <input type="text" name="cc_number" required="" value="{{user.nom}}" placeholder="Nom"/>
+                        </div>
+                      </li>
+                  <li class="form-list__row">
+                    <label>Prénom </label>
+                    <div id="input--cc" class="creditcard-icon">
+                      <input type="text" name="cc_number" required="" value="{{user.prenom}}" placeholder="Prénom" />
+                    </div>
+                  </li>
+                  <li class="form-list__row">
+                    <label>login </label>
+                    <div id="input--cc" class="creditcard-icon">
+                      <input type="text" name="cc_number" required="" value="{{user.login}}" placeholder="login"/>
+                    </div>
+                  </li>
+                  <li class="form-list__row">
+                    <label>Statut </label>
+                    <div id="input--cc" class="creditcard-icon">
+                      <input type="text" name="cc_number" required="" placeholder="Status"/>
+                    </div>
+                  </li>
+                  <br>
+                  <li>
+                    <button type="reset" class="button"> Anuler </button>
+                    <button type="submit" class="button" style="float: right;" > Mise à jour </button>
+                  </li>
+                </ul>
+              </form>
+        </div>
+    </div>
+</div>

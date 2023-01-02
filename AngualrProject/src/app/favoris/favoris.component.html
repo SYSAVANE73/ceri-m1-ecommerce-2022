@@ -1,0 +1,30 @@
+<div>
+    <h2  style="text-align: center">Mes albums favoris</h2>   
+    <br>
+    <br>     
+    <div>
+      <ul *ngFor="let album of albumsTab">
+        <li class="albums" routerLinkActive="active" class="nav-link">
+          <div>
+            <img src={{album[0].photo}} alt={{album[0].annee}} >
+          </div>
+          <div class="infos">
+            <br>
+            <h6 class="min-vh-70 mh-70" style="text-align: center;"><b>{{album[0].titre}}</b></h6>
+            <div class="d-flex justify-content-between mb-2">
+              <div class="p-2">
+                <h6>{{album[0].nom_artiste}}</h6>
+                <p style="color: red; font-size: 20px;"><b>{{album[0].prix}} €</b></p>
+              </div>
+              <div class="p-2">
+                <h6>{{album[0].annee_sortie}}</h6>
+                <button class="btn btn-danger center btn-sm" type="text" (click)="suppFavoris(album[0].id)"> Supprimer</button>
+              </div>
+            </div>
+            <button class="btn btn-success center btn-sm btn-block" type="text" (click)="ajoutPanier(album[0].id, album[0].prix)"> Ajouter au panier</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  

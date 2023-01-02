@@ -6,9 +6,12 @@ CREATE TABLE "Album" (
 	"id_artiste"	INTEGER,
 	"prix"	REAL,
 	"photo"	TEXT,
+	"nom_artiste"	TEXT,
 	PRIMARY KEY("id") AUTOINCREMENT,
 	FOREIGN KEY("id_artiste") REFERENCES "Artiste"("id") ON DELETE CASCADE
 );
+
+ALTER TABLE Album ADD COLUMN "stock" INTEGER; 
 
 CREATE TABLE "Artiste" (
 	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,9 +28,16 @@ CREATE TABLE "Chanson" (
 	FOREIGN KEY("id_album") REFERENCES "Album"("id") ON DELETE CASCADE
 )
 
+CREATE TABLE favoris (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "id_albums" INTEGER,
+    "id_user" INTEGER,
+);
+
+
 
 INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Sedraïa","Adila","Indila");
-INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix) VALUES("Mini World","French Urban Pop/R&B","2014",1,32.00);
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo) VALUES("Mini World","French Urban Pop/R&B","2014",1,32.00,"https://i.scdn.co/image/ab67616d0000b27340a4e4510e0fba3633ab87d3");
 INSERT INTO Chanson(titre,id_album,duree) VALUES ("Love Story",1,5.17);
 INSERT INTO Chanson(titre,id_album,duree) VALUES ("Tourner dans le vide",1,4.20);
 INSERT INTO Chanson(titre,id_album,duree) VALUES ("S.O.S",1,4.20);
@@ -92,3 +102,12 @@ INSERT INTO Chanson(titre,id_album,duree) VALUES ("Djadja",7,2.51);
 SELECT * FROM Artiste;
 SELECT * FROM Album;
 SELECT * FROM Chanson;
+
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Mini World","French Urban Pop/R&B","2014",1,32.00,"https://i.scdn.co/image/ab67616d0000b27340a4e4510e0fba3633ab87d3","Indila",10);
+
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Le Fleau","Hip-hop, Pop","2020",2,40.00,"https://static.fnac-static.com/multimedia/Images/FR/NR/12/40/c2/12730386/1507-1/tsp20201008141115/Le-Fleau.jpg","Maitre Gims",10);
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Sweetener","HPop, RnB contemporain, Trap","2018",3,50.00,"https://m.media-amazon.com/images/I/81FH-xfuK5L._SL1500_.jpg","Ariana Grande",10);
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Les yeux plus gros que le monde","Pop, RnB contemporain, Rap","2014",4,25.00,"https://upload.wikimedia.org/wikipedia/en/9/9a/Les-yeux-plus-gros-que-le-monde-Black-M.jpg","Black M",10);
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Eternel insatisfait (Réédition)","Pop, RnB contemporain, Rap","2017",4,35.00,"https://static.fnac-static.com/multimedia/Images/FR/NR/0c/2e/8b/9121292/1540-1/tsp20171011121549/Eternel-Insatisfait.jpg","Black M",10);
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Talk That Talk","Pop music, Rhythm and blues, Hip hop music","2011",5,25.00,"https://static.fnac-static.com/multimedia/FR/Images_Produits/FR/fnac.com/Visual_Principal_340/9/0/4/0602527878409/tsp20120919055757/Talk-that-talk.jpg","Rihanna",10);
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("VIP","French Urban Pop/R&B","2022",6,45.00,"https://images.genius.com/2beee3e2c0bb4acb0ab214a46229ec5c.1000x1000x1.jpg","Aya Nakamura",10);
