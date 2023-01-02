@@ -1,0 +1,125 @@
+img{
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+ul {
+    width: 250px;
+    display: inline-block;
+    margin: 5px 8Px;
+}
+/*
+.infos h2{
+    font-size: 1rem;
+}
+
+li .infos {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+li .albums{
+    position: relative;
+    height: 100px;
+    width: 160px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+*/
+.albums{
+    align-items: center;
+}
+/*
+li .infos {
+    position: absolute;
+    color: white;
+    top: 10px;
+    left: 10px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    height: 240px;
+    width: 240px;
+  }
+  
+li .infos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    height: 100%;
+    width: 100%;
+    
+    display: grid;
+    align-items: center;
+    
+    justify-content: center;
+    border-radius: 10px;
+    opacity: 0;
+    transform: scaleY(0);
+    transition: 0.3s;
+    
+  }
+  
+*/
+
+img:hover {
+    transform: scale(1.2);
+    z-index: 2;
+  }
+
+/*
+li:hover .infos{
+    opacity: 1;
+    transform: scaleY(1);
+}
+*/
+li .infos{
+    width: 250px;
+}
+
+.favorie {
+    width:35px;
+    height:35px;
+    padding: 1px 1px;
+    border-radius:19px;
+    background-color:white;
+    font-size:24px;
+    line-height:1.33;
+    border-color:red;
+}
+
+#button2 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+    width: 30%;
+    position: absolute;
+    left: 270px;
+  }
+  
+#button2:hover {
+    background-color: #008CBA;
+    color: white;
+  }
+
+#button3 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+    width: 30%;
+    position: absolute;
+    left: 770px;
+  }
+  
+#button3:hover {
+    background-color: #008CBA;
+    color: white;
+  }
+  
+  
+
+
+
