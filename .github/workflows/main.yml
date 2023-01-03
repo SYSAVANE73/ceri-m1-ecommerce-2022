@@ -93,7 +93,7 @@ jobs:
     defaults:
       run:
         working-directory: terraform
-    needs: [deploy-frontend, build-frontend, deploy-backend, build-backend]
+    needs: [deploy-frontend, build-frontend, build-backend]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
