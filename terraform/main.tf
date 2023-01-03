@@ -1,6 +1,7 @@
 terraform {
   cloud {
-    organization = "deploiement"
+    hostname = "app.terraform.io"
+    organization = "E-ecommerce"
   
     workspaces {
       name = "redpanda"
