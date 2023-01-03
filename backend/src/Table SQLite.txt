@@ -7,6 +7,7 @@ CREATE TABLE "Album" (
 	"prix"	REAL,
 	"photo"	TEXT,
 	"nom_artiste"	TEXT,
+	"stock"	INTEGER,
 	PRIMARY KEY("id") AUTOINCREMENT,
 	FOREIGN KEY("id_artiste") REFERENCES "Artiste"("id") ON DELETE CASCADE
 );
@@ -34,6 +35,25 @@ CREATE TABLE favoris (
     "id_user" INTEGER,
 );
 
+CREATE TABLE "historique" (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"id_user"	INTEGER NOT NULL,
+	"id_albums"	TEXT NOT NULL,
+	"nom_albums"	TEXT NOT NULL,
+	"quantite"	TEXT NOT NULL,
+	"montant"	REAL NOT NULL,
+	"date"	TEXT
+)
+
+CREATE TABLE "historique" (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"id_user"	INTEGER NOT NULL,
+	"id_albums"	JSON,
+	"nom_albums"	JSON,
+	"quantite"	JSON,
+	"montant"	REAL NOT NULL,
+	"date"	TEXT
+)
 
 
 INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Sedraïa","Adila","Indila");
@@ -98,6 +118,33 @@ INSERT INTO Chanson(titre,id_album,duree) VALUES ("Copines",7,2.51);
 INSERT INTO Chanson(titre,id_album,duree) VALUES ("Djadja",7,2.51);
 
 
+INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Nzobazola","William","Ninho");
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Jefe","Rap français","2022",8,60.00,"https://cdn.shopify.com/s/files/1/0548/8554/8106/products/R_11.jpg?","Ninho",10);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Jefe",8,2.57);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("VVS",8,3.07);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Sky Priority",8,2.49);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Arme de poing",8,3.47);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Vérité",8,3.19);
+
+
+INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Anne","Marie","Anne Marie");
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Therapy","Pop","2021",9,36.00,"https://m.media-amazon.com/images/I/81+8Ba1gyRL._SL1500_.jpg","Anne Marie",10);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Kis my (Uh Oh)",9,2.57);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Our song",9,2.44);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Beautiful",9,3.15);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Don't play",9,3.09);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Tell your girlfriend",9,2.15);
+
+
+INSERT INTO Artiste(nom, prenom, nom_artiste) VALUES("Kwnoles","Beyoncé","Beyoncé");
+INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Renaissance","Disco, Pop music, House music, Contemporary R&B, Dance-pop","2022",10,55.00,"https://m.media-amazon.com/images/I/61yO73-xTcL._SL1500_.jpg","Beyoncé",10);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("I'm That Girl",10,3.28);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Cuff It",10,3.45);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Church Girl",10,3.44);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Cozy",10,3.30);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Energy",10,1.56);
+INSERT INTO Chanson(titre,id_album,duree) VALUES ("Break My Soul",10,4.38);
+
 
 SELECT * FROM Artiste;
 SELECT * FROM Album;
@@ -111,3 +158,5 @@ INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,sto
 INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Eternel insatisfait (Réédition)","Pop, RnB contemporain, Rap","2017",4,35.00,"https://static.fnac-static.com/multimedia/Images/FR/NR/0c/2e/8b/9121292/1540-1/tsp20171011121549/Eternel-Insatisfait.jpg","Black M",10);
 INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Talk That Talk","Pop music, Rhythm and blues, Hip hop music","2011",5,25.00,"https://static.fnac-static.com/multimedia/FR/Images_Produits/FR/fnac.com/Visual_Principal_340/9/0/4/0602527878409/tsp20120919055757/Talk-that-talk.jpg","Rihanna",10);
 INSERT INTO Album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("VIP","French Urban Pop/R&B","2022",6,45.00,"https://images.genius.com/2beee3e2c0bb4acb0ab214a46229ec5c.1000x1000x1.jpg","Aya Nakamura",10);
+
+

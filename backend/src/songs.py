@@ -66,10 +66,16 @@ entrypoint:
 echo ENV.var.env
 """
 
+"""
 user_name = "root"
 password = "root"
 host = "mysql"
 database_name = "songs"
+"""
+DATABASE_USERNAME = ""
+DATABASE_PASSWORD = ""
+host = ""
+DATABASE_NAME = ""
 
 DATABASE = 'mysql://%s:%s@%s/%s?charset=utf8' % (
     user_name,

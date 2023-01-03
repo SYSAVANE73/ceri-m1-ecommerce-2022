@@ -23,7 +23,7 @@
                                 <p></p>
                                 <span style="margin-right: 7px;"><b>Quantité</b></span>
                                 <select [(ngModel)]="panier[index].quantite" (ngModelChange)="selectChange($event, album[0].stock)">
-                                  <option *ngFor="let i of listeQuantite" [ngValue]="i">{{i}}</option>
+                                  <option *ngFor="let i of listeQuantite" [ngValue]="i">{{i}} </option>
                                 </select>
                                 <p></p>
                                 <div *ngIf="album[0].stock < panier[index].quantite;">

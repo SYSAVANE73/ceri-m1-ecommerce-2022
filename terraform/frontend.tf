@@ -1,12 +1,16 @@
 resource "google_cloud_run_service" "frontend" {
   name     = "redpanda-frontend"
-  location = "europe-west1"
+  location = "europe.west1"
 
   template {
     spec {
       containers {
         image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2"
       }
+    }
+    env {
+      name  = "url"
+        value = google_cloud_run_service.frontend.status.0.url
     }
   }
 
@@ -15,3 +19,4 @@ resource "google_cloud_run_service" "frontend" {
     latest_revision = true
   }
 }
+

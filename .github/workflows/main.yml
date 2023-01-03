@@ -6,7 +6,7 @@ on:
     - main
     
 jobs:
-  deploy:
+  deploy-frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -39,7 +39,7 @@ jobs:
         github_token: ${{ secrets.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 }}
         publish_dir: dist/ecommerce
         enable_jekyll: true
-  build:
+  build-frontend:
     runs-on: ubuntu-latest
     steps:
       - name: Checks out repo
@@ -47,6 +47,74 @@ jobs:
       - name: Build the Docker image
         run: docker build -f Dockerfile --tag europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2 .
       - name: Login to registry
-        run : docker login -u _json_key_base64 -p ${{ secrets.TF_TOKEN }} https://europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda
+        run : docker login -u _json_key_base64 -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} https://europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda
       - name: push image 
         run: docker push europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2
+
+  deploy-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/src
+
+    # Checks out the entire repo.
+    steps:
+    - name: Checks out repo
+      uses: actions/checkout@v1
+
+    # Generates a openapi.yaml file based on the FastAPI project.
+    - name: Generate OpenAPI file
+      uses: column-street/fastapi-openapi-specs-action@v1.0.0
+      #with:
+        #fileName: songs.py
+        #appName: app
+      
+    # Pushes all of these changes into the GitHub repository.
+    - name: Push changes to client branch
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.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 }}
+        branch: main
+        force: True
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checks out repo
+        uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build -f Dockerfile.backend --tag europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.2 .
+      - name: Login to registry
+        run : docker login -u _json_key_base64 -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} http://europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda
+      - name: push image 
+        run: docker push europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.2
+
+  terraform-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+    needs: [deploy-frontend, build-frontend, deploy-backend, build-backend]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_TOKEN }}
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt
+      - name: Terraform init
+        id: init
+        run: terraform init
+      - name: Terraform validate
+        id: validate
+        run: terraform validate -no-color
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        run: terraform plan -no-color -input=false
+        
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -input=False 
