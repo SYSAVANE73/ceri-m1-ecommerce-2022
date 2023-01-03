@@ -18,39 +18,39 @@ resource "google_cloud_run_service" "backend" {
     spec {
       containers {
         image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.2"
-      }
 
-      env{
-        name = "DATABASE_ADDRESS"
-        value_from {
-            secret_key_ref {
-                name = data.google_secret_manager_secret.address.secret_id
-                key = "lates"
+        env{
+            name = "DATABASE_ADDRESS"
+            value_from {
+                secret_key_ref {
+                    name = data.google_secret_manager_secret.address.secret_id
+                    key = "lates"
+                }
             }
         }
-      }
 
-      env{
-        name = "DATABASE_USERNAME"
-        value = "redpanda"
-      }
-        
-      env{
-        name = "DATABASE_NAME"
-        value_from {
-            secret_key_ref {
-                name = data.google_secret_manager_secret.database.secret_id
-                key = "lates"
+        env{
+            name = "DATABASE_USERNAME"
+            value = "redpanda"
+        }
+
+        env{
+            name = "DATABASE_NAME"
+            value_from {
+                secret_key_ref {
+                    name = data.google_secret_manager_secret.database.secret_id
+                    key = "lates"
+                }
             }
         }
-      }
 
-      env{
-        name = "DATABASE_PASSWORD"
-        value_from {
-            secret_key_ref {
-                name = data.google_secret_manager_secret.password.secret_id
-                key = "lates"
+        env{
+            name = "DATABASE_PASSWORD"
+            value_from {
+                secret_key_ref {
+                    name = data.google_secret_manager_secret.password.secret_id
+                    key = "lates"
+                }
             }
         }
       }
