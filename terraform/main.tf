@@ -12,9 +12,9 @@ terraform {
 provider "google" {
   project = "ceri-m1-ecommerce-2022"
   region  = "europe.west1"
-  credentials = var.tf_token
+  credentials = var.GOOGLE_APPLICATION_CREDENTIALS
 }
 
-variable "tf_token" {
+variable "GOOGLE_APPLICATION_CREDENTIALS" {
   default = ""
 }
