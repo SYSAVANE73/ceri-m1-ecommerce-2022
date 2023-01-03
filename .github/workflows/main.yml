@@ -60,14 +60,37 @@ jobs:
     # Checks out the entire repo.
     steps:
     - name: Checks out repo
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
+    
+    #Task for setting up Python 3.8 using actions/setup-python@v2 Github action
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8 # Modify python version HERE
+
+    #Task for installing dependencies, multi-line command
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install black pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    # Task for testing with pytest
+    - name: Test with pytest
+      run: pytest
+
+    - name: Lint with black
+      run: |
+        # Code formatting with black, check every python file in the src directory 
+        black src
+        black --check src
 
     # Generates a openapi.yaml file based on the FastAPI project.
     - name: Generate OpenAPI file
       uses: column-street/fastapi-openapi-specs-action@v1.0.0
-      #with:
-        #fileName: songs.py
-        #appName: app
+      with:
+        fileName: songs.py
+        appName: app
       
     # Pushes all of these changes into the GitHub repository.
     - name: Push changes to client branch
