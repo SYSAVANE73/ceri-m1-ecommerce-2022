@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
-from fastapi.encoders import jsonable_encoder
-from .main import app, engine, get_albums_by_id, get_albums_by_artiste
+#from fastapi.encoders import jsonable_encoder
+from .songs import app, engine, get_albums_by_id, get_albums_by_artiste
 
 client = TestClient(app)
 
