@@ -10,13 +10,9 @@ data "google_secret_manager_secret" "password" {
     secret_id = "mysql-password-redpanda"
 }
 
-data "user" {
-    secret_id = "redpanda"
-}
-
 resource "google_cloud_run_service" "backend" {
   name     = "redpanda-backend"
-  location = "europe.west1"
+  location = "europe-west1"
 
   template {
     spec {
@@ -36,14 +32,9 @@ resource "google_cloud_run_service" "backend" {
 
       env{
         name = "DATABASE_USERNAME"
-        value_from {
-            secret_key_ref {
-                name = data.user
-                key = "lates"
-            }
-        }
+        value = "redpanda"
       }
-
+        
       env{
         name = "DATABASE_NAME"
         value_from {

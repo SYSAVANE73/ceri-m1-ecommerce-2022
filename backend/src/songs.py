@@ -74,14 +74,14 @@ database_name = "songs"
 """
 DATABASE_USERNAME = ""
 DATABASE_PASSWORD = ""
-host = ""
+DATABASE_ADDRESS = ""
 DATABASE_NAME = ""
 
 DATABASE = 'mysql://%s:%s@%s/%s?charset=utf8' % (
-    user_name,
-    password,
-    host,
-    database_name,
+    DATABASE_USERNAME,
+    DATABASE_PASSWORD,
+    DATABASE_ADDRESS,
+    DATABASE_NAME,
 )
 engine = create_engine(
 	DATABASE,
