@@ -60,7 +60,7 @@ jobs:
 
     # Checks out the entire repo.
     steps:
-    - name: Checks out repo
+    - name: Checkout repository
       uses: actions/checkout@v2
     
     #Task for setting up Python 3.8 using actions/setup-python@v2 Github action
