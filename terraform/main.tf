@@ -25,6 +25,7 @@ data "google_secret_manager_secret" "password" {
   secret_id = "mysql-password-redpanda"
 }
 
+/*
 resource "google_cloud_run_service" "backend" {
   name     = "redpanda-backend"
   location = "europe-west1"
@@ -78,7 +79,7 @@ resource "google_cloud_run_service" "backend" {
     latest_revision = true
   }
 }
-
+*/
 
 resource "google_cloud_run_service" "frontend" {
   name     = "redpanda-frontend"
@@ -97,7 +98,8 @@ resource "google_cloud_run_service" "frontend" {
     latest_revision = true
   }
 }
-
+/*
 output "url" {
   value = google_cloud_run_service.backend.status[0].url
 }
+*/
