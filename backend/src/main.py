@@ -128,6 +128,19 @@ def get_albums_by_id(id_album):
 			print(album)
 		return albums
 		"""
+def insert_album(titre, genre, annee, id_artiste, prix, photo, nom_artiste, stock):
+	alb = Album(titre=titre, genre=genre, annee_sortie=annee, id_artiste=id_artiste, prix=prix, photo=photo, nom_artiste=nom_artiste, stock=stock)
+	with Session(engine) as session:
+		session.add(alb)
+		session.commit()
+		return alb
+
+def insert_chanson(titre, id_album, duree):
+	ch = Chanson(titre=titre, id_album=id_album, duree=duree)
+	with Session(engine) as session:
+		session.add(ch)
+		session.commit()
+		return ch
 
 def get_user(login, password):
 	with Session(engine) as session:
@@ -225,6 +238,7 @@ def insert_panier(id_albums, montant_total, qte, id_user):
 		session.commit()
 		return {"msg": "L'album est ajouté dans votre panier"}
 
+
 def supprimer_album_panier(id_user, id_album):
 	with Session(engine) as session:
 		panier = get_panier_by_user_album(id_user, id_album)
@@ -319,6 +333,15 @@ async def read_album_details(artiste_id: int):
 async def index():
 	data = get_albums()
 	return jsonable_encoder(data)
+
+@app.get("/insert_album/{titre}_{genre}_{annee}_{id_artiste}_{nom_artiste}_{prix}_{photo}_{stock}")
+async def new_album(titre, genre, annee, id_artiste, nom_artiste, prix, photo, stock):
+	return insert_album(titre, genre, annee, id_artiste, prix, photo, nom_artiste, stock)
+
+@app.get("/insert_chanson/{titre}_{id_album}_{duree}")
+async def new_song(titre, id_album, duree):
+	return insert_chanson(titre, id_album, duree)
+
 
 #affiche les informations d'un album
 @app.get("/getAlbum/{id_album}")

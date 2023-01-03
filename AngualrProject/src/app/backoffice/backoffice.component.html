@@ -1,0 +1,56 @@
+<div class="container">
+    <h2  style="text-align: center">La liste des ALBUMS</h2>   
+    <br>
+    <br>     
+    <button type="submit" class="btn btn-info pull-left" id="button2" name="btnInscription" data-toggle="modal" data-target="#myModal">Ajouter Items</button>
+    <button type="submit" class="btn btn-info pull-right" id="button3" name="btnInscription">Voir les commandes</button>
+    <br>
+    <br>
+    <br>
+    <div>
+      <ul *ngFor="let album of albumsTab">
+        <li class="albums" routerLinkActive="active" class="nav-link">
+          <div routerLink="/detail/{{album.id}}" (click)="getDetails(album.id)">
+            <img src={{album.photo}} alt={{album.annee}} >
+          </div>
+          <div class="infos">
+            <br>
+            <h6 class="min-vh-70 mh-70" style="text-align: center;"><b>{{album.titre}}</b></h6>
+            <div class="d-flex justify-content-between mb-2">
+              <div class="p-2">
+                <h6>{{album.nom_artiste}}</h6>
+                <p style="color: red; font-size: 20px;"><b>{{album.prix}} €</b></p>
+              </div>
+              <div class="p-2">
+                <h6>{{album.annee_sortie}}</h6>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+<!-- Modal -->
+<div class="w3-container">
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" >
+          <h4 class="modal-title" >Modal Header</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-info">Ajouter</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+  </div>
+  
+  

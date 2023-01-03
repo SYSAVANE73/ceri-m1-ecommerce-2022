@@ -17,6 +17,7 @@ import { reduceState, StoreModule } from '@ngrx/store';
 import {metaReducers, rootReducer} from './store/reducer';
 import { PanierComponent } from './panier/panier.component';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { BackofficeComponent } from './backoffice/backoffice.component';
 import { CompteComponent } from './compte/compte.component';
 import { FavorisComponent } from './favoris/favoris.component';
 
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
   {path: 'login', component: ConnexionComponent},
   {path: 'panier', component: PanierComponent},
   {path: 'inscrire', component: InscriptionComponent},
+  {path: 'edit', component: BackofficeComponent},
   {path: 'compte', component: CompteComponent},
   {path: 'favoris', component: FavorisComponent},
   {path: '**', component: HomeComponent},
@@ -45,6 +47,7 @@ const appRoutes: Routes = [
     ConnexionComponent,
     PanierComponent,
     InscriptionComponent,
+    BackofficeComponent,
     CompteComponent,
     FavorisComponent
   ],

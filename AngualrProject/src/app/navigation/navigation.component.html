@@ -43,6 +43,10 @@
           <a style="font-size: 15px;color:white; margin:4px; cursor: pointer;" class="nav-link fas fa-sign-in-alt" (click)="deconnection()"> Se deconnecter</a>
         </li>
 
+        <li>
+          <a style="font-size: 15px;color:white; margin:4px; cursor: pointer;" routerLink="/edit" routerLinkActive="active" class="nav-link fas fa-user-edit">Admin</a>
+        </li>
+
         <li [hidden]="vrai">
           <a style="font-size: 15px;color:white; margin:4px" routerLink="/login" routerLinkActive="active" class="nav-link fas fa-sign-in-alt"> Se connecter</a>
         </li>
