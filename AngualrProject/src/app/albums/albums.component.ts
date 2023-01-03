@@ -14,11 +14,13 @@ export class AlbumsComponent implements OnInit {
   service : GetDataService;
 
   albumsTab = new Array();
+  albumsTabFilter =  new Array();
   @Input()
   detailTab = {
     chanson: new Array()
   };
   vrai : boolean = false;
+  value = "";
   user= {
     id: 0,
     nom: '',
@@ -33,9 +35,9 @@ export class AlbumsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //depuis le store recuperer les informations de l'utilisateur
     this.store.select((State: any) => State.root.users).subscribe(data => {
       this.user = data;
-      
       if(this.user.isloged == true){
         this.vrai = true;
       } else{
@@ -47,18 +49,18 @@ export class AlbumsComponent implements OnInit {
       this.nbrAlbum = data;
     });
   }
-
+  //pour recuperer tous les albums dans la base
   getAlbums(): void {
     this.service.getAlbums().subscribe(
       (data:any) => {
         this.albumsTab = data;
+        this.albumsTabFilter = data;
         //console.log(this.albumsTab);
       },
       (error) => {
-
     });
   }
-
+  //pour afficher la page de détails lorsque l'on clique sur un album
   getDetails(identifiant : number): void {
     this.service.getDetails(identifiant).subscribe(
       (data:any) => {
@@ -68,16 +70,23 @@ export class AlbumsComponent implements OnInit {
       (error) => {
     });
   }
-
+  //ajouter un album dans favoris
   ajoutFavoris(id_album: number): void {
-    console.log('ajouter dans favorie', id_album, this.user.id);
+    //console.log('ajouter dans favorie', id_album, this.user.id);
     this.service.insertFavoris(id_album, this.user.id).subscribe(
       (data:any) => {
         console.log(data);
-        //Mise à jour du nombre de favoris
+        //Mise à jour du nombre d'album dans favoris
         this.store.dispatch(nbAlbum({nbr: this.nbrAlbum + 1}));
       },
       (error) => {
+    });
+  }
+  //cette fonction permet de filtrer la liste d'album par titre, genre, nom d'artiste
+  filters(event: any): void{
+    this.value = event.target.value;
+    this.albumsTabFilter = this.albumsTab.filter((album) => {
+      return album.titre.includes(this.value) || album.genre.includes(this.value) || album.nom_artiste.includes(this.value);
     });
   }
 }

@@ -1,9 +1,13 @@
 <div>
-  <h2  style="text-align: center">La liste des ALBUMS</h2>   
-  <br>
-  <br>     
+  <div class="main">
+    <div class="form-group has-search">
+      <span class="fa fa-search form-control-feedback"></span>
+      <input type="text" class="form-control" placeholder="Search" (keyup)="filters($event)">
+    </div>
+  </div>
+
   <div>
-    <ul *ngFor="let album of albumsTab">
+    <ul *ngFor="let album of albumsTabFilter">
       <li class="albums" routerLinkActive="active" class="nav-link">
         <div routerLink="/detail/{{album.id}}" (click)="getDetails(album.id)">
           <img src={{album.photo}} alt={{album.annee}} >

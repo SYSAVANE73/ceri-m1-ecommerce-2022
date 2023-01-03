@@ -20,12 +20,9 @@
                   <tbody>
                     <tr *ngFor="let hist of historique; let index = index;">
                       <td><p *ngFor="let alb of hist.nom_albums;">{{alb}}</p></td>
-                      <!--<td>{{hist.nom_albums}}</td>-->
                       <td><p *ngFor="let qtt of hist.quantite;">{{qtt}}</p></td>
-                      <!--<td>{{hist.quantite}}</td>-->
                       <td><span style="color: red;">{{hist.montant}} €</span></td>
                       <td>{{hist.date}}</td>
-                      
                     </tr>
                   </tbody>
                 </table>
