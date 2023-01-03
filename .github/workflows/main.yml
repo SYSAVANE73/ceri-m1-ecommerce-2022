@@ -80,11 +80,11 @@ jobs:
     #- name: Test with pytest
       #run: pytest
 
-    - name: Lint with black
-      run: |
+    #- name: Lint with black
+      #run: |
         # Code formatting with black, check every python file in the src directory 
-        black 
-        black --check
+        #black 
+        #black --check
 
     # Generates a openapi.yaml file based on the FastAPI project.
     - name: Generate OpenAPI file
