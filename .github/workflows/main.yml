@@ -83,8 +83,8 @@ jobs:
     - name: Lint with black
       run: |
         # Code formatting with black, check every python file in the src directory 
-        black backend/src
-        black --check backend/src
+        black 
+        black --check
 
     # Generates a openapi.yaml file based on the FastAPI project.
     - name: Generate OpenAPI file
