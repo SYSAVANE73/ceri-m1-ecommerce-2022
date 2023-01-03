@@ -1,6 +1,6 @@
 resource "google_cloud_run_service" "frontend" {
   name     = "redpanda-frontend"
-  location = "europe.west1"
+  location = "europe-west1"
 
   template {
     spec {
