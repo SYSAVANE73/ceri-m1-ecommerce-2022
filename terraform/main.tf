@@ -13,16 +13,16 @@ provider "google" {
   region  = "europe-west1"
 }
 
-data "google_secret_manager_secret" "address" {
-    secret_id = "mysql_address"
+data "google_secret_manager_secret" "host" {
+  secret_id = "mysql_address"
 }
 
 data "google_secret_manager_secret" "database" {
-    secret_id = "mysql-database-redpanda"
+  secret_id = "mysql-database-redpanda"
 }
 
 data "google_secret_manager_secret" "password" {
-    secret_id = "mysql-password-redpanda"
+  secret_id = "mysql-password-redpanda"
 }
 
 resource "google_cloud_run_service" "backend" {
@@ -31,42 +31,43 @@ resource "google_cloud_run_service" "backend" {
 
   template {
     spec {
+      service_account_name = "terraform-redpanda@ceri-m1-ecommerce-2022.iam.gserviceaccount.com"
       containers {
         image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.2"
 
         env{
-            name = "DATABASE_ADDRESS"
-            value_from {
-                secret_key_ref {
-                    name = data.google_secret_manager_secret.address.secret_id
-                    key = "latest"
-                }
+          name = "DATABASE_ADDRESS"
+          value_from {
+            secret_key_ref {
+              name = data.google_secret_manager_secret.host.secret_id
+              key = "latest"
             }
+          }
         }
 
         env{
-            name = "DATABASE_USERNAME"
-            value = "redpanda"
+          name = "DATABASE_USERNAME"
+          value = "redpanda"
         }
 
         env{
-            name = "DATABASE_NAME"
-            value_from {
-                secret_key_ref {
-                    name = data.google_secret_manager_secret.database.secret_id
-                    key = "latest"
-                }
+          name = "DATABASE_NAME"
+          value_from {
+            secret_key_ref {
+              name = data.google_secret_manager_secret.database.secret_id
+              key = "latest"
             }
+          }
         }
 
         env{
-            name = "DATABASE_PASSWORD"
-            value_from {
-                secret_key_ref {
-                    name = data.google_secret_manager_secret.password.secret_id
-                    key = "latest"
-                }
+          name = "DATABASE_PASSWORD"
+          value_from {
+            secret_key_ref {
+              name = data.google_secret_manager_secret.password.secret_id
+              key = "latest"
             }
+          }
         }
       }
     }
@@ -101,4 +102,8 @@ resource "google_cloud_run_service" "frontend" {
     percent         = 100
     latest_revision = true
   }
+}
+
+output "api_url" {
+  value = google_cloud_run_service.backend.status[0].url
 }
