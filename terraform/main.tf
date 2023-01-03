@@ -14,7 +14,7 @@ provider "google" {
 }
 
 data "google_secret_manager_secret" "host" {
-  secret_id = "mysql_address"
+  secret_id = "mysql-address"
 }
 
 data "google_secret_manager_secret" "database" {
@@ -89,12 +89,6 @@ resource "google_cloud_run_service" "frontend" {
       containers {
         image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2"
       }
-      /*
-      env {
-        name  = "url"
-        value = google_cloud_run_service.backend.status.0.url
-      }
-      */
     }
   }
 
@@ -104,6 +98,6 @@ resource "google_cloud_run_service" "frontend" {
   }
 }
 
-output "api_url" {
+output "url" {
   value = google_cloud_run_service.backend.status[0].url
 }
