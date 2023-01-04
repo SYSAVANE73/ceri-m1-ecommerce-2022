@@ -26,7 +26,7 @@ data "google_secret_manager_secret" "password" {
 }
 
 
-resource "google_cloud_run_service" "backend" {
+resource "google_cloud_run_service" "back_end" {
   name     = "redpanda-backend"
   location = "europe-west1"
 
@@ -100,12 +100,12 @@ resource "google_cloud_run_service" "frontend" {
 }
 
 output "url" {
-  value = google_cloud_run_service.backend.status[0].url
+  value = google_cloud_run_service.back_end.status[0].url
 }
 
 /*
 resource "google_cloud_run_service_iam_member" "invokers" {
-  location = google_cloud_run_service.backend.location
+  location = google_cloud_run_service.back_end.location
   service = google_cloud_run_service.backend.name
   role    = "roles/run.invoker"
   member  = "allUsers"
