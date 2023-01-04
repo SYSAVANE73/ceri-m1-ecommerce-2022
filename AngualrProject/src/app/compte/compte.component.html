@@ -15,6 +15,7 @@
                       <th>Quantité</th>
                       <th>Montant</th>
                       <th>Date</th>
+                      <th>Statut commande</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -23,6 +24,7 @@
                       <td><p *ngFor="let qtt of hist.quantite;">{{qtt}}</p></td>
                       <td><span style="color: red;">{{hist.montant}} €</span></td>
                       <td>{{hist.date}}</td>
+                      <td>{{hist.statut}}</td>
                     </tr>
                   </tbody>
                 </table>

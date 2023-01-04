@@ -32,6 +32,13 @@ CREATE TABLE album (
     FOREIGN KEY (id_artiste) REFERENCES artiste(id)
 );
 
+CREATE TABLE favoris (
+    id int not null AUTO_INCREMENT,
+    id_albums int,
+    id_user int,
+    PRIMARY KEY (id)
+);
+
 
 CREATE TABLE chanson (
     id int not null AUTO_INCREMENT,
@@ -50,6 +57,18 @@ CREATE TABLE panier (
     quantite int,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE historique (
+	id int not null AUTO_INCREMENT,
+	id_user	int not null,
+	id_albums JSON,
+	nom_albums JSON,
+	quantite JSON,
+	montant float,
+	date varchar(30),
+	statut varchar(100),
+	PRIMARY KEY(id)
+)
 
 INSERT INTO user(nom, prenom, login, password) VALUES("SY","Ahmadou","diasy73","savane");
 INSERT INTO user(nom, prenom, login, password) VALUES("GDIRA","ghizlane","ghiz","123");
@@ -119,3 +138,31 @@ INSERT INTO chanson(titre,id_album,duree) VALUES ("Djadja",7,2.51);
 INSERT INTO panier(id_albums,montant_total,id_user,quantite) VALUES (1, 30.0, 2, 1);
 INSERT INTO panier(id_albums,montant_total,id_user,quantite) VALUES (8, 45.0, 2, 1);
 INSERT INTO panier(id_albums,montant_total,id_user,quantite) VALUES (3, 40.0, 1, 1);
+
+
+INSERT INTO artiste(nom, prenom, nom_artiste) VALUES("Nzobazola","William","Ninho");
+INSERT INTO album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Jefe","Rap français","2022",7,60.00,"https://cdn.shopify.com/s/files/1/0548/8554/8106/products/R_11.jpg?","Ninho",10);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Jefe",8,2.57);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("VVS",8,3.07);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Sky Priority",8,2.49);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Arme de poing",8,3.47);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Vérité",8,3.19);
+
+
+INSERT INTO artiste(nom, prenom, nom_artiste) VALUES("Anne","Marie","Anne Marie");
+INSERT INTO album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Therapy","Pop","2021",8,36.00,"https://m.media-amazon.com/images/I/81+8Ba1gyRL._SL1500_.jpg","Anne Marie",10);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Kis my (Uh Oh)",9,2.57);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Our song",9,2.44);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Beautiful",9,3.15);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Don't play",9,3.09);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Tell your girlfriend",9,2.15);
+
+
+INSERT INTO artiste(nom, prenom, nom_artiste) VALUES("Kwnoles","Beyoncé","Beyoncé");
+INSERT INTO album(titre,genre,annee_sortie,id_artiste,prix,photo,nom_artiste,stock) VALUES("Renaissance","Disco, Pop music, R&B, Dance-pop","2022",9,55.00,"https://m.media-amazon.com/images/I/61yO73-xTcL._SL1500_.jpg","Beyoncé",10);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("I'm That Girl",10,3.28);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Cuff It",10,3.45);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Church Girl",10,3.44);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Cozy",10,3.30);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Energy",10,1.56);
+INSERT INTO chanson(titre,id_album,duree) VALUES ("Break My Soul",10,4.38);
