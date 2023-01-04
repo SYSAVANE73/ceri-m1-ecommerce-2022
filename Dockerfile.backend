@@ -22,7 +22,7 @@ COPY . .
  
 RUN chmod +x entrypoint.sh
 
-ENV PORT=8000
+ENV PORT=8080
 
 ENTRYPOINT [ "sh", "entrypoint.sh"]
 
