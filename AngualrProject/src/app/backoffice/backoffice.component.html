@@ -2,15 +2,16 @@
     <h2  style="text-align: center">La liste des ALBUMS</h2>   
     <br>
     <br>     
-    <button type="submit" class="btn btn-info pull-left" id="button2" name="btnInscription" data-toggle="modal" data-target="#myModal">Ajouter Items</button>
-    <button type="submit" class="btn btn-info pull-right" id="button3" name="btnInscription">Voir les commandes</button>
+    <button type="submit" class="btn btn-info pull-left" id="button1"  data-toggle="modal" data-target="#myModal">Ajouter Albums</button>
+    <button type="submit" class="btn btn-info pull-left" id="button2"  data-toggle="modal" data-target="#myModal1">Ajouter Artistes</button>
+    <button type="submit" class="btn btn-info pull-right" id="button3" routerLink="/commandes" routerLinkActive="active">Voir les commandes</button>
     <br>
     <br>
     <br>
     <div>
       <ul *ngFor="let album of albumsTab">
         <li class="albums" routerLinkActive="active" class="nav-link">
-          <div routerLink="/detail/{{album.id}}" (click)="getDetails(album.id)">
+          <div routerLink="/ajoutchanson/{{album.id}}" (click)="getDetails(album.id)">
             <img src={{album.photo}} alt={{album.annee}} >
           </div>
           <div class="infos">
@@ -37,15 +38,93 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" >
-          <h4 class="modal-title" >Modal Header</h4>
+          <h4 class="modal-title" >Informations d'Albums</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <p>Some text in the modal.</p>
+          <form [formGroup]="formGroup" (ngSubmit)="ajoutAlbum()">
+            <div class="form-group">
+                <input type="text" id="titre" class="form-control" formControlName="titre" placeholder="Titre" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="genre" class="form-control" formControlName="genre" placeholder="Genre" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="annee"  class="form-control" formControlName="annee" placeholder="Année Sortie" required>
+            </div>
+            <div class="form-group">
+              <select [(ngModel)]="variable" (ngModelChange)="selectArtiste($event)" class="form-control" formControlName="nomartiste" >
+                <option value="">--Veuillez choisir un option--</option>
+                <option *ngFor="let art of artistesTab" [ngValue]="art" class="form-control" placeholder="Nom Artiste" required>{{art.nom_artiste}}</option>
+              </select>
+            </div>
+            <!--
+            <div class="form-group">
+                <input type="text" id="idartiste" class="form-control" formControlName="idartiste" placeholder="Identifiant Artiste" required>
+            </div>
+            <div class="form-group">
+              <input type="text" id="nomartiste" class="form-control" formControlName="nomartiste" placeholder="Nom Artiste" required>
+            </div>
+            -->
+            <div class="form-group">
+              <input type="text" id="prix" class="form-control" formControlName="prix" placeholder="Prix" required>
+            </div>
+            <div class="form-group">
+              <input type="text" id="photo" class="form-control" formControlName="photo" placeholder="URL Photo" required>
+            </div>
+            <div class="form-group">
+              <input type="text" id="stock" class="form-control" formControlName="stock" placeholder="Stock" required>
+            </div>
+            <br>
+            <!-- <p style="color: red;" >Votre login ou mot de passe est incorrecte</p> -->
+            <button type="submit" class="btn btn-info btn-block pull-right" name="btnInscription">Ajouter</button>
+            <br>
+        </form>
         </div>
+        <!--
         <div class="modal-footer">
           <button type="submit" class="btn btn-info">Ajouter</button>
         </div>
+        -->
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Modal2 -->
+<div class="w3-container">
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" >
+          <h4 class="modal-title" >Informations d'Artiste</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formGroup1" (ngSubmit)="ajoutArtiste()">
+            <div class="form-group">
+                <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Nom" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="prenom" class="form-control" formControlName="prenom" placeholder="Prénom" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="nom_artiste"  class="form-control" formControlName="nom_artiste" placeholder="nom artiste" required>
+            </div>
+            <br>
+            <!-- <p style="color: red;" >Votre login ou mot de passe est incorrecte</p> -->
+            <button type="submit" class="btn btn-info btn-block pull-right" name="btnInscription">Ajouter</button>
+            <br>
+        </form>
+        </div>
+        <!--
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-info">Ajouter</button>
+        </div>
+        -->
       </div>
       
     </div>

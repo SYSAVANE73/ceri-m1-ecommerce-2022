@@ -67,6 +67,25 @@ export class GetDataService {
     });
   }
 
+  getArtistes() : Observable<Object> {
+    let artistes = new Array();
+    
+    return Observable.create((observer: Subscriber<Object>) => {
+      this._http.get<any>('http://127.0.0.1:8000/',{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          artistes = data;
+          //console.log("liste artistes ",data);
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(artistes); // renvoi des données pour l’observable principal
+      });
+    });
+  }
+
   getPanier(id : number) : Observable<any> {
     let panier = new Array();
     
@@ -245,4 +264,75 @@ export class GetDataService {
       });
     });  
   }
+
+  //ajout des albums
+  insertAlbum(titre : string, genre : string, annee : string, idartiste : number, nomartiste : string, prix : number, photo : string, stock : number) : Observable<any> {
+    var msg = "";
+    
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      
+      let url = 'http://127.0.0.1:8000/insert_album/' + titre + "_" + genre + "_" + annee + "_" + idartiste + "_" + nomartiste + "_" + prix + "_" + photo + "_" + stock;
+      console.log(url);
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          msg = data;
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(msg); // renvoi des données pour l’observable principal
+      });
+    });  
+  }
+
+  //ajout des artistes
+  insertArtiste(nom : string, prenom : string, nom_artiste : string) : Observable<any> {
+    var msg = "";
+    
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      
+      let url = 'http://127.0.0.1:8000/insert_artiste/' + nom + "/" + prenom + "/" + nom_artiste;
+      console.log(url);
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          msg = data;
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(msg); // renvoi des données pour l’observable principal
+      });
+    });  
+  }
+
+  //ajout des chansons
+  insertChanson(titre : string, id_album : number, duree : number) : Observable<any> {
+    var msg = "";
+    
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      
+      let url = 'http://127.0.0.1:8000/insert_chanson/' + titre + "_" + id_album + "_" + duree;
+      console.log(url);
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          msg = data;
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(msg); // renvoi des données pour l’observable principal
+      });
+    });  
+  }
+
+  
 }

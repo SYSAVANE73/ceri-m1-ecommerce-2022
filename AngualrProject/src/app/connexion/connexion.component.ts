@@ -24,6 +24,7 @@ export class ConnexionComponent implements OnInit {
     nom: '',
     prenom: '',
     login: '',
+    statut:'',
     isloged: false
   };
 
@@ -62,6 +63,7 @@ export class ConnexionComponent implements OnInit {
           this.user.prenom = data[0].prenom;
           this.user.isloged = true;
           this.user.login = data[0].login;
+          this.user.statut= data[0].statut;
 
           this.store.dispatch(getUser({user : this.user}));
           this.getAlbums(data[0].userid);

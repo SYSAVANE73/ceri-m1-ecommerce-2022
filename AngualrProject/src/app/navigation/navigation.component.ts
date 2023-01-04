@@ -15,12 +15,14 @@ export class NavigationComponent implements OnInit {
     id: 0,
     nom: '',
     prenom: '',
+    statut:'',
     isloged: false
   };
   userdisconnect= {
     id: 0,
     nom: '',
     prenom: '',
+    statut:'',
     isloged: false
   };
   nbrAlbum = 0;

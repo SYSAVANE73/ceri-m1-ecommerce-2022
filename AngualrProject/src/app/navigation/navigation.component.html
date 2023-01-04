@@ -43,7 +43,7 @@
           <a style="font-size: 15px;color:white; margin:4px; cursor: pointer;" class="nav-link fas fa-sign-in-alt" (click)="deconnection()"> Se deconnecter</a>
         </li>
 
-        <li>
+        <li *ngIf="user.statut==='admin'">
           <a style="font-size: 15px;color:white; margin:4px; cursor: pointer;" routerLink="/edit" routerLinkActive="active" class="nav-link fas fa-user-edit">Admin</a>
         </li>
 

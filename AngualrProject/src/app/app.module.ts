@@ -20,6 +20,8 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { BackofficeComponent } from './backoffice/backoffice.component';
 import { CompteComponent } from './compte/compte.component';
 import { FavorisComponent } from './favoris/favoris.component';
+import { CommandesComponent } from './commandes/commandes.component';
+import { AjouterchansonComponent } from './ajouterchanson/ajouterchanson.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -32,6 +34,8 @@ const appRoutes: Routes = [
   {path: 'edit', component: BackofficeComponent},
   {path: 'compte', component: CompteComponent},
   {path: 'favoris', component: FavorisComponent},
+  {path: 'commandes', component: CommandesComponent},
+  {path: 'ajoutchanson/:id', component: AjouterchansonComponent},
   {path: '**', component: HomeComponent},
 ];
 
@@ -49,7 +53,9 @@ const appRoutes: Routes = [
     InscriptionComponent,
     BackofficeComponent,
     CompteComponent,
-    FavorisComponent
+    FavorisComponent,
+    CommandesComponent,
+    AjouterchansonComponent
   ],
   imports: [
     BrowserModule,

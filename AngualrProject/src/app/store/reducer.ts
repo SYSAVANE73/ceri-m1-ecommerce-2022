@@ -13,6 +13,7 @@ const initialState = {
         nom: '',
         prenom: '',
         login: '',
+        statut: '',
         isLoged: false
     },
     nbr : 0,
