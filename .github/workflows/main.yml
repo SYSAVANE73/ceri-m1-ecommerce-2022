@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend/src
+        working-directory: ./backend/src
 
     # Checks out the entire repo.
     steps:
