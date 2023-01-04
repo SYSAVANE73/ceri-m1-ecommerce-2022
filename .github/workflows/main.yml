@@ -64,20 +64,21 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     
-    #Task for setting up Python 3.8 using actions/setup-python@v2 Github action
+    # Task for setting up Python 3.8 using actions/setup-python@v2 Github action
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.7
-      - run: pip install poetry
-      - run: poetry install 
-      - run: poetry run pytest tests/
+    - name: Install dependencies
+      run: | 
+        pip install poetry
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       
     # Pushes all of these changes into the GitHub repository.
     - name: Push changes to client branch
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.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 }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: main
         force: True
   

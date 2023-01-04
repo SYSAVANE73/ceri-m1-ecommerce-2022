@@ -111,7 +111,7 @@ output "front_url" {
 
 /*
 resource "google_cloud_run_service_iam_member" "invokers" {
-  location = google_cloud_run_service.backend.location
+  location = google_cloud_run_service.back_end.location
   service = google_cloud_run_service.backend.name
   role    = "roles/run.invoker"
   member  = "allUsers"
