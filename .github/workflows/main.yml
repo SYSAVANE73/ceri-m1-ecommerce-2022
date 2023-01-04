@@ -103,11 +103,11 @@ jobs:
     # Generates a openapi.yaml file based on the FastAPI project.
     - name: Generate OpenAPI file
       uses: column-street/fastapi-openapi-specs-action@v1.0.0
-      #with:
+      with:
         #moduleDir: backend/src
-        #fileName: songs.py
-        #appName: app
-        #fastapiVersioning: v1
+        fileName: songs.py
+        appName: app
+        fastapiVersioning: v1
       
     # Pushes all of these changes into the GitHub repository.
     - name: Push changes to client branch
