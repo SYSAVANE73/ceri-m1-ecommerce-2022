@@ -82,7 +82,6 @@ resource "google_cloud_run_service" "backend" {
   }
 }
 
-/*
 resource "google_cloud_run_service" "frontend" {
   name     = "redpanda-frontend"
   location = "europe-west1"
@@ -108,7 +107,7 @@ output "back_url" {
 output "front_url" {
   value = google_cloud_run_service.frontend.status[0].url
 }
-*/
+
 /*
 resource "google_cloud_run_service_iam_member" "invokers" {
   location = google_cloud_run_service.back_end.location

@@ -8,8 +8,8 @@
 #install FastAPI
 FROM python:3.7
 
-RUN pip3 install fastapi uvicorn
-RUN pip3 install sqlmodel
+#RUN pip3 install fastapi uvicorn
+#RUN pip3 install sqlmodel
 RUN pip3 install PyMySQL
 RUN pip3 install mysqlclient
 
@@ -18,14 +18,18 @@ WORKDIR /backend/scr
 
 COPY . .
 
-#COPY entrypoint.sh ./entrypoint.sh
+COPY ./requirements.txt /backend/scr/requirements.txt
+COPY entrypoint.sh ./entrypoint.sh
  
 RUN chmod +x entrypoint.sh
+
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
 
 ENV PORT=8080
 
 ENTRYPOINT [ "sh", "entrypoint.sh"]
 
-#RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
 #EXPOSE  8000
 #CMD ["uvicorn", "app.songs:app", "--host", "0.0.0.0", "--port", "80"]
