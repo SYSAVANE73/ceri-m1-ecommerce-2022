@@ -23,5 +23,5 @@ COPY --from=node /AngualrProject/dist/ecommerce /usr/share/nginx/html
 
 ENV PORT 8000
 ENV HOST 0.0.0.0
-EXPOSE 8000
+#EXPOSE 8000
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
