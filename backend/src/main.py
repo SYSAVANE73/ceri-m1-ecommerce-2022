@@ -10,6 +10,7 @@ import uvicorn
 import datetime
 import MySQLdb
 import sqlalchemy
+import os
 
 class Artiste(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
@@ -96,10 +97,10 @@ password = "root"
 host = "mysql"
 database_name = "songs"
 """
-DATABASE_USERNAME = ""
-DATABASE_PASSWORD = ""
-DATABASE_ADDRESS = ""
-DATABASE_NAME = ""
+DATABASE_USERNAME = os.environ.get('DATABASE_USERNAME')
+DATABASE_PASSWORD = os.environ.get('DATABASE_PASSWORD')
+DATABASE_ADDRESS = os.environ.get('DATABASE_ADDRESS')
+DATABASE_NAME = os.environ.get('DATABASE_NAME')
 
 connection_name = 'ceri-m1-ecommerce-2022:europe-west1:mysql-primary'
 """
