@@ -198,6 +198,7 @@ def get_paniers():
 		paniers = res.all()
 		return paniers
 
+#retourne tous les utilisateurs
 def get_users_list():
     with Session(engine) as session:
         route = select(User)
@@ -206,7 +207,57 @@ def get_users_list():
         for user in users:
             print(user)
         return users
-		
+
+#trouver un utilisateur par son login
+def get_user_by_id(login):
+	with Session(engine) as session:
+		route = select(User).where(User.login == login)
+		res = session.exec(route)
+		users = res.all()
+		for user in users:
+			print(user)
+		return users
+
+#modifier le profil d'un utilisateur 
+def update_user(old_login, new_name, new_fname, new_login):
+	users = get_users_list()
+	with Session(engine) as session:
+		route = select(User).where(User.login == old_login)
+		res = session.exec(route)
+		user = res.one()
+		new_log_usr = get_user_by_id(new_login)
+
+		for u in users:
+			if(u.login == new_login):
+				return {"msg": "Ce login existe déjà"}
+		user.nom = new_name
+		user.prenom = new_fname
+		user.login = new_login
+		session.add(user)
+		session.commit()
+		return {"msg": "L'utilisateur a bien été modifié'"}
+
+#trouver un utilisateur par son identifiant unique
+def get_user_by_id_user(id):
+	with Session(engine) as session:
+		route = select(User).where(User.user_id == id)
+		res = session.exec(route)
+		users = res.one()
+		return users
+
+def get_status_by_login(login):
+	with Session(engine) as session:
+		route = select(User.user_type).where(User.login == login)
+		res = session.exec(route)
+		user = res.one()
+		return user
+
+def is_admin(id_user):
+	user = get_user_by_id(id_user)
+	if(user.user_type=="admin"):
+		return True
+	return False
+
 def create_user(nom_u, prenom_u, login_u, password_u):
     new_user = User(nom=nom_u, prenom=prenom_u, login=login_u, password=password_u)
     with Session(engine) as session:
@@ -457,6 +508,19 @@ async def get_all_paniers():
 @app.get("/signin/{n}_{p}_{l}_{m}")
 async def sign_in(n, p, l, m):
     return create_user(n, p, l, m)
+
+#renvoie le statut d'un utilisateur (admin vs user)
+@app.get("/user_statut/{login}")
+async def get_status(login):
+	data = get_users_list()
+	return get_status_by_login(login)
+
+#modifie le profil d'un utilisateur
+@app.get("/users/{old_login}_{new_login}_{new_fname}_{new_name}")
+async def update_usr(old_login, new_login, new_fname, new_name):
+	return update_user(old_login, new_name, new_fname, new_login)
+
+
 #insertion d'un album dans le panier
 @app.get("/insertPanier/{id_user}/{id_album}/{montant}/{quantite}")
 async def insert_into_panier(id_user: int, id_album: int, montant: int, quantite: int):
