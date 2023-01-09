@@ -17,7 +17,7 @@ export class AuthentificationService {
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
       //let url = 'http://127.0.0.1:8000/login/' + login + "/" + pwd;
-      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/' + login + "/" + pwd;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/login/' + login + "/" + pwd;
       
       //console.log(url);
       this._http.get<any>(url,{})
@@ -44,7 +44,7 @@ export class AuthentificationService {
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
       //let url = 'http://127.0.0.1:8000/signin/' + nom + "_" + prenom+ "_" + login+ "_" + pwd;
-      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/' + nom + "_" + prenom+ "_" + login+ "_" + pwd;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/signin/' + nom + "_" + prenom+ "_" + login+ "_" + pwd;
       //console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
