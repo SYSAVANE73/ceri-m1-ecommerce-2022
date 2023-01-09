@@ -405,6 +405,16 @@ def update_qte_album(id_album, qte):
 		session.commit()
 		return {"msg": "Le stock a été modifié"}
 
+def update_ajouter_qte_album(id_album, qte):
+	with Session(engine) as session:
+		route = select(Album).where(Album.id == id_album)
+		res = session.exec(route)
+		album = res.one()
+		album.stock += qte
+		session.add(album)
+		session.commit()
+		return {"msg": "Le stock a été modifié"}
+
 #liste l'historique de tous les paiements
 def get_historique():
 	with Session(engine) as session:
@@ -564,6 +574,11 @@ async def delete_album_by_id_in_favoris(album, user):
 async def update_stock(id_album: int, qte: int):
 	data = update_qte_album(id_album, qte)
 	return jsonable_encoder(data)
+
+#modifier / ajout d'albums dans le stock
+@app.get("/ajout_stock_album/{id_album}_{qte}")
+async def update_stock2(id_album: int, qte: int):
+	return update_ajouter_qte_album(id_album, qte)
 
 #test de l'api
 @app.get("/test/{test}")
