@@ -7,7 +7,8 @@ WORKDIR /AngualrProject
 
 COPY package.json .
 
-COPY /AngualrProject /AngualrProject
+#COPY /AngualrProject /AngualrProject
+COPY . .
 
 RUN npm install
 
