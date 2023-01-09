@@ -30,6 +30,12 @@ resource "google_cloud_run_service" "backend" {
   location = "europe-west1"
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "1"
+        "run.googleapis.com/cloudsql-instances" = "ceri-m1-ecommerce-2022:europe-west1:mysql-primary"
+      }
+    }
     spec {
       service_account_name = "terraform-redpanda@ceri-m1-ecommerce-2022.iam.gserviceaccount.com"
       containers {

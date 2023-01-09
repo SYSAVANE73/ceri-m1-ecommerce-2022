@@ -9,6 +9,7 @@ from algoliasearch.search_client import SearchClient
 import uvicorn
 import datetime
 import MySQLdb
+import sqlalchemy
 
 class Artiste(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
@@ -100,11 +101,21 @@ DATABASE_PASSWORD = ""
 DATABASE_ADDRESS = ""
 DATABASE_NAME = ""
 
+connection_name = 'ceri-m1-ecommerce-2022:europe-west1:mysql-primary'
+"""
 DATABASE = 'mysql://%s:%s@%s/%s?charset=utf8' % (
     DATABASE_USERNAME,
     DATABASE_PASSWORD,
     DATABASE_ADDRESS,
     DATABASE_NAME,
+)
+"""
+DATABASE = sqlalchemy.engine.url.URL.create(
+    drivername="mysql+pymysql",
+    username=DATABASE_USERNAME,
+    password=DATABASE_PASSWORD,
+    database=DATABASE_NAME,
+    query={"unix_socket": "{}/{}".format("/cloudsql", connection_name)},
 )
 engine = create_engine(
 	DATABASE,
