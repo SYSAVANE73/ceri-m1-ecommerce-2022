@@ -47,11 +47,11 @@ jobs:
       - name: Checks out repo
         uses: actions/checkout@v2
       - name: Build the Docker image
-        run: docker build -f Dockerfile --tag europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2 AngualrProject
+        run: docker build -f Dockerfile --tag europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.3 AngualrProject
       - name: Login to registry
         run : docker login -u _json_key_base64 -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} https://europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda
       - name: push image 
-        run: docker push europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2
+        run: docker push europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.3
 
   deploy-backend:
     runs-on: ubuntu-latest
