@@ -5,6 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.testclient import TestClient
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from algoliasearch.search_client import SearchClient
 import uvicorn
 import datetime
 import MySQLdb
@@ -255,10 +256,10 @@ def insert_panier(id_albums, montant_total, id_user, quantite):
 		data = get_paniers()
 		for panier in data:
 			if panier.id_albums == new_panier.id_albums and panier.id_user == new_panier.id_user:
-				return {"msg": "Vous avez ajout cet album dans votre panier"}
+				return {"msg": "Vous avez ajouté cet album dans votre panier"}
 		session.add(new_panier)
 		session.commit()
-		return {"msg": "L'album est ajouter dans votre panier"}
+		return {"msg": "L'album est ajouté dans votre panier"}
 
 def get_panier_by_user_album(id_user, id_album):
 	with Session(engine) as session:
@@ -268,6 +269,30 @@ def get_panier_by_user_album(id_user, id_album):
 		for panier in paniers:
 			print(panier)
 		return paniers
+
+def get_artiste_by_id(id):
+	with Session(engine) as session:
+		route = select(Artiste).where(Artiste.id == id)
+		res = session.exec(route)
+		artiste = res.all()
+		return artiste[0]
+
+def insert_album(titre, genre, annee, id_artiste, prix, photo, nom_artiste, stock):
+	alb = Album(titre=titre, genre=genre, annee_sortie=annee, id_artiste=id_artiste, prix=prix, photo="https://images.saymedia-content.com/.image/t_share/MTc0NDkxNzgyMzYzNDg5NjQw/vinyl-to-paper-how-to-write-an-album-review.jpg", nom_artiste=nom_artiste, stock=stock)
+	with Session(engine) as session:
+		session.add(alb)
+		session.commit()
+		obj_alb = {"objectID": alb.id,"annee_sortie":annee,"id":alb.id,"prix":prix,"nom_artiste":nom_artiste,"stock":stock,"titre":titre,"genre":genre,"id_artiste":id_artiste,"photo":"https://images.saymedia-content.com/.image/t_share/MTc0NDkxNzgyMzYzNDg5NjQw/vinyl-to-paper-how-to-write-an-album-review.jpg"}
+		search_index.save_object(obj_alb).wait()
+		return alb
+
+def insert_chanson(titre, id_album, duree):
+	ch = Chanson(titre=titre, id_album=id_album, duree=duree)
+	with Session(engine) as session:
+		session.add(ch)
+		session.commit()
+		return ch
+
 
 def supprimer_album_panier(id_user, id_album):
 	with Session(engine) as session:
@@ -348,6 +373,20 @@ def ajouter_paiement(id_user, id_albums, albums, qte, mtt, date):
 #get_artistes()
 #get_albums_by_artiste(1)
 #get_songs_by_album(1)
+
+#ALGOLIA AJOUT A l'INDEX
+#app ID, admin API key
+clientAlgolia = SearchClient.create("F0PFIIXL0Z", "4ab046441e6f0f88f3e50ed3794a70f5")
+
+search_index = clientAlgolia.init_index("album_index")
+all_albums = get_albums()
+obj_id=1
+for album in all_albums:
+	obj_usr = get_artiste_by_id(album.id_artiste)
+	obj_alb = {"objectID": obj_id,"annee_sortie":album.annee_sortie,"id":album.id,"prix":album.prix,"nom_artiste":obj_usr.nom_artiste,"stock":album.stock,"titre":album.titre,"genre":album.genre,"id_artiste":album.id_artiste,"photo":album.photo}
+	obj_id +=1
+	search_index.save_object(obj_alb).wait()
+
 
 #RECUPERER MUSIQUES
 app = FastAPI(title="Magasin de vinyles")
@@ -469,6 +508,16 @@ async def get_hist():
 @app.get("/historique_user/{id_user}")
 async def get_hist_user(id_user): 
 	return get_historique_user(id_user)
+
+#Recherche avec algolia
+@app.get("/search/{recherche}")
+async def get_search(recherche):
+	results = search_index.search(recherche, {'attributesToRetrieve': [
+        'titre',
+        'nom_artiste'
+    ]})
+	return {"msg": str(results["nbHits"]) +" résultats trouvés"}, jsonable_encoder(results["hits"])
+
 
 #if __name__ == "__main__":
 #	uvicorn.run(app, host="127.0.0.1", port=8000)
