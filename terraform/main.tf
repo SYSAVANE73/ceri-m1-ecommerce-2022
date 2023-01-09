@@ -25,18 +25,17 @@ data "google_secret_manager_secret" "password" {
   secret_id = "mysql-password-redpanda"
 }
 
-resource "google_cloud_run_service_iam_member" "invokers" {
-  location = google_cloud_run_service.backend.location
-  service = google_cloud_run_service.backend.name
-  role    = "roles/run.invoker"
-  member  = "allUsers"
-}
-
 resource "google_cloud_run_service" "backend" {
   name     = "redpanda-backend"
   location = "europe-west1"
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "1"
+        "run.googleapis.com/cloudsql-instances" = "ceri-m1-ecommerce-2022:europe-west1:mysql-primary"
+      }
+    }
     spec {
       service_account_name = "terraform-redpanda@ceri-m1-ecommerce-2022.iam.gserviceaccount.com"
       containers {
@@ -72,6 +71,11 @@ resource "google_cloud_run_service" "backend" {
             }
           }
         }
+        /*
+        ports {
+          container_port = 8082
+        }
+        */
       }
     }
   }
@@ -89,7 +93,16 @@ resource "google_cloud_run_service" "frontend" {
   template {
     spec {
       containers {
-        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2"
+        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.3"
+        /*
+        env {
+          name = "BACK_URL"
+          value = google_cloud_run_service.backend.status[0].url
+        }
+        */
+        ports {
+          container_port = 8081
+        }
       }
     }
   }
@@ -108,11 +121,16 @@ output "front_url" {
   value = google_cloud_run_service.frontend.status[0].url
 }
 
-/*
-resource "google_cloud_run_service_iam_member" "invokers" {
-  location = google_cloud_run_service.back_end.location
+resource "google_cloud_run_service_iam_member" "invokers-backend" {
+  location = google_cloud_run_service.backend.location
   service = google_cloud_run_service.backend.name
   role    = "roles/run.invoker"
   member  = "allUsers"
 }
-*/
+
+resource "google_cloud_run_service_iam_member" "invokers-frontend" {
+  location = google_cloud_run_service.frontend.location
+  service = google_cloud_run_service.frontend.name
+  role    = "roles/run.invoker"
+  member  = "allUsers"
+}
