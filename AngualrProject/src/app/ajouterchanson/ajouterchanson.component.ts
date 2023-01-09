@@ -19,6 +19,8 @@ export class AjouterchansonComponent implements OnInit {
   service : GetDataService;
   route : ActivatedRoute;
 
+  quantite : number = 10;
+
   user= {
     id: 0,
     nom: '',
@@ -45,6 +47,10 @@ export class AjouterchansonComponent implements OnInit {
   formGroup1 = new FormGroup ({
     titre :  new FormControl(''),
     duree : new FormControl(),
+  });
+
+  formGroup2 = new FormGroup ({
+    stock :  new FormControl(),
   });
 
   ngOnInit(): void {
@@ -125,5 +131,14 @@ export class AjouterchansonComponent implements OnInit {
       }, (error) => {
     });
     
+  }
+
+  miseAJourStock(): void{
+    var stock = this.formGroup2.value.stock || 0;
+    this.service.updateStock(this.id_album,stock).subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    )
   }
 }
