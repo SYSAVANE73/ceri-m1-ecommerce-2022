@@ -88,8 +88,17 @@
               </li>
             </ul>
           </div>
-          <button class="btn btn-success " id="b4" type="submit" data-toggle="modal" data-target="#myModal"> Ajouter</button>
-          <!-- Modal -->
+          <button class="btn btn-info " id="b4" type="submit" data-toggle="modal" data-target="#myModal"> Ajouter</button>
+          <br>
+          <br>
+          <form [formGroup]="formGroup2" (ngSubmit)="miseAJourStock()">
+            <div class="form-group" *ngFor="let stok of album">
+              <label for="tentacles"><h5>Stock :</h5></label>
+              <input type="number" id="tentacles" name="tentacles" min="0" max="100" value="{{stok.stock}}" class="form-control" formControlName="stock">
+            </div>
+            <button class="btn btn-info " id="bot" type="submit"> Update</button>
+            <br>
+        </form>
 <div class="w3-container">
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">

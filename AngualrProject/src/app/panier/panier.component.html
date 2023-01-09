@@ -30,7 +30,7 @@
                                   <p style="color: red;"> Quantité indisponible</p>
                                 </div>
                                 <div *ngIf="album[0].stock >= panier[index].quantite;">
-                                  <p style="color: greenyellow;"> En stock</p>
+                                  <p style="color:purple;"> En stock</p>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal" [disabled]="paiemt"> PAIEMENT </button>
+            <button type="submit" class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal" [disabled]="paiemt"> PAIEMENT </button>
             <br>
         </div>
     </div>
@@ -131,7 +131,7 @@
                     </label>
                   </li>
                   <li>
-                    <button type="submit" class="button" (click)="paiement()">Payer</button>
+                    <button type="submit" class="btn btn-info" (click)="paiement()">Payer</button>
                   </li>
                   <br>
                   <div [hidden]="!paie">

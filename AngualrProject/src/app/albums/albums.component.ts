@@ -13,7 +13,10 @@ import { getUser, nbAlbum, nbPanier } from '../store/actions';
 export class AlbumsComponent implements OnInit {
   service : GetDataService;
 
+  recherche ="";
+
   albumsTab = new Array();
+  rechercheTab = new Array();
   albumsTabFilter =  new Array();
   @Input()
   detailTab = {
@@ -89,4 +92,23 @@ export class AlbumsComponent implements OnInit {
       return album.titre.includes(this.value) || album.genre.includes(this.value) || album.nom_artiste.includes(this.value);
     });
   }
+
+  //Recherche algolia
+  searchAlgolia(event: any): void {
+    this.recherche = event.target.value;
+    this.rechercheTab = [];
+    this.service.rechercheAlgolia(event.target.value).subscribe(
+      (data:any) => {
+        //this.rechercheTab = data;
+        console.log(data);
+        for (let i=0; i < data[1].length;i++){
+          //console.log(data[1][i]);
+          this.rechercheTab.push(data[1][i]._highlightResult);
+        }
+        console.log('recherche ',this.rechercheTab);
+      },
+      (error) => {
+    });
+  }
+
 }

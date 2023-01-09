@@ -2,10 +2,14 @@
   <div class="main">
     <div class="form-group has-search">
       <span class="fa fa-search form-control-feedback"></span>
+      <!--
       <input type="text" class="form-control" placeholder="Search" (keyup)="filters($event)">
+      -->
+      <input type="text" class="form-control" placeholder="Search" (keyup.enter)="searchAlgolia($event)">
     </div>
   </div>
 
+  <!--
   <div>
     <ul *ngFor="let album of albumsTabFilter">
       <li class="albums" routerLinkActive="active" class="nav-link">
@@ -25,17 +29,37 @@
               <button class="border favorie" [disabled]="!vrai" (click)="ajoutFavoris(album.id)" style="color: white;" >
                 <i class="fa fa-heart" style="margin: 5px 5px; color: red;" ></i>
               </button>
-              <!--
-              <label class="border favorie" id="favorie" (click)="ajoutFavoris(album.id)">
-                <i class="fa fa-heart" style="margin: 4px 4px; color: red; cursor: pointer;"></i>
-                <input type="text" style="visibility:hidden;" (click)="ajoutFavoris(album.id)" [disabled]="!vrai">
-              </label>
-            -->
             </div>
           </div>
         </div>
       </li>
     </ul>
   </div>
+-->
+<div>
+  <ul *ngFor="let album of rechercheTab">
+    <li class="albums" routerLinkActive="active" class="nav-link">
+      <div routerLink="/detail/{{album.id.value}}" (click)="getDetails(album.id)">
+        <img src={{album.photo.value}} alt={{album.annee}} >
+      </div>
+      <div class="infos">
+        <br>
+        <h6 class="min-vh-70 mh-70" style="text-align: center;"><b>{{album.titre.value}}</b></h6>
+        <div class="d-flex justify-content-between mb-2">
+          <div class="p-2">
+            <h6>{{album.nom_artiste.value}}</h6>
+            <p style="color: red; font-size: 17px;"><b>{{album.prix.value}} €</b></p>
+          </div>
+          <div class="p-2">
+            <h6>{{album.annee_sortie.value}}</h6>
+            <button class="border favorie" [disabled]="!vrai" (click)="ajoutFavoris(album.id)" style="color: white;" >
+              <i class="fa fa-heart" style="margin: 5px 5px; color: red;" ></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
 </div>
 
