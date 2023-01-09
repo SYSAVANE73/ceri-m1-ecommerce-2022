@@ -270,6 +270,13 @@ def get_panier_by_user_album(id_user, id_album):
 			print(panier)
 		return paniers
 
+def get_artiste_by_id(id):
+	with Session(engine) as session:
+		route = select(Artiste).where(Artiste.id == id)
+		res = session.exec(route)
+		artiste = res.all()
+		return artiste[0]
+
 def insert_album(titre, genre, annee, id_artiste, prix, photo, nom_artiste, stock):
 	alb = Album(titre=titre, genre=genre, annee_sortie=annee, id_artiste=id_artiste, prix=prix, photo="https://images.saymedia-content.com/.image/t_share/MTc0NDkxNzgyMzYzNDg5NjQw/vinyl-to-paper-how-to-write-an-album-review.jpg", nom_artiste=nom_artiste, stock=stock)
 	with Session(engine) as session:
