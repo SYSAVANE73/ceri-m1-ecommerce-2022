@@ -18,6 +18,7 @@ export class CompteComponent implements OnInit {
     nom: '',
     prenom: '',
     login: '',
+    statut:'',
     isloged: false
   };
   historique = new Array();

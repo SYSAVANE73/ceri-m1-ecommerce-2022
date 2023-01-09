@@ -99,6 +99,7 @@ export class BackofficeComponent implements OnInit {
     this.idartiste  = event.id;
     this.nomartiste = event.nom_artiste;
   }
+  
   ajoutAlbum(): void {
     
     var titre = this.formGroup.value.titre || "";
