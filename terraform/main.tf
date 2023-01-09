@@ -65,6 +65,9 @@ resource "google_cloud_run_service" "backend" {
             }
           }
         }
+        ports {
+          container_port = 8082
+        }
       }
     }
   }
@@ -83,10 +86,12 @@ resource "google_cloud_run_service" "frontend" {
     spec {
       containers {
         image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2"
+        /*
         env {
           name = "BACK_URL"
           value = google_cloud_run_service.backend.status[0].url
         }
+        */
         ports {
           container_port = 8081
         }
