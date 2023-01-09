@@ -13,7 +13,9 @@ export class GetDataService {
     let albums = new Array();
     
     return Observable.create((observer: Subscriber<Object>) => {
-      this._http.get<any>('https://redpanda-backend-mwjszocsqa-ew.a.run.app/album/',{})
+      //let url = 'http://127.0.0.1:8000/getAlbum/';
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/album/';
+      this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
           albums = data;
@@ -73,7 +75,10 @@ export class GetDataService {
     let artistes = new Array();
     
     return Observable.create((observer: Subscriber<Object>) => {
-      this._http.get<any>('https://redpanda-backend-mwjszocsqa-ew.a.run.app/',{})
+      //let url = 'http://127.0.0.1:8000/';
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/';
+      
+      this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
           artistes = data;
@@ -222,7 +227,7 @@ export class GetDataService {
     return Observable.create((observer: Subscriber<any>) => {
       //let url = 'http://127.0.0.1:8000/paiement/' + id_user +'/'+id_album+ '/'+ albums+'/'+quantite+'/'+montant+'/'+date;
       let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/paiement/' + id_user +'/'+id_album+ '/'+ albums+'/'+quantite+'/'+montant+'/'+date;
-      console.log(url);
+      //console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -310,7 +315,7 @@ export class GetDataService {
       
       //let url = 'http://127.0.0.1:8000/insert_artiste/' + nom + "/" + prenom + "/" + nom_artiste;
       let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_artiste/' + nom + "/" + prenom + "/" + nom_artiste;
-      console.log(url);
+      //console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -334,7 +339,7 @@ export class GetDataService {
       
       //let url = 'http://127.0.0.1:8000/insert_chanson/' + titre + "_" + id_album + "_" + duree;
       let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_chanson/' + titre + "_" + id_album + "_" + duree;
-      console.log(url);
+      //console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
