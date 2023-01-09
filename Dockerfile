@@ -5,7 +5,7 @@ WORKDIR /AngualrProject
 
 #RUN npm install -g @angular/cli
 
-COPY /AngualrProject/package.json .
+COPY package.json .
 
 COPY /AngualrProject /AngualrProject
 
@@ -17,8 +17,8 @@ RUN npm run build --prod
 # server environment
 FROM nginx:alpine
 
-#COPY nginx.conf /etc/nginx/conf.d/configfile.template
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
+#COPY nginx.conf /etc/nginx/nginx.conf
 #WORKDIR /usr/share/nginx/html
 COPY --from=node /AngualrProject/dist/ecommerce /usr/share/nginx/html
 
