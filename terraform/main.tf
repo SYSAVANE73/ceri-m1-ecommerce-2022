@@ -25,13 +25,6 @@ data "google_secret_manager_secret" "password" {
   secret_id = "mysql-password-redpanda"
 }
 
-resource "google_cloud_run_service_iam_member" "invokers" {
-  location = google_cloud_run_service.backend.location
-  service = google_cloud_run_service.backend.name
-  role    = "roles/run.invoker"
-  member  = "allUsers"
-}
-
 resource "google_cloud_run_service" "backend" {
   name     = "redpanda-backend"
   location = "europe-west1"
@@ -90,6 +83,13 @@ resource "google_cloud_run_service" "frontend" {
     spec {
       containers {
         image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.2"
+        env {
+          name = "BACK_URL"
+          value = google_cloud_run_service.backend.status[0].url
+        }
+        ports {
+          container_port = 8081
+        }
       }
     }
   }
@@ -106,6 +106,13 @@ output "back_url" {
 
 output "front_url" {
   value = google_cloud_run_service.frontend.status[0].url
+}
+
+resource "google_cloud_run_service_iam_member" "invokers" {
+  location = google_cloud_run_service.backend.location
+  service = google_cloud_run_service.backend.name
+  role    = "roles/run.invoker"
+  member  = "allUsers"
 }
 
 /*
