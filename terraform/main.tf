@@ -65,9 +65,11 @@ resource "google_cloud_run_service" "backend" {
             }
           }
         }
+        /*
         ports {
           container_port = 8082
         }
+        */
       }
     }
   }
