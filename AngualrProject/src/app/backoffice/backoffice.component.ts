@@ -57,7 +57,7 @@ export class BackofficeComponent implements OnInit {
       console.log("-----> ", msg);
     });
     */
-   console.log("connection ------> ", this.message);
+   //console.log("connection ------> ", this.message);
     this.getArtistess();
   }
 
@@ -87,8 +87,8 @@ export class BackofficeComponent implements OnInit {
     this.service.getArtistes().subscribe(
       (data:any) => {
         this.artistesTab = data;
-        console.log("Listes Artistes:");
-        console.log(this.artistesTab);
+        //console.log("Listes Artistes:");
+        //console.log(this.artistesTab);
       },
       (error) => {
 
@@ -105,18 +105,14 @@ export class BackofficeComponent implements OnInit {
     var titre = this.formGroup.value.titre || "";
     var genre = this.formGroup.value.genre || "";
     var annee = this.formGroup.value.annee || "";
-    //var idartiste = this.formGroup.value.idartiste || 0;
-    //var nomartiste = this.formGroup.value.nomartiste || "";
     var prix = this.formGroup.value.prix || 0;
     var photo = this.formGroup.value.photo || "";
     var stock = this.formGroup.value.stock || 0;
-    console.log("id artiste",this.idartiste);
-    console.log("nom artiste",this.nomartiste);
     
     this.service.insertAlbum(titre, genre, annee, this.idartiste, this.nomartiste, prix, photo, stock)
     .subscribe(
       (data:any) => {
-        console.log(data);
+        //console.log(data);
       }, (error) => {
     });
     
@@ -131,7 +127,7 @@ export class BackofficeComponent implements OnInit {
     this.service.insertArtiste(nom, prenom, nom_artiste)
     .subscribe(
       (data:any) => {
-        console.log(data);
+        //console.log(data);
       }, (error) => {
     });
     

@@ -37,7 +37,7 @@ export class FavorisComponent implements OnInit {
     //pour recuperer le nombre d'album dans le panier
     this.store.select((State: any) => State.root.panier).subscribe(data => {
       this.nbPanier = data;
-      console.log('nb panier--> ', data);
+      //console.log('nb panier--> ', data);
     });  
   }
 
@@ -63,7 +63,7 @@ export class FavorisComponent implements OnInit {
     this.service.getAlbum(identifiant).subscribe(
       (data:any) => {
         this.albumsTab.push(data);
-        console.log('favoris-albums ',data);
+        //console.log('favoris-albums ',data);
         //console.log(this.detailTab);
       },
       (error) => {
@@ -74,13 +74,13 @@ export class FavorisComponent implements OnInit {
     console.log('ajouter dans favorie', id_album, this.user.id);
     this.service.deleteFavoris(id_album, this.user.id).subscribe(
       (data:any) => {
-        console.log(data);
+        //console.log(data);
 
         this.store.dispatch(update({vrai: true}));
         //mise à jour de la liste après suppression
         this.store.select((State: any) => State.root.vrai).subscribe(data => {
           this.albumsTab = [];
-          console.log('vous venez de supprimer');
+          //console.log('vous venez de supprimer');
           //this.ngOnInit();
           this.getAlbums(this.user.id);
         });
@@ -93,7 +93,7 @@ export class FavorisComponent implements OnInit {
     this.service.insertPanier(this.user.id, id_album, prix)
     .subscribe(
       (data:any) => {
-        console.log(data);
+        //console.log(data);
         //mise à jour du nombre d'album dans le panier
         this.store.dispatch(nbPanier({panier: this.nbPanier + 1}));
       }, (error) => {

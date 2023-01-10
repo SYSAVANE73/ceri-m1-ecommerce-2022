@@ -70,7 +70,7 @@ export class AjouterchansonComponent implements OnInit {
 
     this.route.paramMap.subscribe(params => {
       const iddid = params.get('id');
-      console.log("id--> ",parseInt(iddid || ""));
+      //console.log("id--> ",parseInt(iddid || ""));
       this.getDetails(parseInt(iddid || ""));
 
       this.getAlbums(parseInt(iddid || ""));
@@ -79,12 +79,12 @@ export class AjouterchansonComponent implements OnInit {
     //pour recuperer le nombre d'album dans le panier
     this.store.select((State: any) => State.root.panier).subscribe(data => {
       this.nbPanier = data;
-      console.log('nb panier--> ', data);
+      //console.log('nb panier--> ', data);
     });  
   }
 
   getDetails(identifiant : number): void {
-    console.log("identifiant ",identifiant)
+    //console.log("identifiant ",identifiant)
     this.service.getDetails(identifiant).subscribe(
       (data:any) => {
         this.detailTab = data;
@@ -110,7 +110,7 @@ export class AjouterchansonComponent implements OnInit {
     this.service.insertPanier(this.id_user, this.id_album, this.album[0].prix).subscribe(
       (data:any) => {
         this.message = data;
-        console.log("msg ",this.message);
+        //console.log("msg ",this.message);
         //mise à jour du nombre d'album dans le panier
         this.store.dispatch(nbPanier({panier: this.nbPanier + 1}));
       }, (error) => {
@@ -127,7 +127,7 @@ export class AjouterchansonComponent implements OnInit {
     this.service.insertChanson(titre, this.id_album ,duree)
     .subscribe(
       (data:any) => {
-        console.log(data);
+        //console.log(data);
       }, (error) => {
     });
     
@@ -135,9 +135,9 @@ export class AjouterchansonComponent implements OnInit {
 
   miseAJourStock(): void{
     var stock = this.formGroup2.value.stock || 0;
-    this.service.updateStock(this.id_album,stock).subscribe(
+    this.service.ajoutStock(this.id_album,stock).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
       }
     )
   }

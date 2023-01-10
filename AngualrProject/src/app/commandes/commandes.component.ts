@@ -31,11 +31,9 @@ export class CommandesComponent implements OnInit {
   }
 
   updateCommandes(event:any, id: number): void{
-    console.log('event ',event, id);
-    
     this.service.updateStautCom(id,event).subscribe(
       (data:any) => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
 
@@ -47,22 +45,10 @@ export class CommandesComponent implements OnInit {
     this.service.getHistoriquetot().subscribe(
       (data:any) => {
         this.historiqueTab = data;
-        console.log(this.historiqueTab);
+        //console.log(this.historiqueTab);
       },
       (error) => {
 
     });
   }
-  /*
-  updateCommandes(): void {
-    this.service.updateStautCom(id,statut).subscribe(
-      (data:any) => {
-        this.historiqueTab = data;
-        console.log(this.historiqueTab);
-      },
-      (error) => {
-
-    });
-  }
-  */
 }

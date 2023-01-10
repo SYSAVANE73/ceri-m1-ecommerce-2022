@@ -228,6 +228,7 @@ export class GetDataService {
       let url = 'http://127.0.0.1:8000/paiement/' + id_user +'/'+id_album+ '/'+ albums+'/'+quantite+'/'+montant+'/'+date;
       //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/paiement/' + id_user +'/'+id_album+ '/'+ albums+'/'+quantite+'/'+montant+'/'+date;
       //console.log(url);
+
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -316,6 +317,7 @@ export class GetDataService {
       let url = 'http://127.0.0.1:8000/insert_artiste/' + nom + "/" + prenom + "/" + nom_artiste;
       //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_artiste/' + nom + "/" + prenom + "/" + nom_artiste;
       //console.log(url);
+
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -403,6 +405,27 @@ export class GetDataService {
     return Observable.create((observer: Subscriber<any>) => {
       let url = 'http://127.0.0.1:8000/search/' + recherche ;
       //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/search/' + recherche ;
+      this._http.get<any>(url,{})
+      .subscribe(
+        data => { // succes de l’observable httpClient
+          msg = data;
+    }, 
+    (error) => {// erreur de l’observable httpClient
+      console.error('une erreur est survenue!', error);
+      },
+      () => {// terminaison de l’observable httpClient
+        observer.next(msg); // renvoi des données pour l’observable principal
+      });
+    });  
+  }
+
+  //recuperer l'historique de paiment de l'utilisateur
+  ajoutStock(id_album : number, quantite: number) : Observable<any> {
+    var msg = "";
+    // la méthode renvoie un observable et un Object en données
+    return Observable.create((observer: Subscriber<any>) => {
+      let url = 'http://127.0.0.1:8000/ajout_stock_album/' + id_album + '_' + quantite ;
+      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/modifier_stock_album/' + id_album +'_'+quantite ;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient

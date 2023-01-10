@@ -76,8 +76,6 @@ host = config("host", cast=str)
 database_name = config("database_name", cast=str)
 """
 
-#import os
-
 #os.environ
 #export DB_ADRESS = 'dffdf"
 """
@@ -156,8 +154,8 @@ def get_artistes():
 		route = select(Artiste)
 		res = session.exec(route)
 		artistes = res.all()
-		for artiste in artistes:
-			print(artiste)
+		#for artiste in artistes:
+			#print(artiste)
 		return artistes
 
 def get_songs_by_album(albumId):
@@ -165,8 +163,8 @@ def get_songs_by_album(albumId):
 		route = select(Chanson).where(Chanson.id_album == albumId)
 		res = session.exec(route)
 		album = res.all()
-		for chanson in album:
-			print(chanson)
+		#for chanson in album:
+			#print(chanson)
 		return album
 
 def get_albums_by_artiste(artisteId):
@@ -174,8 +172,8 @@ def get_albums_by_artiste(artisteId):
 		route = select(Album).where(Album.artiste_id == artisteId)
 		res = session.exec(route)
 		albums = res.all()
-		for album in albums:
-			print(album)
+		#for album in albums:
+			#print(album)
 		return albums
 
 def get_albums():
@@ -199,6 +197,7 @@ def get_user(login, password):
         users = res.all()
         return users
 
+#retourne un album
 def get_panier(id):
 	with Session(engine) as session:
 		route = select(Panier).where(Panier.id_user == id)
@@ -206,6 +205,7 @@ def get_panier(id):
 		paniers = res.all()
 		return paniers
 
+#retourne la liste de tous les utilisateurs
 def get_paniers():
 	with Session(engine) as session:
 		route = select(Panier)
@@ -328,8 +328,6 @@ def get_panier_by_user_album(id_user, id_album):
 		route = select(Panier).where(Panier.id_user == id_user).where(Panier.id_albums == id_album)
 		res = session.exec(route)
 		paniers = res.one()
-		for panier in paniers:
-			print(panier)
 		return paniers
 
 def get_artiste_by_id(id):
@@ -381,8 +379,6 @@ def get_favoris_by_user_album(id_album, id_user):
 		route = select(Favoris).where(Favoris.id_user == id_user).where(Favoris.id_albums == id_album)
 		res = session.exec(route)
 		favoris = res.one()
-		for favori in favoris:
-			print(favori)
 		return favoris
 
 def supprimer_album_favoris(id_album, id_user):
@@ -404,6 +400,7 @@ def update_qte_album(id_album, qte):
 		session.commit()
 		return {"msg": "Le stock a été modifié"}
 
+#pour ajoiuter la quantité d'un album
 def update_ajouter_qte_album(id_album, qte):
 	with Session(engine) as session:
 		route = select(Album).where(Album.id == id_album)
@@ -421,6 +418,7 @@ def get_historique():
 		res = session.exec(route)
 		data = res.all()
 		return data
+
 #liste l'historique de tous les paiements
 def get_historique_user(id):
 	with Session(engine) as session:
@@ -431,10 +429,11 @@ def get_historique_user(id):
 
 #Ajouter le paiement dans l'historique
 def ajouter_paiement(id_user, id_albums, albums, qte, mtt, date):
+	statut="En cours de vérification"
 	liste_alb_id = id_albums.split("-")
 	liste_alb = albums.split("-")
 	liste_qte = qte.split("-")
-	nv_paiement = Historique(id_user=id_user, id_albums=liste_alb_id, nom_albums=liste_alb, quantite=liste_qte, montant=mtt, date=date)
+	nv_paiement = Historique(id_user=id_user, id_albums=liste_alb_id, nom_albums=liste_alb, quantite=liste_qte, montant=mtt, date=date, statut=statut)
 	with Session(engine) as session:
 		session.add(nv_paiement)
 		session.commit()

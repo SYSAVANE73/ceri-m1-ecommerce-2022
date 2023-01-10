@@ -78,7 +78,6 @@ export class AlbumsComponent implements OnInit {
     //console.log('ajouter dans favorie', id_album, this.user.id);
     this.service.insertFavoris(id_album, this.user.id).subscribe(
       (data:any) => {
-        console.log(data);
         //Mise à jour du nombre d'album dans favoris
         this.store.dispatch(nbAlbum({nbr: this.nbrAlbum + 1}));
       },
@@ -99,13 +98,11 @@ export class AlbumsComponent implements OnInit {
     this.rechercheTab = [];
     this.service.rechercheAlgolia(event.target.value).subscribe(
       (data:any) => {
-        //this.rechercheTab = data;
-        console.log(data);
+        //console.log(data);
         for (let i=0; i < data[1].length;i++){
           //console.log(data[1][i]);
           this.rechercheTab.push(data[1][i]._highlightResult);
         }
-        console.log('recherche ',this.rechercheTab);
       },
       (error) => {
     });

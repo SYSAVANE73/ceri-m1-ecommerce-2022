@@ -41,7 +41,7 @@ export class InscriptionComponent implements OnInit {
     //console.log(login, "---------", password);
     this.service.UserInscription(nom, prenom,login,password).subscribe(
       (data:any) => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
     });

@@ -9,8 +9,8 @@
     </div>
   </div>
 
-  <!--
-  <div>
+  
+  <div *ngIf="recherche === ''" >
     <ul *ngFor="let album of albumsTabFilter">
       <li class="albums" routerLinkActive="active" class="nav-link">
         <div routerLink="/detail/{{album.id}}" (click)="getDetails(album.id)">
@@ -35,8 +35,8 @@
       </li>
     </ul>
   </div>
--->
-<div>
+
+<div *ngIf="recherche !== ''" >
   <ul *ngFor="let album of rechercheTab">
     <li class="albums" routerLinkActive="active" class="nav-link">
       <div routerLink="/detail/{{album.id.value}}" (click)="getDetails(album.id)">

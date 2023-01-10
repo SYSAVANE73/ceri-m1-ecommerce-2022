@@ -51,7 +51,6 @@ export class ConnexionComponent implements OnInit {
   }
 
   connexion(): void{
-
     var login = this.formGroup.value.login || "";
     var password = this.formGroup.value.password || "";
     //console.log(login, "---------", password);
@@ -82,7 +81,7 @@ export class ConnexionComponent implements OnInit {
   getAlbums(id: number): void {
     this.dataService.getFavoris(id).subscribe(
       (data:any) => {
-        console.log('favoris ',data.length);
+        //console.log('favoris ',data.length);
         this.store.dispatch(nbAlbum({nbr: data.length}));
       },
       (error) => {

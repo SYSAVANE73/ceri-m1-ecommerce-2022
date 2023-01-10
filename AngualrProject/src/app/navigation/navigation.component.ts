@@ -37,7 +37,7 @@ export class NavigationComponent implements OnInit {
     
     this.store.select((State: any) => State.root.users).subscribe(data => {
       this.user = data;
-      console.log('user --> ', data);
+      //console.log('user --> ', data);
       if(this.user.isloged == true){
         this.vrai = true;
       }
@@ -53,7 +53,7 @@ export class NavigationComponent implements OnInit {
     //pour recuperer le nombre d'album dans le panier
     this.store.select((State: any) => State.root.panier).subscribe(data => {
       this.nbPanier = data;
-      console.log('nb panier--> ', data);
+      //console.log('nb panier--> ', data);
     });
   }
 

@@ -57,7 +57,7 @@ export class DetailComponent implements OnInit {
 
     this.route.paramMap.subscribe(params => {
       const iddid = params.get('id');
-      console.log("id--> ",parseInt(iddid || ""));
+      //console.log("id--> ",parseInt(iddid || ""));
       this.getDetails(parseInt(iddid || ""));
 
       this.getAlbums(parseInt(iddid || ""));
@@ -66,7 +66,7 @@ export class DetailComponent implements OnInit {
     //pour recuperer le nombre d'album dans le panier
     this.store.select((State: any) => State.root.panier).subscribe(data => {
       this.nbPanier = data;
-      console.log('nb panier--> ', data);
+      //console.log('nb panier--> ', data);
     });  
   }
 
@@ -97,7 +97,8 @@ export class DetailComponent implements OnInit {
     this.service.insertPanier(this.id_user, this.id_album, this.album[0].prix).subscribe(
       (data:any) => {
         this.message = data;
-        console.log("msg ",this.message);
+        //console.log("msg ",this.message);
+
         //mise à jour du nombre d'album dans le panier
         this.store.dispatch(nbPanier({panier: this.nbPanier + 1}));
       }, (error) => {

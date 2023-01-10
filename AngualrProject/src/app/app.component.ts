@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
   }
 
 
-
   @Input()
   _VarGlob = {
     isLogged : false,
@@ -35,24 +34,24 @@ export class AppComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    console.log("connecter ", this._VarGlob.isLogged)
+    //console.log("connecter ", this._VarGlob.isLogged)
 
     this.store.dispatch(initAction());
 
     this.store.select((state: any) => state.root.user).subscribe(response => {
-      console.log('Selecteur ', response);
+      //console.log('Selecteur ', response);
       this.user = response;
-      console.log('user ', this.user);
+      //console.log('user ', this.user);
     });
 
     this.store.select((State: any) => State.root.users).subscribe(data => {
-      console.log('user --> ', data);
+      //console.log('user --> ', data);
     });
   }
 
   getUser(data:any): void{
     this._VarGlob.nom = data.nom;
-    console.log(data);
+    //console.log(data);
   }
   
   getInfo(): void{

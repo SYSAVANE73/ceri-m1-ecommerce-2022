@@ -47,14 +47,14 @@ export class CompteComponent implements OnInit {
       this.user = data;
     });
     this.getHistoriquePaie(this.user.id);
-    console.log('exemple--> ',this.exemple);
+    //console.log('exemple--> ',this.exemple);
   }
 
   getHistoriquePaie(id : number): void {
     this.service.getHistorique(id).subscribe(
       (data:any) => {
         this.historique = data;
-        console.log('histporique--> ',this.historique);
+        //console.log('histporique--> ',this.historique);
       },
       (error) => {
     });
@@ -64,11 +64,11 @@ export class CompteComponent implements OnInit {
     var new_login = this.formGroup.value.login || "";
     var nom = this.formGroup.value.nom || "";
     var prenom = this.formGroup.value.prenom || "";
-    console.log('update ',new_login, nom, prenom);
+    //console.log('update ',new_login, nom, prenom);
 
     this.auth.updateUserInfo(this.user.login, nom, prenom, new_login).subscribe(
       (data:any) => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
     });

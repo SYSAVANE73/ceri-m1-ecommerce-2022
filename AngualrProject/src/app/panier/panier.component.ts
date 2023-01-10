@@ -47,7 +47,7 @@ export class PanierComponent implements OnInit {
     this.service.getPanier(id).subscribe(
       (data:any) => {
         this.panier = data;
-        console.log('panier--> ',this.panier);
+        //console.log('panier--> ',this.panier);
         if(data.length > 0){
           for(let i=0; i<data.length; i++){
             //console.log("je suis ",data[i].id_albums);
@@ -57,7 +57,6 @@ export class PanierComponent implements OnInit {
         } else {
           this.paiemt = true;
         }
-        
         this.store.dispatch(nbPanier({panier: data.length}));
       },
       (error) => {
@@ -68,9 +67,9 @@ export class PanierComponent implements OnInit {
   getAlbum(id_albums : number): void {
     this.service.getAlbum(id_albums).subscribe(
       (data: any) => {
-        console.log("Album -> ", data);
+        //console.log("Album -> ", data);
         this.montantTotal += data[0].prix * this.panier[0].quantite;
-        console.log('total ',this.montantTotal);
+        //console.log('total ',this.montantTotal);
         this.quantite.push(data[0].stock);
         this.album.push(data);
       }
@@ -89,7 +88,7 @@ export class PanierComponent implements OnInit {
         this.store.select((State: any) => State.root.vrai).subscribe(data => {
           this.album = [];
           this.montantTotal= 0;
-          console.log('vous venez de supprimer');
+          //console.log('vous venez de supprimer');
           //this.ngOnInit();
           this.getUserPanier(this.user.id);
         }); 
@@ -136,7 +135,7 @@ export class PanierComponent implements OnInit {
 
     this.service.insertHistorique(this.user.id,id_album,id_albums,quantite_paie,montant,date).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
       }
     )
     this.paie = true;
@@ -152,7 +151,7 @@ export class PanierComponent implements OnInit {
   miseAJourStock(id_album: number, quantite: number): void{
     this.service.updateStock(id_album,quantite).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
       }
     )
   }
