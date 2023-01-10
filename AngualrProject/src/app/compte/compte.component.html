@@ -35,30 +35,30 @@
         <div class="col-4 border">
             <h2 style="text-align: center;"> Mon compte </h2>
             <br>
-            <form>
+            <form [formGroup]="formGroup" (ngSubmit)="updateUser()">
                 <ul class="form-list">
-                    <li class="form-list__row">
-                        <label>Nom </label>
-                        <div id="input--cc" class="creditcard-icon">
-                          <input type="text" name="cc_number" required="" value="{{user.nom}}" placeholder="Nom"/>
-                        </div>
-                      </li>
                   <li class="form-list__row">
                     <label>Prénom </label>
                     <div id="input--cc" class="creditcard-icon">
-                      <input type="text" name="cc_number" required="" value="{{user.prenom}}" placeholder="Prénom" />
+                      <input type="text" name="cc_number" class="form-control" required="" formControlName="prenom" value="{{user.prenom}}" placeholder="{{user.prenom}}" />
                     </div>
+                  </li>
+                  <li class="form-list__row">
+                      <label>Nom </label>
+                      <div id="input--cc" class="creditcard-icon ">
+                        <input type="text" name="cc_number" class="form-control" required="" formControlName="nom" value="{{user.nom}}" placeholder="{{user.nom}}"/>
+                      </div>
                   </li>
                   <li class="form-list__row">
                     <label>login </label>
                     <div id="input--cc" class="creditcard-icon">
-                      <input type="text" name="cc_number" required="" value="{{user.login}}" placeholder="login"/>
+                      <input type="text" name="cc_number" class="form-control" required="" formControlName="login" value="{{user.login}}" placeholder="{{user.login}}"/>
                     </div>
                   </li>
                   <li class="form-list__row">
                     <label>Statut </label>
                     <div id="input--cc" class="creditcard-icon">
-                      <input type="text" name="cc_number" required="" value="{{user.statut}}" placeholder="Status" disabled="false"/>
+                      <input type="submit" name="cc_number" class="form-control" required="" value="{{user.statut}}" placeholder="{{user.statut}}" disabled="false"/>
                     </div>
                   </li>
                   <br>

@@ -41,6 +41,7 @@ class User(SQLModel, table=True):
 	prenom: str
 	login: str
 	password: str
+	statut: str
 
 class Panier(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
@@ -62,6 +63,7 @@ class Historique(SQLModel, table=True, extend_existing=True):
 	quantite: List[int] = Field(sa_column=Column(JSON))
 	montant: float
 	date: str
+	statut: str
 
 #connect_string = "mysql+pymysql://root:root@localhost:3306/songs"
 
@@ -175,6 +177,7 @@ def get_albums_by_artiste(artisteId):
 		for album in albums:
 			print(album)
 		return albums
+
 def get_albums():
 	with Session(engine) as session:
 		route = select(Album)
@@ -216,8 +219,6 @@ def get_users_list():
         route = select(User)
         res = session.exec(route)
         users = res.all()
-        for user in users:
-            print(user)
         return users
 
 #trouver un utilisateur par son login
@@ -226,8 +227,6 @@ def get_user_by_id(login):
 		route = select(User).where(User.login == login)
 		res = session.exec(route)
 		users = res.all()
-		for user in users:
-			print(user)
 		return users
 
 #modifier le profil d'un utilisateur 
@@ -270,8 +269,8 @@ def is_admin(id_user):
 		return True
 	return False
 
-def create_user(nom_u, prenom_u, login_u, password_u):
-    new_user = User(nom=nom_u, prenom=prenom_u, login=login_u, password=password_u)
+def create_user(nom_u, prenom_u, login_u, password_u, statut_u):
+    new_user = User(nom=nom_u, prenom=prenom_u, login=login_u, password=password_u, statut=statut_u)
     with Session(engine) as session:
         data = get_users_list()
         for user in data:
@@ -405,6 +404,16 @@ def update_qte_album(id_album, qte):
 		session.commit()
 		return {"msg": "Le stock a été modifié"}
 
+def update_ajouter_qte_album(id_album, qte):
+	with Session(engine) as session:
+		route = select(Album).where(Album.id == id_album)
+		res = session.exec(route)
+		album = res.one()
+		album.stock += qte
+		session.add(album)
+		session.commit()
+		return {"msg": "Le stock a été modifié"}
+
 #liste l'historique de tous les paiements
 def get_historique():
 	with Session(engine) as session:
@@ -517,9 +526,9 @@ async def get_all_paniers():
 	data = get_paniers()
 	return jsonable_encoder(data)
 
-@app.get("/signin/{n}_{p}_{l}_{m}")
-async def sign_in(n, p, l, m):
-    return create_user(n, p, l, m)
+@app.get("/signin/{n}_{p}_{l}_{m}_{s}")
+async def sign_in(n, p, l, m, s):
+    return create_user(n, p, l, m, s)
 
 #renvoie le statut d'un utilisateur (admin vs user)
 @app.get("/user_statut/{login}")
@@ -528,8 +537,8 @@ async def get_status(login):
 	return get_status_by_login(login)
 
 #modifie le profil d'un utilisateur
-@app.get("/users/{old_login}_{new_login}_{new_fname}_{new_name}")
-async def update_usr(old_login, new_login, new_fname, new_name):
+@app.get("/updateUser/{old_login}/{new_name}/{new_fname}/{new_login}")
+async def update_usr(old_login, new_name, new_fname, new_login):
 	return update_user(old_login, new_name, new_fname, new_login)
 
 
@@ -564,6 +573,11 @@ async def delete_album_by_id_in_favoris(album, user):
 async def update_stock(id_album: int, qte: int):
 	data = update_qte_album(id_album, qte)
 	return jsonable_encoder(data)
+
+#modifier / ajout d'albums dans le stock
+@app.get("/ajout_stock_album/{id_album}_{qte}")
+async def update_stock2(id_album: int, qte: int):
+	return update_ajouter_qte_album(id_album, qte)
 
 #test de l'api
 @app.get("/test/{test}")
