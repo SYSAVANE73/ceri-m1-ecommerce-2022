@@ -39,7 +39,7 @@ resource "google_cloud_run_service" "backend" {
     spec {
       service_account_name = "terraform-redpanda@ceri-m1-ecommerce-2022.iam.gserviceaccount.com"
       containers {
-        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.3"
+        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.4"
         env {
           name = "DATABASE_ADDRESS"
           value_from {
@@ -93,13 +93,7 @@ resource "google_cloud_run_service" "frontend" {
   template {
     spec {
       containers {
-        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.5"
-        /*
-        env {
-          name = "BACK_URL"
-          value = google_cloud_run_service.backend.status[0].url
-        }
-        */
+        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.6"
         ports {
           container_port = 8081
         }
