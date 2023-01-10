@@ -427,6 +427,17 @@ def get_historique_user(id):
 		data = res.all()
 		return data
 
+#mofication du status de paiement de la commande
+def update_commande_user(id, statut):
+	with Session(engine) as session:
+		route = select(Historique).where(Historique.id == id)
+		res = session.exec(route)
+		historique = res.one()
+		historique.statut = statut
+		session.add(historique)
+		session.commit()
+		return {"msg": "Statut de commande modifié"}
+
 #Ajouter le paiement dans l'historique
 def ajouter_paiement(id_user, id_albums, albums, qte, mtt, date):
 	statut="En cours de vérification"
@@ -597,6 +608,11 @@ async def get_hist():
 @app.get("/historique_user/{id_user}")
 async def get_hist_user(id_user): 
 	return get_historique_user(id_user)
+
+#Afficher l'historique de paiement de utilisateur
+@app.get("/update_statut/{id}/{statut}")
+async def update_statut_commande(id: int, statut: str): 
+	return update_commande_user(id, statut)
 
 #Recherche avec algolia
 @app.get("/search/{recherche}")

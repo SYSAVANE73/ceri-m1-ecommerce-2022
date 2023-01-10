@@ -12,11 +12,12 @@ COPY . .
 
 RUN npm install
 
-
-RUN npm run build --prod
+#RUN npm run build --prod
+RUN npm run build
 
 # server environment
-FROM nginx:alpine
+#FROM nginx:alpine
+FROM nginx
 
 COPY nginx.conf /etc/nginx/conf.d/configfile.template
 #COPY nginx.conf /etc/nginx/nginx.conf
