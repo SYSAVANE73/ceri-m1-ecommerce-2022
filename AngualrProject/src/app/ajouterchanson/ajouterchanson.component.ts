@@ -135,7 +135,7 @@ export class AjouterchansonComponent implements OnInit {
 
   miseAJourStock(): void{
     var stock = this.formGroup2.value.stock || 0;
-    this.service.updateStock(this.id_album,stock).subscribe(
+    this.service.ajoutStock(this.id_album,stock).subscribe(
       (data: any) => {
         console.log(data);
       }
