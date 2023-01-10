@@ -13,8 +13,8 @@ export class GetDataService {
     let albums = new Array();
     
     return Observable.create((observer: Subscriber<Object>) => {
-      let url = 'http://127.0.0.1:8000/album/';
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/album/';
+      //let url = 'http://127.0.0.1:8000/album/';
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/album/';
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -33,8 +33,8 @@ export class GetDataService {
     let details = new Array();
     
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/album/' + id;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/album/' + id;
+      //let url = 'http://127.0.0.1:8000/album/' + id;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/album/' + id;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -54,8 +54,8 @@ export class GetDataService {
     let album = new Array();
     
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/getAlbum/' + id;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/getAlbum/' + id;
+      //let url = 'http://127.0.0.1:8000/getAlbum/' + id;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/getAlbum/' + id;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -75,8 +75,8 @@ export class GetDataService {
     let artistes = new Array();
     
     return Observable.create((observer: Subscriber<Object>) => {
-      let url = 'http://127.0.0.1:8000/';
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/';
+      //let url = 'http://127.0.0.1:8000/';
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/';
       
       this._http.get<any>(url,{})
       .subscribe(
@@ -97,8 +97,8 @@ export class GetDataService {
     let panier = new Array();
     
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/panier/' + id;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/panier/' + id;
+      //let url = 'http://127.0.0.1:8000/panier/' + id;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/panier/' + id;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -120,8 +120,8 @@ export class GetDataService {
     
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/insertPanier/' + id_user + "/" + id_album + "/" + montant + "/" + quantite;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insertPanier/' + id_user + "/" + id_album + "/" + montant + "/" + quantite;
+      //let url = 'http://127.0.0.1:8000/insertPanier/' + id_user + "/" + id_album + "/" + montant + "/" + quantite;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insertPanier/' + id_user + "/" + id_album + "/" + montant + "/" + quantite;
       console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
@@ -142,8 +142,8 @@ export class GetDataService {
     
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/supprimer_panier/' + id_user + "_" + id_album;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/supprimer_panier/' + id_user + "_" + id_album;
+      //let url = 'http://127.0.0.1:8000/supprimer_panier/' + id_user + "_" + id_album;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/supprimer_panier/' + id_user + "_" + id_album;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -162,8 +162,8 @@ export class GetDataService {
     let favoris = new Array();
     
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/favoris/' + id;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/favoris/' + id;
+      //let url = 'http://127.0.0.1:8000/favoris/' + id;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/favoris/' + id;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -184,8 +184,8 @@ export class GetDataService {
     var msg = "";
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/insertFavoris/' + id_album + "/" + id_user;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insertFavoris/' + id_album + "/" + id_user;
+      //let url = 'http://127.0.0.1:8000/insertFavoris/' + id_album + "/" + id_user;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insertFavoris/' + id_album + "/" + id_user;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -205,8 +205,8 @@ export class GetDataService {
     
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/supprimer_favoris/' + id_album + "_" + id_user;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/supprimer_favoris/' + id_album + "_" + id_user;
+      //let url = 'http://127.0.0.1:8000/supprimer_favoris/' + id_album + "_" + id_user;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/supprimer_favoris/' + id_album + "_" + id_user;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -225,8 +225,8 @@ export class GetDataService {
     var msg = "";
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/paiement/' + id_user +'/'+id_album+ '/'+ albums+'/'+quantite+'/'+montant+'/'+date;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/paiement/' + id_user +'/'+id_album+ '/'+ albums+'/'+quantite+'/'+montant+'/'+date;
+      //let url = 'http://127.0.0.1:8000/paiement/' + id_user +'/'+id_album+ '/'+ albums+'/'+quantite+'/'+montant+'/'+date;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/paiement/' + id_user +'/'+id_album+ '/'+ albums+'/'+quantite+'/'+montant+'/'+date;
       //console.log(url);
 
       this._http.get<any>(url,{})
@@ -247,8 +247,8 @@ export class GetDataService {
     var msg = "";
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/historique_user/' + id_user ;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/historique_user/' + id_user ;
+      //let url = 'http://127.0.0.1:8000/historique_user/' + id_user ;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/historique_user/' + id_user ;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -267,8 +267,8 @@ export class GetDataService {
     var msg = "";
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/modifier_stock_album/' + id_album +'_'+quantite ;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/modifier_stock_album/' + id_album +'_'+quantite ;
+      //let url = 'http://127.0.0.1:8000/modifier_stock_album/' + id_album +'_'+quantite ;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/modifier_stock_album/' + id_album +'_'+quantite ;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -290,8 +290,8 @@ export class GetDataService {
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
       
-      let url = 'http://127.0.0.1:8000/insert_album/' + titre + "_" + genre + "_" + annee + "_" + idartiste + "_" + nomartiste + "_" + prix + "_" + photo + "_" + stock;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_album/' + titre + "_" + genre + "_" + annee + "_" + idartiste + "_" + nomartiste + "_" + prix + "_" + photo + "_" + stock;
+      //let url = 'http://127.0.0.1:8000/insert_album/' + titre + "_" + genre + "_" + annee + "_" + idartiste + "_" + nomartiste + "_" + prix + "_" + photo + "_" + stock;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_album/' + titre + "_" + genre + "_" + annee + "_" + idartiste + "_" + nomartiste + "_" + prix + "_" + photo + "_" + stock;
       //console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
@@ -314,8 +314,8 @@ export class GetDataService {
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
       
-      let url = 'http://127.0.0.1:8000/insert_artiste/' + nom + "/" + prenom + "/" + nom_artiste;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_artiste/' + nom + "/" + prenom + "/" + nom_artiste;
+      //let url = 'http://127.0.0.1:8000/insert_artiste/' + nom + "/" + prenom + "/" + nom_artiste;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_artiste/' + nom + "/" + prenom + "/" + nom_artiste;
       //console.log(url);
 
       this._http.get<any>(url,{})
@@ -339,8 +339,8 @@ export class GetDataService {
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
       
-      let url = 'http://127.0.0.1:8000/insert_chanson/' + titre + "_" + id_album + "_" + duree;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_chanson/' + titre + "_" + id_album + "_" + duree;
+      //let url = 'http://127.0.0.1:8000/insert_chanson/' + titre + "_" + id_album + "_" + duree;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_chanson/' + titre + "_" + id_album + "_" + duree;
       //console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
@@ -361,8 +361,8 @@ export class GetDataService {
     var msg = "";
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/historique/';
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/historique/';
+      //let url = 'http://127.0.0.1:8000/historique/';
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/historique/';
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -382,8 +382,8 @@ export class GetDataService {
     var msg = "";
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/update_statut/' + id + "/" + statut ;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/update_statut/' + id + "/" + statut ;
+      //let url = 'http://127.0.0.1:8000/update_statut/' + id + "/" + statut ;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/update_statut/' + id + "/" + statut ;
       
       this._http.get<any>(url,{})
       .subscribe(
@@ -403,8 +403,8 @@ export class GetDataService {
     var msg = "";
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/search/' + recherche ;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/search/' + recherche ;
+      //let url = 'http://127.0.0.1:8000/search/' + recherche ;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/search/' + recherche ;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient
@@ -424,8 +424,8 @@ export class GetDataService {
     var msg = "";
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/ajout_stock_album/' + id_album + '_' + quantite ;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/modifier_stock_album/' + id_album +'_'+quantite ;
+      //let url = 'http://127.0.0.1:8000/ajout_stock_album/' + id_album + '_' + quantite ;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/modifier_stock_album/' + id_album +'_'+quantite ;
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient

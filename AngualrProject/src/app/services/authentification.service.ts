@@ -16,8 +16,8 @@ export class AuthentificationService {
     
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/login/' + login + "/" + pwd;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/login/' + login + "/" + pwd;
+      //let url = 'http://127.0.0.1:8000/login/' + login + "/" + pwd;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/login/' + login + "/" + pwd;
       
       //console.log(url);
       this._http.get<any>(url,{})
@@ -44,8 +44,8 @@ export class AuthentificationService {
     
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/signin/' + nom + "_" + prenom+ "_" + login+ "_" + pwd + "_" + statut;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/signin/' + nom + "_" + prenom+ "_" + login+ "_" + pwd + "_" + statut;
+      //let url = 'http://127.0.0.1:8000/signin/' + nom + "_" + prenom+ "_" + login+ "_" + pwd + "_" + statut;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/signin/' + nom + "_" + prenom+ "_" + login+ "_" + pwd + "_" + statut;
       //console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
@@ -65,8 +65,8 @@ export class AuthentificationService {
     var msg = "";
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
-      let url = 'http://127.0.0.1:8000/updateUser/' + old_login + "/" + nom+ "/" + prenom+ "/" + new_login;
-      //let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/updateUser/' + nom + "/" + prenom+ "/" + old_login+ "/" + new_login;
+      //let url = 'http://127.0.0.1:8000/updateUser/' + old_login + "/" + nom+ "/" + prenom+ "/" + new_login;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/updateUser/' + nom + "/" + prenom+ "/" + old_login+ "/" + new_login;
       //console.log(url);
       this._http.get<any>(url,{})
       .subscribe(
