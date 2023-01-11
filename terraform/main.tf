@@ -39,7 +39,7 @@ resource "google_cloud_run_service" "backend" {
     spec {
       service_account_name = "terraform-redpanda@ceri-m1-ecommerce-2022.iam.gserviceaccount.com"
       containers {
-        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.6"
+        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/backend:1.3.7"
         env {
           name = "DATABASE_ADDRESS"
           value_from {

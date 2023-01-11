@@ -353,7 +353,6 @@ def insert_chanson(titre, id_album, duree):
 		session.commit()
 		return ch
 
-
 def supprimer_album_panier(id_user, id_album):
 	with Session(engine) as session:
 		panier = get_panier_by_user_album(id_user, id_album)
@@ -524,6 +523,11 @@ async def get_albums_id(id_album: int):
 async def new_album(titre, genre, annee, id_artiste, nom_artiste, prix, stock):
     return insert_album(titre, genre, annee, id_artiste, prix, nom_artiste, stock)
 
+#pour inserer une chanson dans un album
+@app.get("/insert_chanson/{titre}_{id_album}_{duree}")
+async def new_song(titre, id_album, duree):
+    return insert_chanson(titre, id_album, duree)
+
 #verification de la connexion
 @app.get("/login/{login}/{pwd}")
 async def get_users(login: str, pwd: str):
@@ -541,6 +545,7 @@ async def get_all_paniers():
 	data = get_paniers()
 	return jsonable_encoder(data)
 
+#pour se connecter
 @app.get("/signin/{n}_{p}_{l}_{m}_{s}")
 async def sign_in(n, p, l, m, s):
     return create_user(n, p, l, m, s)
