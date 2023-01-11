@@ -14,7 +14,7 @@ export class GetDataService {
     
     return Observable.create((observer: Subscriber<Object>) => {
       //let url = 'http://127.0.0.1:8000/album/';
-      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/album/';
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/album';
       this._http.get<any>(url,{})
       .subscribe(
         data => { // succes de l’observable httpClient

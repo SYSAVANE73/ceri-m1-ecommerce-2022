@@ -93,7 +93,7 @@ resource "google_cloud_run_service" "frontend" {
   template {
     spec {
       containers {
-        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.7"
+        image = "europe-west1-docker.pkg.dev/ceri-m1-ecommerce-2022/redpanda/frontend:1.3.9"
         ports {
           container_port = 8081
         }
