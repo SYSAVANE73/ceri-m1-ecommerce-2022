@@ -284,14 +284,14 @@ export class GetDataService {
   }
 
   //ajout des albums
-  insertAlbum(titre : string, genre : string, annee : string, idartiste : number, nomartiste : string, prix : number, photo : string, stock : number) : Observable<any> {
+  insertAlbum(titre : string, genre : string, annee : string, idartiste : number, nomartiste : string, prix : number, stock : number) : Observable<any> {
     var msg = "";
     
     // la méthode renvoie un observable et un Object en données
     return Observable.create((observer: Subscriber<any>) => {
       
-      //let url = 'http://127.0.0.1:8000/insert_album/' + titre + "_" + genre + "_" + annee + "_" + idartiste + "_" + nomartiste + "_" + prix + "_" + photo + "_" + stock;
-      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_album/' + titre + "_" + genre + "_" + annee + "_" + idartiste + "_" + nomartiste + "_" + prix + "_" + photo + "_" + stock;
+      //let url = 'http://127.0.0.1:8000/insert_album/' + titre + "_" + genre + "_" + annee + "_" + idartiste + "_" + nomartiste + "_" + prix + "_" + stock;
+      let url = 'https://redpanda-backend-mwjszocsqa-ew.a.run.app/insert_album/' + titre + "_" + genre + "_" + annee + "_" + idartiste + "_" + nomartiste + "_" + prix + "_" + stock;
       //console.log(url);
       this._http.get<any>(url,{})
       .subscribe(

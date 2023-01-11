@@ -4,7 +4,7 @@ import { GetDataService } from '../services/get-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscriber, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { getUser, nbAlbum, nbPanier } from '../store/actions';
+import { update, getUser, nbAlbum, nbPanier } from '../store/actions';
 import { FormGroup, FormControl } from '@angular/forms';
 
 
@@ -81,6 +81,11 @@ export class AjouterchansonComponent implements OnInit {
       this.nbPanier = data;
       //console.log('nb panier--> ', data);
     });  
+
+    //mise à jour de la liste des albums après suppression
+    this.store.select((State: any) => State.root.vrai).subscribe(data => {
+      this.getDetails(this.id_album);
+    }); 
   }
 
   getDetails(identifiant : number): void {
@@ -128,6 +133,7 @@ export class AjouterchansonComponent implements OnInit {
     .subscribe(
       (data:any) => {
         //console.log(data);
+        this.store.dispatch(update({vrai: true}));
       }, (error) => {
     });
     

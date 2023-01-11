@@ -337,7 +337,7 @@ def get_artiste_by_id(id):
 		artiste = res.all()
 		return artiste[0]
 
-def insert_album(titre, genre, annee, id_artiste, prix, photo, nom_artiste, stock):
+def insert_album(titre, genre, annee, id_artiste, prix, nom_artiste, stock):
 	alb = Album(titre=titre, genre=genre, annee_sortie=annee, id_artiste=id_artiste, prix=prix, photo="https://images.saymedia-content.com/.image/t_share/MTc0NDkxNzgyMzYzNDg5NjQw/vinyl-to-paper-how-to-write-an-album-review.jpg", nom_artiste=nom_artiste, stock=stock)
 	with Session(engine) as session:
 		session.add(alb)
@@ -518,6 +518,11 @@ async def index():
 async def get_albums_id(id_album: int):
 	data = get_albums_by_id(id_album)
 	return jsonable_encoder(data)
+
+#pour inserer un album dans le base
+@app.get("/insert_album/{titre}_{genre}_{annee}_{id_artiste}_{nom_artiste}_{prix}_{stock}")
+async def new_album(titre, genre, annee, id_artiste, nom_artiste, prix, stock):
+    return insert_album(titre, genre, annee, id_artiste, prix, nom_artiste, stock)
 
 #verification de la connexion
 @app.get("/login/{login}/{pwd}")

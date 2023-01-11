@@ -106,10 +106,9 @@ export class BackofficeComponent implements OnInit {
     var genre = this.formGroup.value.genre || "";
     var annee = this.formGroup.value.annee || "";
     var prix = this.formGroup.value.prix || 0;
-    var photo = this.formGroup.value.photo || "";
     var stock = this.formGroup.value.stock || 0;
     
-    this.service.insertAlbum(titre, genre, annee, this.idartiste, this.nomartiste, prix, photo, stock)
+    this.service.insertAlbum(titre, genre, annee, this.idartiste, this.nomartiste, prix, stock)
     .subscribe(
       (data:any) => {
         //console.log(data);
