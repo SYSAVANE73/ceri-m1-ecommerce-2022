@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { GetDataService } from './services/get-data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ArtisteComponent } from './artiste/artiste.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -43,7 +42,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     AlbumsComponent,
-    PageNotFoundComponent,
     ArtisteComponent,
     NavigationComponent,
     HomeComponent,

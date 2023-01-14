@@ -9,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  isconnected = false;
   constructor() { }
 
   ngOnInit(): void {
+    this.isconnected = false;
   }
 
 }

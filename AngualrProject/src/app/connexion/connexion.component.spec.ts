@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { StoreModule } from '@ngrx/store';
 
 import { ConnexionComponent } from './connexion.component';
 
@@ -8,6 +11,9 @@ describe('ConnexionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule,
+        StoreModule.forRoot(provideMockStore),
+      ],
       declarations: [ ConnexionComponent ]
     })
     .compileComponents();

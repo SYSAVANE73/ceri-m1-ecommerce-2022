@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { BackofficeComponent } from './backoffice.component';
 
@@ -8,6 +9,7 @@ describe('BackofficeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [ BackofficeComponent ]
     })
     .compileComponents();

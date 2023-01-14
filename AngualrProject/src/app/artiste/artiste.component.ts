@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class ArtisteComponent implements OnInit {
 
   constructor() { }
+  isConnected = false;
 
   ngOnInit(): void {
+    this.isConnected = false;
   }
 
 }

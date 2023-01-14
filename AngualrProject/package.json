@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:prod": "ng build --configuration production --base-href https://SYSAVANE73.github.io/angular-github-actions/",
-    "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
+    "lint": "ng lint",
+    "build:prod": "ng build --configuration production --base-href https://SYSAVANE73.github.io/angular-github-actions/"
   },
   "private": true,
   "dependencies": {
@@ -31,9 +31,17 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.6",
+    "@angular-eslint/builder": "14.2.0",
+    "@angular-eslint/eslint-plugin": "14.2.0",
+    "@angular-eslint/eslint-plugin-template": "14.2.0",
+    "@angular-eslint/schematics": "14.2.0",
+    "@angular-eslint/template-parser": "14.2.0",
     "@angular/cli": "~14.2.6",
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
+    "eslint": "^8.27.0",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",

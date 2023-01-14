@@ -85,7 +85,6 @@
               "sourceMap": false,
               "codeCoverage": true,
               "browsers": "Headless",
-              
               "watch": false
             }
           },
@@ -103,11 +102,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "82a434b1-3be6-4dd4-bb0f-4179213a670a"
+    "analytics": "82a434b1-3be6-4dd4-bb0f-4179213a670a",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

@@ -1,5 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { StoreModule } from '@ngrx/store';
 
 import { AlbumsComponent } from './albums.component';
 
@@ -21,7 +23,9 @@ describe('AlbumsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule,
+        StoreModule.forRoot(provideMockStore),
+      ],
       declarations: [ AlbumsComponent ]
     })
     .compileComponents();

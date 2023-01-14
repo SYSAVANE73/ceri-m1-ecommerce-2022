@@ -43,7 +43,7 @@ export class ConnexionComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    
+    this.isConnected = false;
   }
 
   goBack() {

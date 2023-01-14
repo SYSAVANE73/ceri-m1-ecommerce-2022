@@ -16,6 +16,7 @@ export class InscriptionComponent implements OnInit {
 
   service : AuthentificationService;
   route : Router;
+  isConnected = false;
 
   constructor(_service:AuthentificationService, _http:HttpClient, _router: Router, private store: Store) {
     this.service = _service;
@@ -30,6 +31,7 @@ export class InscriptionComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.isConnected = false;
   }
 
   inscription(): void{
