@@ -44,7 +44,7 @@ Les instructions sont disponibles [ici](https://github.com/Faylixe/ceri-m1-ecomm
 
 Il faut se placeer dans le répertoire "AngularProject" et lancer la commande : 
 
-#### ng serge
+#### ng serve
 
 ### Backend
 Il faut tout d'accord installer les dependences se trouvant dans le fichier 'requirements.txt'
