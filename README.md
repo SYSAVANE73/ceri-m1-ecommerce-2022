@@ -39,15 +39,16 @@ Les instructions sont disponibles [ici](https://github.com/Faylixe/ceri-m1-ecomm
 | ng serve         | uvicorn main:app |
 | ng build         |                  |
 
-### Exécuter le projet en local
-#### Frontend
+## Exécuter le projet en local
+### Frontend
 
 Il faut se placeer dans le répertoire "AngularProject" et lancer la commande : 
-ng serge
 
-#### Backend
+#### ng serge
+
+### Backend
 Il faut tout d'accord installer les dependences se trouvant dans le fichier 'requirements.txt'
 
 Il faut se placer dans le répertoire "backend/src" et exécuter la commande :
 
-uvicorn main:app
+#### uvicorn main:app
