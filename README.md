@@ -40,12 +40,12 @@ Les instructions sont disponibles [ici](https://github.com/Faylixe/ceri-m1-ecomm
 | ng build         |                  |
 
 ### Exécuter le projet en local
-#Frontend
+#### Frontend
 
 Il faut se placeer dans le répertoire "AngularProject" et lancer la commande : 
 ng serge
 
-#Backend
+#### Backend
 Il faut tout d'accord installer les dependences se trouvant dans le fichier 'requirements.txt'
 
 Il faut se placer dans le répertoire "backend/src" et exécuter la commande :
