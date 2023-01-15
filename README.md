@@ -29,3 +29,25 @@ Les instructions sont disponibles [ici](https://github.com/Faylixe/ceri-m1-ecomm
 | Backend engineer          | Fresu Ilona |
 | Frontend engineer         | Gdira Ghizlane |
 | Site reliability engineer | Sy Savane Ahmadou Dia |
+
+### Technologies
+
+| Frontend         | Backend |
+| ---------------- | ---------------- |
+| Angular (14)     | FastApi          |
+| ---------------- | ---------------- |
+| ng serve         | uvicorn main:app |
+| ng build         |                  |
+
+### Exécuter le projet en local
+#Frontend
+
+Il faut se placeer dans le répertoire "AngularProject" et lancer la commande : 
+ng serge
+
+#Backend
+Il faut tout d'accord installer les dependences se trouvant dans le fichier 'requirements.txt'
+
+Il faut se placer dans le répertoire "backend/src" et exécuter la commande :
+
+uvicorn main:app
