@@ -12,6 +12,8 @@ import MySQLdb
 import sqlalchemy
 import os
 
+# WHAT THE HELL
+
 class Artiste(SQLModel, table=True):
 	id: Optional[int] = Field(default=None, primary_key=True)
 	nom: str
